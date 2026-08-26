@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krefelder Hörmanufaktur</title>
+    <!-- Tailwind & Alpine.js -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#48b8ac',
+                            DEFAULT: '#279c8d', 
+                            dark: '#1e7f72',
+                        },
+                        paper: '#f9f9f7', 
+                        charcoal: '#1a1a1a', 
+                        sand: '#e8e6e1',
+                        kids: {
+                            blue: '#e0f2fe',
+                            pink: '#fce7f3',
+                            yellow: '#fef3c7',
+                            dark: '#1e3a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Inter"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        rounded: ['"Nunito"', '"Inter"', 'sans-serif'] /* For kids section */
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #f9f9f7; }
+        [x-cloak] { display: none !important; }
+        
+        .group:hover .dropdown-menu { display: block; }
+        
+        /* Typography refinements */
+        .text-body { font-size: 1.05rem; line-height: 1.7; color: #4a4a4a; font-weight: 300; }
+        .heading-serif { font-family: 'Playfair Display', serif; color: #1a1a1a; }
+        .kicker { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: #279c8d; font-weight: 600; }
+        
+        /* Kids Section Styles */
+        .kids-heading { font-family: 'Nunito', sans-serif; font-weight: 800; color: #1e3a8a; }
+        .blob-1 { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+        .blob-2 { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; }
+    </style>
+</head>
+<!-- Single Page App structure with Alpine.js -->
+<body class="font-sans text-charcoal antialiased" 
+      x-data="{ 
+          currentRoute: 'home', 
+          lang: localStorage.getItem('prefLang') || 'de',
+          navigate(route, hash = null) {
+              this.currentRoute = route;
+              window.scrollTo(0,0);
+              if(hash) {
+                  this.$nextTick(() => {
+                      const el = document.getElementById(hash);
+                      if(el) el.scrollIntoView({behavior: 'smooth'});
+                  });
+              }
+          }
+      }" 
+      x-init="$watch('lang', val => { localStorage.setItem('prefLang', val); updateTranslations(val); }); updateTranslations(lang);">
+
+    <!-- Minimalist Navigation -->
+    <nav class="sticky top-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-sand">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <div class="flex items-center">
+                    <a href="#" @click.prevent="navigate('home')" class="flex-shrink-0">
+                        <img class="h-12 w-auto mix-blend-multiply cursor-pointer" src="https://www.krefelder-hoermanufaktur.de/typo3conf/ext/hoermanufaktur/Resources/Public/Images/logo.jpeg" alt="Logo">
+                    </a>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-10 text-[14px] font-medium tracking-wide">
+                    <a href="#" @click.prevent="navigate('home', 'about')" class="text-charcoal hover:text-brand transition-colors" data-i18n="nav_about">Über mich</a>
+                    
+                    <!-- Erwachsene Dropdown -->
+                    <div class="relative group py-10">
+                        <a href="#" @click.prevent="navigate('erwachsene')" class="text-charcoal hover:text-brand transition-colors flex items-center" data-i18n="nav_adults">Erwachsene</a>
+                        <div class="dropdown-menu absolute hidden top-[90px] w-64 -ml-4">
+                            <div class="bg-white border border-sand p-2 shadow-2xl">
+                                <a href="#" @click.prevent="navigate('erwachsene', 'hoertest')" class="hover:bg-paper hover:text-brand block px-4 py-3 text-sm transition-colors" data-i18n="nav_adults_sub1">kostenloser Hörtest</a>
+                                <a href="#" @click.prevent="navigate('erwachsene', 'analyse')" class="hover:bg-paper hover:text-brand block px-4 py-3 text-sm transition-colors" data-i18n="nav_adults_sub2">Beratung und Otoscan</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kinder Dropdown -->
+                    <div class="relative group py-10">
+                        <a href="#" @click.prevent="navigate('kinder')" class="text-charcoal hover:text-brand transition-colors flex items-center" data-i18n="nav_kids">Kinder</a>
+                        <div class="dropdown-menu absolute hidden top-[90px] w-64 -ml-4">
+                            <div class="bg-white border border-sand p-2 shadow-2xl">
+                                <a href="#" @click.prevent="navigate('kinder', 'kids-test')" class="hover:bg-kids-blue hover:text-kids-dark block px-4 py-3 text-sm transition-colors" data-i18n="nav_kids_sub1">Hörtest und Hörsimulation</a>
+                                <a href="#" @click.prevent="navigate('kinder', 'kids-beratung')" class="hover:bg-kids-pink hover:text-kids-dark block px-4 py-3 text-sm transition-colors" data-i18n="nav_kids_sub2">Beratung</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sonderversorgung Dropdown -->
+                    <div class="relative group py-10">
+                        <a href="#" @click.prevent="navigate('sonderversorgung')" class="text-charcoal hover:text-brand transition-colors flex items-center" data-i18n="nav_special">Sonderversorgung</a>
+                        <div class="dropdown-menu absolute hidden top-[90px] w-64 -ml-4">
+                            <div class="bg-white border border-sand p-2 shadow-2xl">
+                                <a href="#" @click.prevent="navigate('sonderversorgung')" class="hover:bg-paper hover:text-brand block px-4 py-3 text-sm transition-colors" data-i18n="nav_special_sub1">Knochenleitungsversorgungen</a>
+                                <a href="#" @click.prevent="navigate('sonderversorgung')" class="hover:bg-paper hover:text-brand block px-4 py-3 text-sm transition-colors" data-i18n="nav_special_sub2">Tinnitus</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Zubehör Dropdown -->
+                    <div class="relative group py-10">
+                        <a href="#" @click.prevent="navigate('zubehoer')" class="text-charcoal hover:text-brand transition-colors flex items-center" data-i18n="nav_accessories">Zubehör</a>
+                        <div class="dropdown-menu absolute hidden top-[90px] w-64 -ml-4">
+                            <div class="bg-white border border-sand p-2 shadow-2xl">
+                                <a href="#" @click.prevent="navigate('zubehoer')" class="hover:bg-paper hover:text-brand block px-4 py-3 text-sm transition-colors" data-i18n="nav_accessories_sub1">Arbeitsplatzausstattung</a>
+                                <a href="#" @click.prevent="navigate('zubehoer')" class="hover:bg-paper hover:text-brand block px-4 py-3 text-sm transition-colors" data-i18n="nav_accessories_sub2">Lichtsignalanlagen</a>
+                                <a href="#" @click.prevent="navigate('zubehoer')" class="hover:bg-paper hover:text-brand block px-4 py-3 text-sm transition-colors" data-i18n="nav_accessories_sub3">Gehörschutz</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://digitalhearingtest.com/de-DE/Krefelder_Hoermanufaktur/1" target="_blank" class="text-charcoal hover:text-brand transition-colors" data-i18n="nav_online_test">Online-Hörtest</a>
+                    <a href="#kontakt" class="text-charcoal hover:text-brand transition-colors" data-i18n="nav_contact">Kontakt</a>
+                    
+                    <div class="flex space-x-3 text-xs font-semibold text-gray-400 pl-8 border-l border-sand">
+                        <button @click="lang = 'de'" :class="{'text-charcoal': lang === 'de'}" class="hover:text-charcoal transition-colors">DE</button>
+                        <button @click="lang = 'en'" :class="{'text-charcoal': lang === 'en'}" class="hover:text-charcoal transition-colors">EN</button>
+                        <button @click="lang = 'tr'" :class="{'text-charcoal': lang === 'tr'}" class="hover:text-charcoal transition-colors">TR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- VIEWS START -->
+    <main>
+
+        <!-- ========================================== -->
+        <!-- VIEW: HOME                                 -->
+        <!-- ========================================== -->
+        <div x-show="currentRoute === 'home'" x-transition.opacity.duration.300ms>
+            <!-- Hero Section -->
+            <section class="relative bg-paper h-[80vh] flex items-center">
+                <div class="absolute inset-0 w-full h-full flex justify-end">
+                    <div class="w-2/3 h-full relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-paper via-paper/50 to-transparent z-10"></div>
+                        <img class="w-full h-full object-cover" src="https://www.krefelder-hoermanufaktur.de/fileadmin/user_upload/Emel_Bozcelik.jpg" alt="Emel Bozcelik">
+                    </div>
+                </div>
+                
+                <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                    <div class="max-w-xl">
+                        <p class="kicker mb-6">Präzise Hörakustik</p>
+                        <h1 class="heading-serif text-6xl lg:text-7xl mb-8 leading-[1.1]" data-i18n="hero_title">
+                            Krefelder<br>Hörmanufaktur
+                        </h1>
+                        <p class="text-body text-xl mb-12 max-w-md" data-i18n="hero_subtitle">
+                            Wir sind an Ihrer Seite für ein neues Lebensgefühl.
+                        </p>
+                        <a href="#kontakt" class="inline-flex items-center justify-center border border-charcoal bg-transparent text-charcoal px-8 py-4 text-sm font-medium tracking-widest hover:bg-charcoal hover:text-white transition-all duration-300" data-i18n="hero_cta">
+                            KOSTENLOSER HÖRTEST
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Individuelle Hörlösungen (Cards) -->
+            <section class="py-32 bg-white border-y border-sand">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-20">
+                        <p class="kicker mb-4" data-i18n="services_title">Unser Service für Sie</p>
+                        <h2 class="heading-serif text-5xl">Individuelle Hörlösungen</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+                        <!-- Card 1 -->
+                        <div class="group cursor-pointer" @click="navigate('erwachsene')">
+                            <div class="overflow-hidden bg-paper mb-8 aspect-[4/3]">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-in-out mix-blend-multiply" src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/4/a/csm_erwachsene_otoscan_geraet_396b0c33e5.jpg" alt="Erwachsene">
+                            </div>
+                            <h3 class="text-2xl heading-serif mb-4" data-i18n="serv1_title">Erwachsene</h3>
+                            <p class="text-body mb-6" data-i18n="serv1_desc">In unseren ansprechenden Räumlichkeiten mit modernster Technik führen wir kostenlose Hörtests durch...</p>
+                            <span class="text-brand font-medium group-hover:text-brand-dark transition-colors" data-i18n="learn_more">Mehr erfahren →</span>
+                        </div>
+                        
+                        <!-- Card 2 -->
+                        <div class="group cursor-pointer" @click="navigate('sonderversorgung')">
+                            <div class="overflow-hidden bg-paper mb-8 aspect-[4/3]">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-in-out mix-blend-multiply" src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/3/a/csm_Baha_5_Systems_SPs_black_02_ac2b1932c8.jpg" alt="Sonderversorgung">
+                            </div>
+                            <h3 class="text-2xl heading-serif mb-4" data-i18n="serv2_title">Sonderversorgung</h3>
+                            <p class="text-body mb-6" data-i18n="serv2_desc">Falls eine Hörgeräte-Versorgung aus anatomischen Gründen nicht möglich ist, bieten wir Knochenleitungsgeräte an.</p>
+                            <span class="text-brand font-medium group-hover:text-brand-dark transition-colors" data-i18n="learn_more">Mehr erfahren →</span>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="group cursor-pointer" @click="navigate('zubehoer')">
+                            <div class="overflow-hidden bg-paper mb-8 aspect-[4/3]">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-in-out mix-blend-multiply" src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/2/1/csm_Packshot_Roger_Charging_Rack_Family_055-3010-P5_0884b900eb.png" alt="Zubehör">
+                            </div>
+                            <h3 class="text-2xl heading-serif mb-4" data-i18n="serv3_title">Zubehör</h3>
+                            <p class="text-body mb-6" data-i18n="serv3_desc">Wir fertigen Gehörschutz aller Art an und bieten Lichtsignalanlagen für Gehörlose sowie Arbeitsplatzausstattungen an.</p>
+                            <span class="text-brand font-medium group-hover:text-brand-dark transition-colors" data-i18n="learn_more">Mehr erfahren →</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Über mich -->
+            <section id="about" class="py-32 bg-paper">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col lg:flex-row items-stretch gap-16">
+                        <div class="lg:w-1/2">
+                            <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/user_upload/DSC04820-2_500x725.jpg" class="w-full h-full object-cover grayscale-[20%]">
+                        </div>
+                        <div class="lg:w-1/2 flex flex-col justify-center">
+                            <p class="kicker mb-4" data-i18n="nav_about">Über mich</p>
+                            <h2 class="heading-serif text-5xl mb-6" data-i18n="about_subtitle">Wir helfen Ihnen, wieder uneingeschränkt am Leben teilzunehmen</h2>
+                            <p class="text-body mb-6" data-i18n="about_desc1">In unseren neuen, nach modernstem Stand der Technik eingerichteten Räumen möchten wir Sie gern willkommen heißen. Wir nehmen uns Zeit, um die beste Hörlösung mit Ihnen zu ermitteln.</p>
+                            <p class="text-body mb-10" data-i18n="about_desc2">Das beginnt mit einem umfassenden Hörtest, geht über die gemeinsame Erarbeitung der besten Lösung und endet noch lange nicht mit dem Erhalt Ihres persönlichen Hörsystems.</p>
+                            <img src="https://www.krefelder-hoermanufaktur.de/typo3conf/ext/hoermanufaktur/Resources/Public/Images/logo.jpeg" class="h-16 object-contain self-start mix-blend-multiply opacity-80" alt="Logo">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- VIEW: ERWACHSENE / SERVICE                 -->
+        <!-- ========================================== -->
+        <div x-show="currentRoute === 'erwachsene'" x-transition.opacity.duration.300ms x-cloak>
+            
+            <section class="py-24 bg-white border-b border-sand text-center">
+                <p class="kicker mb-4" data-i18n="nav_adults">Erwachsene</p>
+                <h1 class="heading-serif text-6xl">Unser Service</h1>
+            </section>
+
+            <!-- Deep Dive: Unser Service (Zig-Zag Layout) -->
+            <section class="py-32 bg-paper">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    <!-- Step 1 -->
+                    <div id="hoertest" class="flex flex-col lg:flex-row items-center gap-16 mb-32">
+                        <div class="lg:w-1/2">
+                            <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/4/a/csm_erwachsene_otoscan_geraet_396b0c33e5.jpg" class="w-full object-cover aspect-[4/3] grayscale-[30%]">
+                        </div>
+                        <div class="lg:w-1/2">
+                            <h3 class="heading-serif text-3xl mb-4">Alles fängt mit einem Hörtest an...</h3>
+                            <p class="kicker mb-6">DAMIT WIR FÜR SIE DIE OPTIMALE LÖSUNG FINDEN</p>
+                            <p class="text-body mb-4">Zunächst machen wir einen Termin für einen Hörtest. In unseren modernen Räumlichkeiten führen wir diesen völlig schmerzfrei durch. Das Ergebnis ist ein detailliertes Audiogramm, das die Grundlage unserer Beratung bildet.</p>
+                            <a href="#kontakt" class="inline-block border border-charcoal bg-transparent text-charcoal px-6 py-3 mt-4 text-sm font-medium tracking-wide hover:bg-charcoal hover:text-white transition-colors">Termin vereinbaren</a>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div id="analyse" class="flex flex-col lg:flex-row-reverse items-center gap-16 mb-32">
+                        <div class="lg:w-1/2">
+                            <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/user_upload/erwachsene_otoscan_mit_monitor.jpg" class="w-full object-cover aspect-[4/3] grayscale-[30%]">
+                        </div>
+                        <div class="lg:w-1/2">
+                            <h3 class="heading-serif text-3xl mb-4">Ergebnisanalyse und Beratung</h3>
+                            <p class="kicker mb-6">DIE ANALYSE</p>
+                            <p class="text-body">In unserem umfassenden Beratungsgespräch schauen wir uns dann mit Ihnen zusammen das Audiogramm an und erläutern Ihnen das Ergebnis. Hier können wir erkennen, in welchem Umfang und in welchen Frequenzbereichen Schwächen auftreten. Außerdem lassen sich gegebenenfalls Ursachen klären.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex flex-col lg:flex-row items-center gap-16 mb-32">
+                        <div class="lg:w-1/2">
+                            <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/3/a/csm_Baha_5_Systems_SPs_black_02_ac2b1932c8.jpg" class="w-full object-cover aspect-[4/3] grayscale-[30%]">
+                        </div>
+                        <div class="lg:w-1/2">
+                            <h3 class="heading-serif text-3xl mb-4">Das richtige Hörsystem</h3>
+                            <p class="kicker mb-6">FÜR IHRE BEDÜRFNISSE</p>
+                            <p class="text-body">Jetzt ermitteln wir Ihre speziellen Bedürfnisse und die Ansprüche, die Sie an ein Hörsystem stellen werden. Anschließend können wir Ihnen Vorschläge machen, welche Systeme für Sie idealerweise in Frage kommen.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="flex flex-col lg:flex-row-reverse items-center gap-16 mb-32">
+                        <div class="lg:w-1/2">
+                            <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/user_upload/Empfang_raum.jpg" class="w-full object-cover aspect-[4/3] grayscale-[30%]">
+                        </div>
+                        <div class="lg:w-1/2">
+                            <h3 class="heading-serif text-3xl mb-4">Anpassung & Nachsorge</h3>
+                            <p class="kicker mb-6">BEGLEITUNG AUF JEDEM SCHRITT</p>
+                            <p class="text-body">Mit modernster Technik passen wir das Hörgerät optimal an Ihr Gehör an. Auch nachdem Sie wieder glücklich hören, lassen wir Sie selbstverständlich nicht allein. Wir stehen für Wartung und Service jederzeit zur Verfügung.</p>
+                        </div>
+                    </div>
+
+                    <!-- Accordion (Hörsystemberatung) -->
+                    <div class="max-w-3xl mx-auto mt-32">
+                        <h3 class="heading-serif text-3xl text-center mb-10">Hörsystemberatung</h3>
+                        <div class="border-t border-sand">
+                            <div x-data="{ open: false }" class="border-b border-sand">
+                                <button @click="open = !open" class="w-full flex justify-between items-center py-6 text-left hover:text-brand transition-colors focus:outline-none">
+                                    <span class="text-sm font-semibold tracking-wider uppercase text-brand bg-brand/10 px-4 py-2 w-full">Hörsysteme hinter dem Ohr</span>
+                                    <span x-show="!open" class="text-brand ml-2">+</span>
+                                    <span x-show="open" class="text-brand ml-2">-</span>
+                                </button>
+                                <div x-show="open" x-collapse class="px-4 pb-6 text-body">
+                                    Diese Systeme werden hinter dem Ohr getragen und leiten den Schall über einen feinen Schlauch in den Gehörgang. Sie sind robust, leistungsstark und für fast alle Hörminderungen geeignet.
+                                </div>
+                            </div>
+                            <div x-data="{ open: false }" class="border-b border-sand">
+                                <button @click="open = !open" class="w-full flex justify-between items-center py-6 text-left hover:text-brand transition-colors focus:outline-none">
+                                    <span class="text-sm font-semibold tracking-wider uppercase text-brand bg-brand/10 px-4 py-2 w-full">Hörsysteme mit externem Hörer</span>
+                                    <span x-show="!open" class="text-brand ml-2">+</span>
+                                    <span x-show="open" class="text-brand ml-2">-</span>
+                                </button>
+                                <div x-show="open" x-collapse class="px-4 pb-6 text-body">
+                                    Hier sitzt der Lautsprecher (Hörer) direkt im Gehörgang, während die Technik hinter dem Ohr platziert ist. Das sorgt für eine sehr natürliche Klangqualität und ein besonders kleines, unauffälliges Gehäuse.
+                                </div>
+                            </div>
+                            <div x-data="{ open: false }" class="border-b border-sand">
+                                <button @click="open = !open" class="w-full flex justify-between items-center py-6 text-left hover:text-brand transition-colors focus:outline-none">
+                                    <span class="text-sm font-semibold tracking-wider uppercase text-brand bg-brand/10 px-4 py-2 w-full">Hörsysteme im Ohr</span>
+                                    <span x-show="!open" class="text-brand ml-2">+</span>
+                                    <span x-show="open" class="text-brand ml-2">-</span>
+                                </button>
+                                <div x-show="open" x-collapse class="px-4 pb-6 text-body">
+                                    Diese Geräte werden maßgefertigt und sitzen komplett im Gehörgang (IdO). Sie sind extrem unauffällig, nutzen die natürliche Ohrmuschel-Akustik und sind ideal für Brillen- und Maskenträger.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- VIEW: KINDER (Totally distinct playful design) -->
+        <!-- ========================================== -->
+        <div x-show="currentRoute === 'kinder'" x-transition.opacity.duration.300ms x-cloak class="bg-white">
+            
+            <section class="py-24 bg-kids-blue text-center relative overflow-hidden">
+                <!-- Decorative Blobs -->
+                <div class="absolute top-10 left-10 w-48 h-48 bg-kids-pink blob-1 opacity-60"></div>
+                <div class="absolute bottom-10 right-10 w-64 h-64 bg-kids-yellow blob-2 opacity-60"></div>
+                
+                <div class="relative z-10">
+                    <p class="text-kids-dark font-bold tracking-[0.2em] uppercase mb-4" data-i18n="kids_badge">Für die Kleinsten</p>
+                    <h1 class="kids-heading text-5xl md:text-7xl mb-6" data-i18n="kids_title">Kinder Hörakustik</h1>
+                    <p class="text-kids-dark text-xl max-w-2xl mx-auto font-medium" data-i18n="kids_desc">
+                        Wir führen spielerische Hörtests für Kinder durch und simulieren die Hörminderung für ein besseres Verständnis für die Eltern.
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-24 bg-white relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    <div class="flex flex-col lg:flex-row items-center gap-16">
+                        <div class="lg:w-1/2">
+                            <div class="relative">
+                                <div class="absolute inset-0 bg-kids-yellow translate-x-6 translate-y-6 blob-2"></div>
+                                <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/0/9/csm_DSC0523523_061b696384.jpg" class="relative z-10 w-full rounded-[3rem] shadow-xl border-8 border-white object-cover aspect-square">
+                            </div>
+                        </div>
+                        
+                        <div class="lg:w-1/2">
+                            <div id="kids-test" class="bg-kids-pink p-10 rounded-[2rem] mb-8 shadow-sm transform hover:-translate-y-1 transition-transform">
+                                <h3 class="kids-heading text-2xl mb-3 text-pink-900" data-i18n="nav_kids_sub1">Hörtest und Hörsimulation</h3>
+                                <p class="text-pink-800 text-lg font-medium">Spielerisch und ohne Angst! Wir ermitteln das Hörvermögen Ihres Kindes in entspannter Atmosphäre und demonstrieren Ihnen als Eltern genau, wie Ihr Kind die Welt wahrnimmt.</p>
+                            </div>
+                            
+                            <div id="kids-beratung" class="bg-kids-blue p-10 rounded-[2rem] mb-8 shadow-sm transform hover:-translate-y-1 transition-transform">
+                                <h3 class="kids-heading text-2xl mb-3 text-blue-900" data-i18n="nav_kids_sub2">Beratung</h3>
+                                <p class="text-blue-800 text-lg font-medium">Wir nehmen uns extra viel Zeit für Sie und Ihr Kind. In unserer eigenen Kinderecke fühlen sich die Kleinen wohl, während wir in Ruhe die beste Versorgung besprechen.</p>
+                            </div>
+                            
+                            <a href="#kontakt" class="inline-block bg-kids-dark text-white px-10 py-5 rounded-full text-lg font-bold tracking-wide hover:bg-blue-700 transition-colors shadow-lg transform hover:scale-105" data-i18n="kids_cta">
+                                Beratungstermin für Kinder
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- VIEW: SONDERVERSORGUNG                     -->
+        <!-- ========================================== -->
+        <div x-show="currentRoute === 'sonderversorgung'" x-transition.opacity.duration.300ms x-cloak>
+            <section class="py-24 bg-paper border-b border-sand text-center">
+                <p class="kicker mb-4" data-i18n="nav_special">Sonderversorgung</p>
+                <h1 class="heading-serif text-6xl mb-8">Spezielle Lösungen</h1>
+                <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/3/a/csm_Baha_5_Systems_SPs_black_02_ac2b1932c8.jpg" class="mx-auto rounded-xl max-w-2xl w-full object-cover shadow-lg mix-blend-multiply">
+            </section>
+            <section class="py-20 bg-white max-w-3xl mx-auto px-4 text-center">
+                <p class="text-body text-xl" data-i18n="serv2_desc">Falls eine Hörgeräte-Versorgung aus anatomischen Gründen nicht möglich ist, bieten wir Knochenleitungsgeräte an.</p>
+                <a href="#kontakt" class="inline-block border border-charcoal text-charcoal px-6 py-3 mt-10 text-sm font-medium tracking-wide hover:bg-charcoal hover:text-white transition-colors">Termin vereinbaren</a>
+            </section>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- VIEW: ZUBEHÖR                              -->
+        <!-- ========================================== -->
+        <div x-show="currentRoute === 'zubehoer'" x-transition.opacity.duration.300ms x-cloak>
+            <section class="py-24 bg-paper border-b border-sand text-center">
+                <p class="kicker mb-4" data-i18n="nav_accessories">Zubehör</p>
+                <h1 class="heading-serif text-6xl mb-8">Technik & Schutz</h1>
+                <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/2/1/csm_Packshot_Roger_Charging_Rack_Family_055-3010-P5_0884b900eb.png" class="mx-auto rounded-xl max-w-2xl w-full object-cover shadow-lg mix-blend-multiply">
+            </section>
+            <section class="py-20 bg-white max-w-3xl mx-auto px-4 text-center">
+                <p class="text-body text-xl" data-i18n="serv3_desc">Wir fertigen Gehörschutz aller Art an und bieten Lichtsignalanlagen für Gehörlose sowie Arbeitsplatzausstattungen an.</p>
+                <a href="#kontakt" class="inline-block border border-charcoal text-charcoal px-6 py-3 mt-10 text-sm font-medium tracking-wide hover:bg-charcoal hover:text-white transition-colors">Termin vereinbaren</a>
+            </section>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- GLOBAL FOOTER / KONTAKT                    -->
+        <!-- ========================================== -->
+        
+        <!-- Split Layout: Contact Section (Faithful to Screenshot 2) -->
+        <section id="kontakt" class="border-t border-sand bg-white">
+            <div class="flex flex-col lg:flex-row">
+                <!-- Left Side -->
+                <div class="lg:w-1/2 relative bg-gradient-to-b from-[#48b8ac] to-[#04658c]">
+                    <img class="w-full h-full object-cover min-h-[600px] mix-blend-overlay opacity-80" src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/0/9/csm_DSC0523523_061b696384.jpg" alt="Kind">
+                </div>
+                
+                <!-- Right Content Side -->
+                <div class="lg:w-1/2 p-12 lg:p-24 bg-white text-brand">
+                    <div class="max-w-md">
+                        <!-- Block 1: Address & Phone -->
+                        <div class="mb-14">
+                            <h3 class="text-[11px] font-bold tracking-[0.2em] uppercase mb-4 text-brand" data-i18n="contact_title">SO FINDEN SIE UNS:</h3>
+                            <p class="text-charcoal font-medium leading-relaxed mb-6" data-i18n="contact_address">
+                                Friedrichstraße 14-16<br>
+                                47798 Krefeld
+                            </p>
+                            <p class="text-charcoal text-sm font-medium mb-3" data-i18n="contact_phone_label">Telefon:</p>
+                            <a href="tel:021516567294" class="inline-block bg-brand text-white px-10 py-3 rounded text-[13px] font-bold tracking-wider hover:bg-brand-dark transition-colors" data-i18n="contact_phone">
+                                02151-6567294
+                            </a>
+                        </div>
+
+                        <!-- Block 2: Opening Hours -->
+                        <div class="mb-14">
+                            <h3 class="text-[11px] font-bold tracking-[0.2em] uppercase mb-4 text-brand" data-i18n="contact_hours_title">ÖFFNUNGSZEITEN</h3>
+                            <p class="text-charcoal text-sm leading-relaxed mb-6 font-medium" data-i18n="contact_hours_1">
+                                Montag bis Donnerstag<br>
+                                9 - 13 Uhr<br>
+                                14 - 18 Uhr
+                            </p>
+                            <p class="text-charcoal text-sm leading-relaxed font-medium" data-i18n="contact_hours_2">
+                                Freitag<br>
+                                9 - 13 Uhr
+                            </p>
+                        </div>
+
+                        <!-- Block 3: Directions -->
+                        <div class="mb-14">
+                            <h3 class="text-[11px] font-bold tracking-[0.2em] uppercase mb-6 text-brand" data-i18n="contact_directions_title">ANFAHRT:</h3>
+                            
+                            <h4 class="text-[11px] font-bold tracking-[0.1em] uppercase mb-3 text-brand" data-i18n="contact_transit_title">ÖFFENTLICHE VERKEHRSMITTEL</h4>
+                            <p class="text-[13px] leading-relaxed text-charcoal mb-8"><span data-i18n="contact_transit_1">Buslinie 052</span><br><span data-i18n="contact_transit_2">Straßenbahn 041</span></p>
+
+                            <h4 class="text-[11px] font-bold tracking-[0.1em] uppercase mb-3 text-brand" data-i18n="contact_car_title">AUTO</h4>
+                            <p class="text-[13px] leading-loose text-charcoal">
+                                <span data-i18n="contact_car_1">von der A57 kommend Ausfahrt 12</span><br>
+                                <span data-i18n="contact_car_2">rechts auf Charlottering</span><br>
+                                <span data-i18n="contact_car_3">nach 5,8km links auf Hülser Straße</span><br>
+                                <span data-i18n="contact_car_4">Im Kreisverkehr 3. Ausfahrt auf Friedrichstraße nehmen</span>
+                            </p>
+                        </div>
+
+                        <div>
+                            <a href="#" class="inline-block bg-brand text-white px-10 py-3 rounded text-[13px] font-bold tracking-wider hover:bg-brand-dark transition-colors" data-i18n="contact_form_btn">
+                                Kontaktformular
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-paper py-12 border-t border-sand text-center">
+            <div class="flex justify-center space-x-12 text-[11px] text-charcoal font-semibold tracking-widest uppercase">
+                <a href="#" class="hover:text-brand transition-colors" data-i18n="footer_privacy">Datenschutz</a>
+                <a href="#" class="hover:text-brand transition-colors" data-i18n="footer_imprint">Impressum</a>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Translations Logic -->
+    <script src="translations.js"></script>
+    <script>
+        function updateTranslations(lang) {
+            const dict = translations[lang];
+            if(!dict) return;
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(dict[key]) {
+                    if (dict[key].includes('<br>')) {
+                        el.innerHTML = dict[key];
+                    } else {
+                        el.textContent = dict[key];
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
