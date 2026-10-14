@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krefelder HÃ¶rmanufaktur â€” Warm Luxury</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: {
+            navy: { DEFAULT:'#0a1628', light:'#132240' },
+            gold: { DEFAULT:'#c9a96e', light:'#e0cc9e', dark:'#a88940' }
+        }, fontFamily: { serif: ['"Playfair Display"','serif'], sans: ['"Inter"','sans-serif'] }}}}
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        html{scroll-behavior:smooth}
+        .gold-line{width:60px;height:2px;background:#c9a96e}
+    </style>
+</head>
+<body class="bg-navy text-white font-sans antialiased">
+
+<!-- Nav -->
+<nav class="fixed top-0 w-full z-50 bg-navy/95 backdrop-blur-sm border-b border-gold/20">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-20">
+        <a href="#" class="font-serif text-gold text-xl tracking-wide">Krefelder HÃ¶rmanufaktur</a>
+        <div class="hidden md:flex items-center space-x-10 text-[13px] tracking-[0.15em] uppercase text-gold-light/70">
+            <a href="#about" class="hover:text-gold transition-colors">Ãœber uns</a>
+            <a href="#services" class="hover:text-gold transition-colors">Leistungen</a>
+            <a href="#service-flow" class="hover:text-gold transition-colors">Service</a>
+            <a href="#contact" class="hover:text-gold transition-colors">Kontakt</a>
+            <a href="#" class="border border-gold text-gold px-5 py-2 hover:bg-gold hover:text-navy transition-all">Termin</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative min-h-screen flex items-center pt-20">
+    <div class="absolute inset-0">
+        <img src="img/emel.webp" class="w-full h-full object-cover opacity-30" alt="">
+        <div class="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-navy/40"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
+        <div class="max-w-2xl">
+            <div class="gold-line mb-8"></div>
+            <h1 class="font-serif text-6xl lg:text-8xl text-gold leading-[1.05] mb-8">Krefelder<br>HÃ¶rmanufaktur</h1>
+            <p class="text-gold-light/60 text-xl font-light leading-relaxed mb-12 max-w-lg">Exzellente HÃ¶rakustik in eleganter AtmosphÃ¤re. Wir sind an Ihrer Seite.</p>
+            <div class="flex gap-6">
+                <a href="#contact" class="bg-gold text-navy px-8 py-4 text-sm font-semibold tracking-[0.15em] uppercase hover:bg-gold-dark transition-colors">Termin vereinbaren</a>
+                <a href="#services" class="border border-gold/40 text-gold px-8 py-4 text-sm font-semibold tracking-[0.15em] uppercase hover:border-gold transition-colors">Entdecken</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services -->
+<section id="services" class="py-32 bg-navy-light border-y border-gold/10">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-20">
+            <div class="gold-line mx-auto mb-6"></div>
+            <h2 class="font-serif text-4xl text-gold">Unsere Leistungen</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="border border-gold/20 p-8 hover:border-gold/60 transition-colors group">
+                <img src="img/otoscan.webp" class="w-full aspect-square object-cover mb-6 grayscale group-hover:grayscale-0 transition-all duration-700" alt="Erwachsene">
+                <h3 class="font-serif text-xl text-gold mb-3">Erwachsene</h3>
+                <p class="text-gold-light/50 text-sm leading-relaxed">Kostenlose HÃ¶rtests und individuelle Beratung mit modernster Technik.</p>
+            </div>
+            <div class="border border-gold/20 p-8 hover:border-gold/60 transition-colors group">
+                <img src="img/kind.webp" class="w-full aspect-square object-cover mb-6 grayscale group-hover:grayscale-0 transition-all duration-700" alt="Kinder">
+                <h3 class="font-serif text-xl text-gold mb-3">Kinder</h3>
+                <p class="text-gold-light/50 text-sm leading-relaxed">Spielerische HÃ¶rtests und einfÃ¼hlsame Betreuung fÃ¼r unsere JÃ¼ngsten.</p>
+            </div>
+            <div class="border border-gold/20 p-8 hover:border-gold/60 transition-colors group">
+                <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/3/a/csm_Baha_5_Systems_SPs_black_02_ac2b1932c8.jpg" class="w-full aspect-square object-cover mb-6 grayscale group-hover:grayscale-0 transition-all duration-700" alt="Sonderversorgung">
+                <h3 class="font-serif text-xl text-gold mb-3">Sonderversorgung</h3>
+                <p class="text-gold-light/50 text-sm leading-relaxed">KnochenleitungsgerÃ¤te und Tinnitus-LÃ¶sungen fÃ¼r besondere Anforderungen.</p>
+            </div>
+            <div class="border border-gold/20 p-8 hover:border-gold/60 transition-colors group">
+                <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/2/1/csm_Packshot_Roger_Charging_Rack_Family_055-3010-P5_0884b900eb.png" class="w-full aspect-square object-cover mb-6 grayscale group-hover:grayscale-0 transition-all duration-700" alt="ZubehÃ¶r">
+                <h3 class="font-serif text-xl text-gold mb-3">ZubehÃ¶r</h3>
+                <p class="text-gold-light/50 text-sm leading-relaxed">GehÃ¶rschutz, Lichtsignalanlagen und Arbeitsplatzausstattungen.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About -->
+<section id="about" class="py-32 bg-navy">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col lg:flex-row items-center gap-20">
+            <div class="lg:w-5/12">
+                <img src="img/emel.webp" class="w-full object-cover border border-gold/20" alt="Team">
+            </div>
+            <div class="lg:w-7/12">
+                <div class="gold-line mb-6"></div>
+                <p class="text-[11px] tracking-[0.2em] uppercase text-gold/60 mb-4">Ãœber uns</p>
+                <h2 class="font-serif text-4xl text-gold mb-8 leading-snug">Wir helfen Ihnen, wieder uneingeschrÃ¤nkt am Leben teilzunehmen</h2>
+                <p class="text-gold-light/50 leading-relaxed mb-6">In unseren neuen, nach modernstem Stand der Technik eingerichteten RÃ¤umen mÃ¶chten wir Sie gern willkommen heiÃŸen. In angenehmer AtmosphÃ¤re nehmen wir uns gerne Zeit fÃ¼r Sie, um die beste HÃ¶rlÃ¶sung mit Ihnen zu ermitteln.</p>
+                <p class="text-gold-light/50 leading-relaxed">Das beginnt mit einem umfassenden HÃ¶rtest mit anschlieÃŸendem BeratungsgesprÃ¤ch und endet noch lange nicht mit dem Erhalt Ihres persÃ¶nlichen HÃ¶rsystems.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service Flow -->
+<section id="service-flow" class="py-32 bg-navy-light border-y border-gold/10">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+        <div class="gold-line mx-auto mb-6"></div>
+        <h2 class="font-serif text-4xl text-gold mb-20">Unser Prozess</h2>
+        <div class="space-y-16">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold font-serif text-2xl flex-shrink-0">1</div>
+                <div class="text-left"><h3 class="font-serif text-2xl text-gold mb-2">HÃ¶rtest</h3><p class="text-gold-light/50">ZunÃ¤chst machen wir einen Termin fÃ¼r einen HÃ¶rtest mit Ihnen aus, um Ihr aktuelles HÃ¶rvermÃ¶gen einzuschÃ¤tzen.</p></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold font-serif text-2xl flex-shrink-0">2</div>
+                <div class="text-left"><h3 class="font-serif text-2xl text-gold mb-2">Analyse & Beratung</h3><p class="text-gold-light/50">Wir sehen uns das Audiogramm an und erlÃ¤utern Ihnen das Ergebnis. Hier klÃ¤ren wir Ursachen und Umfang.</p></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold font-serif text-2xl flex-shrink-0">3</div>
+                <div class="text-left"><h3 class="font-serif text-2xl text-gold mb-2">Anpassung & Nachsorge</h3><p class="text-gold-light/50">Wir finden das perfekte System, passen es an und begleiten Sie auch danach mit Wartung und Service.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery -->
+<section class="py-24 bg-navy">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <img src="img/beratung.webp" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700 border border-gold/10" alt="">
+            <img src="img/beratung.webp" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700 border border-gold/10" alt="">
+            <img src="img/kind.webp" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700 border border-gold/10" alt="">
+            <img src="img/kind.webp" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700 border border-gold/10" alt="">
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="py-32 bg-navy-light border-t border-gold/10">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col lg:flex-row gap-20">
+            <div class="lg:w-1/2">
+                <div class="gold-line mb-6"></div>
+                <h2 class="font-serif text-4xl text-gold mb-12">Kontakt</h2>
+                <div class="space-y-8 text-gold-light/60">
+                    <div><p class="text-[11px] tracking-[0.2em] uppercase text-gold/40 mb-2">Adresse</p><p>FriedrichstraÃŸe 14-16<br>47798 Krefeld</p></div>
+                    <div><p class="text-[11px] tracking-[0.2em] uppercase text-gold/40 mb-2">Telefon</p><a href="tel:021516567294" class="text-gold hover:text-gold-light transition-colors text-lg">02151 - 656 72 94</a></div>
+                    <div><p class="text-[11px] tracking-[0.2em] uppercase text-gold/40 mb-2">Ã–ffnungszeiten</p><p>Mo â€“ Do: 9â€“13 & 14â€“18 Uhr<br>Fr: 9â€“13 Uhr</p></div>
+                </div>
+            </div>
+            <div class="lg:w-1/2">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2497.5!2d6.5637!3d51.3339!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8b92f1c0e7a7d%3A0x4c2e2c7e7d8f5a0!2sFriedrichstra%C3%9Fe%2014-16%2C%2047798%20Krefeld%2C%20Germany!5e0!3m2!1sde!2sde" width="100%" height="400" style="border:0;filter:invert(90%) hue-rotate(180deg) brightness(0.8)" allowfullscreen loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-navy py-8 border-t border-gold/10 text-center">
+    <p class="text-gold/30 text-xs tracking-[0.15em] uppercase">Â© 2026 Krefelder HÃ¶rmanufaktur Â· Datenschutz Â· Impressum</p>
+</footer>
+</body>
+</html>

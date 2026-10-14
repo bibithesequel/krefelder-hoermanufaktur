@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Variations — Krefelder Hörmanufaktur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body{font-family:'Inter',sans-serif}</style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen flex flex-col items-center justify-center p-8">
+    <h1 class="text-4xl font-bold mb-3 text-center">🎨 Design Variations</h1>
+    <p class="text-gray-400 mb-12 text-center">Krefelder Hörmanufaktur — Click to experience each look & feel</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full">
+
+        <!-- Current -->
+        <a href="index.html" class="group block border border-gray-800 rounded-2xl overflow-hidden hover:border-teal-500 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-900/30">
+            <div class="h-48 bg-[#f9f9f7] flex items-center justify-center">
+                <div class="text-center"><span class="text-6xl">🏠</span><br><span class="text-[#279c8d] font-bold text-sm mt-2 block">CURRENT</span></div>
+            </div>
+            <div class="p-6 bg-gray-900">
+                <h2 class="font-bold text-xl mb-2">Variation 1 — Clean Scandinavian</h2>
+                <p class="text-gray-400 text-sm">Off-white, teal accents, serif headings, editorial whitespace. Inspired by reMarkable. <span class="text-teal-400 font-semibold">(Live version)</span></p>
+            </div>
+        </a>
+
+        <!-- Luxury -->
+        <a href="variation-luxury.html" class="group block border border-gray-800 rounded-2xl overflow-hidden hover:border-yellow-600 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-yellow-900/30">
+            <div class="h-48 bg-[#0a1628] flex items-center justify-center">
+                <div class="text-center"><span class="text-6xl">✨</span><br><span class="text-[#c9a96e] font-bold text-sm mt-2 block">LUXURY</span></div>
+            </div>
+            <div class="p-6 bg-gray-900">
+                <h2 class="font-bold text-xl mb-2">Variation 2 — Warm Luxury</h2>
+                <p class="text-gray-400 text-sm">Deep navy + warm gold. High-end boutique feel. Grayscale-to-color image reveals.</p>
+            </div>
+        </a>
+
+        <!-- Gradient -->
+        <a href="variation-gradient.html" class="group block border border-gray-800 rounded-2xl overflow-hidden hover:border-teal-400 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-900/30">
+            <div class="h-48 bg-white flex items-center justify-center relative overflow-hidden">
+                <div class="absolute w-40 h-40 bg-teal-300 rounded-full blur-3xl opacity-40 -top-10 -right-10"></div>
+                <div class="absolute w-32 h-32 bg-blue-300 rounded-full blur-3xl opacity-40 bottom-0 -left-10"></div>
+                <div class="relative text-center"><span class="text-6xl">🌊</span><br><span class="bg-gradient-to-r from-teal-500 to-blue-500 bg-clip-text text-transparent font-bold text-sm mt-2 block">FRESH</span></div>
+            </div>
+            <div class="p-6 bg-gray-900">
+                <h2 class="font-bold text-xl mb-2">Variation 3 — Fresh Gradient</h2>
+                <p class="text-gray-400 text-sm">Teal-to-blue gradients, floating blobs, rounded cards, pill buttons. Health-tech startup vibe.</p>
+            </div>
+        </a>
+
+        <!-- Editorial -->
+        <a href="variation-editorial.html" class="group block border border-gray-800 rounded-2xl overflow-hidden hover:border-red-500 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-900/30">
+            <div class="h-48 bg-white flex items-center justify-center">
+                <div class="text-center"><span class="text-6xl">🔲</span><br><span class="text-[#e74c3c] font-bold text-sm mt-2 block">BOLD</span></div>
+            </div>
+            <div class="p-6 bg-gray-900">
+                <h2 class="font-bold text-xl mb-2">Variation 4 — Bold Editorial</h2>
+                <p class="text-gray-400 text-sm">Black & white + coral red. Dramatic serif headlines, magazine grid, hover-reveal images.</p>
+            </div>
+        </a>
+
+    </div>
+    <p class="text-gray-600 text-xs mt-12">Each variation is a fully interactive, scrollable page</p>
+</body>
+</html>
