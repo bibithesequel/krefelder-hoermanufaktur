@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="de" x-data="{
+    currentRoute: 'home',
+    activeServiceStep: 1,
+    showModal: false,
+    formType: 'appointment',
+    currentLang: 'de',
+    navigate(route) {
+        this.currentRoute = route;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    openModal(type) {
+        this.formType = type;
+        this.showModal = true;
+    },
+    changeLang(lang) {
+        this.currentLang = lang;
+        if (typeof updateTranslations === 'function') {
+            updateTranslations(lang);
+        }
+    }
+}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krefelder Hörmanufaktur — Kompakt & Effizient</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#279c8d',
+                            dark: '#1b6f64',
+                            light: '#eef8f6',
+                            soft: '#d2ece7'
+                        },
+                        charcoal: '#1c2226',
+                        slateBg: '#f8fafb',
+                        borderSubtle: '#e2e8f0',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        kids: ['Nunito', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .compact-card { transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+        .compact-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px -10px rgba(27, 111, 100, 0.15); }
+    </style>
+</head>
+<body class="bg-white text-charcoal font-sans antialiased text-sm leading-relaxed selection:bg-brand selection:text-white">
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- TOP UTILITY BAR (KOMPAKT & DIREKT ERREICHBAR)       -->
+<!-- ═════════════════════════════════════════════════════ -->
+<div class="bg-charcoal text-gray-300 py-1.5 px-4 text-xs border-b border-gray-800">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+        <div class="flex items-center space-x-4 md:space-x-6">
+            <a href="tel:021516567294" class="hover:text-white flex items-center gap-1.5 transition-colors font-medium">
+                <span class="text-brand">📞</span> 02151-6567294
+            </a>
+            <span class="hidden sm:inline-flex items-center gap-1.5 text-gray-400">
+                <span class="text-brand">📍</span> Friedrichstraße 14–16, 47798 Krefeld
+            </span>
+            <span class="hidden lg:inline-flex items-center gap-1.5 text-gray-400">
+                <span class="text-brand">⏱️</span> Mo–Do 9–13 & 14–18 | Fr 9–13
+            </span>
+        </div>
+        <div class="flex items-center space-x-3 ml-auto">
+            <span class="text-gray-500 text-[11px] hidden sm:inline">Sprache:</span>
+            <div class="flex items-center space-x-1.5 text-[11px] font-semibold tracking-wider">
+                <button @click="changeLang('de')" :class="currentLang==='de' ? 'text-brand underline' : 'text-gray-400 hover:text-white'">DE</button>
+                <span class="text-gray-600">|</span>
+                <button @click="changeLang('en')" :class="currentLang==='en' ? 'text-brand underline' : 'text-gray-400 hover:text-white'">EN</button>
+                <span class="text-gray-600">|</span>
+                <button @click="changeLang('tr')" :class="currentLang==='tr' ? 'text-brand underline' : 'text-gray-400 hover:text-white'">TR</button>
+            </div>
+            <a href="variations.html" class="ml-3 px-2 py-0.5 rounded bg-gray-800 text-gray-300 hover:bg-brand hover:text-white transition-colors text-[11px] font-medium flex items-center gap-1">
+                🎨 <span>Varianten</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- STICKY MAIN HEADER                                  -->
+<!-- ═════════════════════════════════════════════════════ -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-borderSubtle shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <!-- Brand Logo -->
+            <a href="#" @click.prevent="navigate('home')" class="flex items-center gap-3 group">
+                <img class="h-10 w-auto object-contain" src="https://www.krefelder-hoermanufaktur.de/typo3conf/ext/hoermanufaktur/Resources/Public/Images/logo.jpeg" alt="Krefelder Hörmanufaktur">
+                <div class="hidden sm:block border-l border-gray-200 pl-3">
+                    <span class="block text-xs font-bold text-charcoal tracking-wide leading-tight group-hover:text-brand transition-colors">Krefelder Hörmanufaktur</span>
+                    <span class="block text-[10px] text-gray-500 uppercase tracking-wider">Meisterbetrieb & Pädakustik</span>
+                </div>
+            </a>
+
+            <!-- Compact Navigation Menu -->
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-xs font-semibold">
+                <!-- Über mich -->
+                <button @click="navigate('uebermich')" :class="currentRoute==='uebermich' ? 'text-brand bg-brand-light' : 'text-gray-700 hover:text-brand hover:bg-gray-50'" class="px-2.5 py-1.5 rounded transition-colors" data-i18n="nav_about">Über mich</button>
+
+                <!-- Erwachsene with dropdown -->
+                <div class="relative group" x-data="{ open: false }" @mouseleave="open = false">
+                    <button @click="navigate('erwachsene')" @mouseover="open = true" :class="currentRoute==='erwachsene' ? 'text-brand bg-brand-light' : 'text-gray-700 hover:text-brand hover:bg-gray-50'" class="px-2.5 py-1.5 rounded transition-colors flex items-center gap-1">
+                        <span data-i18n="nav_adults">Erwachsene</span>
+                        <svg class="w-3 h-3 text-gray-400 group-hover:text-brand transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div x-show="open" x-transition.opacity.duration.150ms class="absolute top-full left-0 w-52 bg-white border border-borderSubtle shadow-xl rounded-lg py-1 z-50 text-xs">
+                        <a href="#" @click.prevent="navigate('erwachsene'); open = false; $nextTick(() => document.getElementById('hoertest')?.scrollIntoView({behavior:'smooth'}))" class="block px-3 py-2 text-gray-700 hover:bg-brand-light hover:text-brand transition-colors" data-i18n="nav_adults_sub1">kostenloser Hörtest</a>
+                        <a href="#" @click.prevent="navigate('erwachsene'); open = false; $nextTick(() => document.getElementById('analyse')?.scrollIntoView({behavior:'smooth'}))" class="block px-3 py-2 text-gray-700 hover:bg-brand-light hover:text-brand transition-colors" data-i18n="nav_adults_sub2">Beratung und Otoscan</a>
+                    </div>
+                </div>
+
+                <!-- Kinder with dropdown -->
+                <div class="relative group" x-data="{ open: false }" @mouseleave="open = false">
+                    <button @click="navigate('kinder')" @mouseover="open = true" :class="currentRoute==='kinder' ? 'text-brand bg-brand-light font-bold' : 'text-gray-700 hover:text-brand hover:bg-gray-50'" class="px-2.5 py-1.5 rounded transition-colors flex items-center gap-1">
+                        <span data-i18n="nav_kids">Kinder</span>
+                        <svg class="w-3 h-3 text-gray-400 group-hover:text-brand transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div x-show="open" x-transition.opacity.duration.150ms class="absolute top-full left-0 w-56 bg-white border border-borderSubtle shadow-xl rounded-lg py-1 z-50 text-xs">
+                        <a href="#" @click.prevent="navigate('kinder'); open = false; $nextTick(() => document.getElementById('kids-test')?.scrollIntoView({behavior:'smooth'}))" class="block px-3 py-2 text-gray-700 hover:bg-brand-light hover:text-brand transition-colors" data-i18n="nav_kids_sub1">Hörtest & Hörsimulation</a>
+                        <a href="#" @click.prevent="navigate('kinder'); open = false; $nextTick(() => document.getElementById('kids-beratung')?.scrollIntoView({behavior:'smooth'}))" class="block px-3 py-2 text-gray-700 hover:bg-brand-light hover:text-brand transition-colors" data-i18n="nav_kids_sub2">Beratung & Entwicklung</a>
+                    </div>
+                </div>
+
+                <!-- Sonderversorgung -->
+                <button @click="navigate('sonderversorgung')" :class="currentRoute==='sonderversorgung' ? 'text-brand bg-brand-light' : 'text-gray-700 hover:text-brand hover:bg-gray-50'" class="px-2.5 py-1.5 rounded transition-colors" data-i18n="nav_special">Sonderversorgung</button>
+
+                <!-- Zubehör -->
+                <button @click="navigate('zubehoer')" :class="currentRoute==='zubehoer' ? 'text-brand bg-brand-light' : 'text-gray-700 hover:text-brand hover:bg-gray-50'" class="px-2.5 py-1.5 rounded transition-colors" data-i18n="nav_accessories">Zubehör</button>
+
+                <!-- Service -->
+                <button @click="navigate('service')" :class="currentRoute==='service' ? 'text-brand bg-brand-light' : 'text-gray-700 hover:text-brand hover:bg-gray-50'" class="px-2.5 py-1.5 rounded transition-colors" data-i18n="nav_service">Service</button>
+
+                <!-- Kontakt -->
+                <a href="#kontakt" @click="navigate('home'); $nextTick(() => document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'}))" class="text-gray-700 hover:text-brand hover:bg-gray-50 px-2.5 py-1.5 rounded transition-colors" data-i18n="nav_contact">Kontakt</a>
+            </nav>
+
+            <!-- Quick Action CTA -->
+            <div class="flex items-center gap-2">
+                <a href="https://digitalhearingtest.com/de-DE/Krefelder_Hoermanufaktur/1" target="_blank" class="hidden xl:inline-flex items-center border border-gray-300 text-gray-700 px-3 py-1.5 rounded text-xs font-semibold hover:border-brand hover:text-brand transition-colors" data-i18n="nav_online_test">
+                    Online-Hörtest
+                </a>
+                <button @click="openModal('appointment')" class="bg-brand text-white px-3.5 py-1.5 rounded text-xs font-bold tracking-wide hover:bg-brand-dark shadow-sm transition-all flex items-center gap-1.5" data-i18n="cta_button">
+                    <span>📅</span> <span>Termin vereinbaren</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- VIEW: HOME (KOMPAKT & INFORMATIV)                   -->
+<!-- ═════════════════════════════════════════════════════ -->
+<div x-show="currentRoute==='home'" x-transition.opacity.duration.250ms>
+
+    <!-- Compact Hero Section (Split Layout) -->
+    <section class="bg-gradient-to-b from-slateBg to-white py-10 lg:py-14 border-b border-borderSubtle">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Left: Headline & Benefits -->
+                <div class="lg:col-span-7">
+                    <div class="inline-flex items-center gap-2 bg-brand-light text-brand px-3 py-1 rounded-full text-xs font-semibold mb-4">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span data-i18n="hero_subtitle">Wir sind an Ihrer Seite.</span> • Meisterbetrieb Krefeld
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-charcoal tracking-tight leading-[1.15] mb-4">
+                        Präzise Hörakustik für <span class="text-brand">Erwachsene & Kinder</span>
+                    </h1>
+                    <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-6 max-w-xl">
+                        In unserer modernen Fachpraxis in Krefeld verbinden wir digitales 3D-Otoscan, audiologische Fachkompetenz und einfühlsame Betreuung zu Ihrer optimalen Hörlösung.
+                    </p>
+
+                    <!-- 3 Feature Badges in Compact Row -->
+                    <div class="grid grid-cols-3 gap-3 mb-6 max-w-lg">
+                        <div class="bg-white p-3 rounded-lg border border-borderSubtle shadow-xs">
+                            <div class="text-brand font-bold text-xs">✓ Kostenlos</div>
+                            <div class="text-[11px] text-gray-500 font-medium">Hörtest & Analyse</div>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-borderSubtle shadow-xs">
+                            <div class="text-brand font-bold text-xs">✓ 3D-Otoscan</div>
+                            <div class="text-[11px] text-gray-500 font-medium">Digitaler Ohrscan</div>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-borderSubtle shadow-xs">
+                            <div class="text-brand font-bold text-xs">✓ Alle Kassen</div>
+                            <div class="text-[11px] text-gray-500 font-medium">Volle Abwicklung</div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        <button @click="openModal('appointment')" class="bg-brand text-white px-5 py-2.5 rounded-lg text-xs font-bold tracking-wide hover:bg-brand-dark shadow transition-all flex items-center gap-2" data-i18n="hero_cta">
+                            <span>KOSTENLOSER HÖRTEST</span> →
+                        </button>
+                        <a href="https://digitalhearingtest.com/de-DE/Krefelder_Hoermanufaktur/1" target="_blank" class="border border-gray-300 text-gray-700 px-4 py-2.5 rounded-lg text-xs font-semibold hover:border-brand hover:text-brand transition-colors">
+                            Online-Hörtest (3 Min.)
+                        </a>
+                        <a href="tel:021516567294" class="text-gray-600 hover:text-charcoal px-3 py-2 text-xs font-semibold flex items-center gap-1.5">
+                            📞 02151-6567294
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Visual Card with Emel -->
+                <div class="lg:col-span-5">
+                    <div class="relative rounded-2xl overflow-hidden border border-borderSubtle shadow-lg bg-white">
+                        <img src="img/emel-welcome.jpg" alt="Emel Bozçelik Hörakustikmeisterin" class="w-full h-80 lg:h-96 object-cover object-top">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 text-white">
+                            <div class="text-xs font-bold tracking-wide uppercase text-brand-light">Inhaberin & Leitung</div>
+                            <div class="text-lg font-bold">Emel Bozçelik</div>
+                            <p class="text-xs text-gray-200">Hörakustik-Meisterin & zertifizierte Pädakustikerin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4 Compact Core Service Cards -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4">
+                <div>
+                    <span class="text-xs font-bold tracking-wider uppercase text-brand" data-i18n="services_title">Unser Service für Sie</span>
+                    <h2 class="text-2xl font-bold text-charcoal">Individuelle Hörlösungen im Überblick</h2>
+                </div>
+                <button @click="navigate('service')" class="text-xs font-bold text-brand hover:text-brand-dark flex items-center gap-1">
+                    Gesamten Ablauf ansehen →
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                <!-- 1. Erwachsene -->
+                <div class="compact-card bg-slateBg border border-borderSubtle rounded-xl overflow-hidden flex flex-col cursor-pointer" @click="navigate('erwachsene')">
+                    <div class="h-44 overflow-hidden relative">
+                        <img src="img/otoscan-exam.jpg" alt="Erwachsene" class="w-full h-full object-cover">
+                        <span class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-sm text-charcoal text-[11px] font-bold px-2 py-0.5 rounded shadow-xs">Erwachsene</span>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-base mb-1.5" data-i18n="serv1_title">Erwachsene</h3>
+                            <p class="text-gray-600 text-xs mb-3 line-clamp-3" data-i18n="serv1_desc">Kostenlose Hörtests, digitaler 3D-Otoscan und individuelles Probetragen neuester Hörsysteme.</p>
+                            <ul class="text-[11px] text-gray-500 space-y-1 mb-3">
+                                <li>• Unverbindlicher Hörtest</li>
+                                <li>• 3D-Ohrscan ohne Abdruckmasse</li>
+                                <li>• Diskrete Im-Ohr & HdO Systeme</li>
+                            </ul>
+                        </div>
+                        <span class="text-brand font-semibold text-xs flex items-center gap-1 mt-2" data-i18n="learn_more">Mehr erfahren →</span>
+                    </div>
+                </div>
+
+                <!-- 2. Kinder -->
+                <div class="compact-card bg-slateBg border border-borderSubtle rounded-xl overflow-hidden flex flex-col cursor-pointer" @click="navigate('kinder')">
+                    <div class="h-44 overflow-hidden relative">
+                        <img src="img/kind-boy-buttons.jpg" alt="Kinder" class="w-full h-full object-cover">
+                        <span class="absolute top-2.5 left-2.5 bg-pink-100 text-pink-800 text-[11px] font-bold px-2 py-0.5 rounded shadow-xs">Pädakustik</span>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-base mb-1.5" data-i18n="serv_kids_title">Kinder</h3>
+                            <p class="text-gray-600 text-xs mb-3 line-clamp-3" data-i18n="serv_kids_desc">Spielerische Hörtests für Kinder und Simulation der Hörminderung für optimales Elternverständnis.</p>
+                            <ul class="text-[11px] text-gray-500 space-y-1 mb-3">
+                                <li>• Kindgerechte Spielaudiometrie</li>
+                                <li>• FM- & Übertragungsanlagen</li>
+                                <li>• Begleitung mit Schulen & HNOs</li>
+                            </ul>
+                        </div>
+                        <span class="text-brand font-semibold text-xs flex items-center gap-1 mt-2" data-i18n="learn_more">Mehr erfahren →</span>
+                    </div>
+                </div>
+
+                <!-- 3. Sonderversorgung -->
+                <div class="compact-card bg-slateBg border border-borderSubtle rounded-xl overflow-hidden flex flex-col cursor-pointer" @click="navigate('sonderversorgung')">
+                    <div class="h-44 overflow-hidden relative bg-white">
+                        <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/3/a/csm_Baha_5_Systems_SPs_black_02_ac2b1932c8.jpg" alt="Sonderversorgung" class="w-full h-full object-cover">
+                        <span class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-sm text-charcoal text-[11px] font-bold px-2 py-0.5 rounded shadow-xs">Spezialversorgung</span>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-base mb-1.5" data-i18n="serv2_title">Sonderversorgung</h3>
+                            <p class="text-gray-600 text-xs mb-3 line-clamp-3" data-i18n="serv2_desc">Knochenleitungsgeräte und gezielte Beratung bei chronischen Erkrankungen oder anatomischen Besonderheiten.</p>
+                            <ul class="text-[11px] text-gray-500 space-y-1 mb-3">
+                                <li>• Knochenleitungssysteme (Baha)</li>
+                                <li>• Tinnitus-Linderung & Rauscher</li>
+                                <li>• Individuelle Sonderlösungen</li>
+                            </ul>
+                        </div>
+                        <span class="text-brand font-semibold text-xs flex items-center gap-1 mt-2" data-i18n="learn_more">Mehr erfahren →</span>
+                    </div>
+                </div>
+
+                <!-- 4. Zubehör -->
+                <div class="compact-card bg-slateBg border border-borderSubtle rounded-xl overflow-hidden flex flex-col cursor-pointer" @click="navigate('zubehoer')">
+                    <div class="h-44 overflow-hidden relative bg-white">
+                        <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/2/1/csm_Packshot_Roger_Charging_Rack_Family_055-3010-P5_0884b900eb.png" alt="Zubehör" class="w-full h-full object-cover">
+                        <span class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-sm text-charcoal text-[11px] font-bold px-2 py-0.5 rounded shadow-xs">Zubehör & Schutz</span>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-base mb-1.5" data-i18n="serv3_title">Zubehör</h3>
+                            <p class="text-gray-600 text-xs mb-3 line-clamp-3" data-i18n="serv3_desc">Maßgefertigter Gehörschutz für Beruf & Freizeit, Lichtsignalanlagen und Arbeitsplatzausstattung.</p>
+                            <ul class="text-[11px] text-gray-500 space-y-1 mb-3">
+                                <li>• Individueller Gehörschutz</li>
+                                <li>• Lichtsignalanlagen für Zuhause</li>
+                                <li>• Roger Mikrofone & Zubehör</li>
+                            </ul>
+                        </div>
+                        <span class="text-brand font-semibold text-xs flex items-center gap-1 mt-2" data-i18n="learn_more">Mehr erfahren →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compact Interactive 5-Step Process (Stepper) -->
+    <section class="py-12 bg-slateBg border-y border-borderSubtle">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-xl mx-auto mb-8">
+                <span class="text-xs font-bold tracking-wider uppercase text-brand">Schritt für Schritt</span>
+                <h2 class="text-2xl font-bold text-charcoal">Der Weg zu Ihrem optimalen Hörsystem</h2>
+                <p class="text-xs text-gray-500 mt-1">Transparenter Ablauf in 5 aufeinander abgestimmten Schritten.</p>
+            </div>
+
+            <!-- Stepper Buttons -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button @click="activeServiceStep = 1" :class="activeServiceStep === 1 ? 'bg-brand text-white shadow' : 'bg-white text-gray-700 hover:bg-gray-100'" class="px-4 py-2 rounded-lg text-xs font-bold transition-all border border-borderSubtle flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] bg-white/20">1</span>
+                    <span>Hörtest</span>
+                </button>
+                <button @click="activeServiceStep = 2" :class="activeServiceStep === 2 ? 'bg-brand text-white shadow' : 'bg-white text-gray-700 hover:bg-gray-100'" class="px-4 py-2 rounded-lg text-xs font-bold transition-all border border-borderSubtle flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] bg-white/20">2</span>
+                    <span>Analyse</span>
+                </button>
+                <button @click="activeServiceStep = 3" :class="activeServiceStep === 3 ? 'bg-brand text-white shadow' : 'bg-white text-gray-700 hover:bg-gray-100'" class="px-4 py-2 rounded-lg text-xs font-bold transition-all border border-borderSubtle flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] bg-white/20">3</span>
+                    <span>Hörsystem</span>
+                </button>
+                <button @click="activeServiceStep = 4" :class="activeServiceStep === 4 ? 'bg-brand text-white shadow' : 'bg-white text-gray-700 hover:bg-gray-100'" class="px-4 py-2 rounded-lg text-xs font-bold transition-all border border-borderSubtle flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] bg-white/20">4</span>
+                    <span>Anpassung (3D)</span>
+                </button>
+                <button @click="activeServiceStep = 5" :class="activeServiceStep === 5 ? 'bg-brand text-white shadow' : 'bg-white text-gray-700 hover:bg-gray-100'" class="px-4 py-2 rounded-lg text-xs font-bold transition-all border border-borderSubtle flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] bg-white/20">5</span>
+                    <span>Nachsorge & Werkstatt</span>
+                </button>
+            </div>
+
+            <!-- Active Step Content Card -->
+            <div class="bg-white rounded-2xl border border-borderSubtle shadow-sm p-6 sm:p-8 max-w-4xl mx-auto">
+                <!-- Step 1 -->
+                <div x-show="activeServiceStep === 1" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-5 rounded-xl overflow-hidden h-56">
+                        <img src="img/adult-hoertest.jpg" alt="Hörtest" class="w-full h-full object-cover">
+                    </div>
+                    <div class="md:col-span-7">
+                        <div class="text-xs font-bold text-brand uppercase tracking-wider mb-1">Schritt 1 von 5</div>
+                        <h3 class="text-xl font-bold mb-2">Präziser & kostenloser Hörtest</h3>
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            Mit modernster Ton- und Sprachaudiometrie ermitteln wir exakt Ihr aktuelles Hörvermögen und Ihre individuelle Hörschwelle über verschiedene Frequenzen.
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <button @click="openModal('appointment')" class="bg-brand text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors">
+                                Jetzt Termin vereinbaren
+                            </button>
+                            <span class="text-[11px] text-gray-500">Dauer ca. 20–30 Min. • Unverbindlich</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div x-show="activeServiceStep === 2" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-5 rounded-xl overflow-hidden h-56">
+                        <img src="img/consultation-screen.jpg" alt="Analyse" class="w-full h-full object-cover">
+                    </div>
+                    <div class="md:col-span-7">
+                        <div class="text-xs font-bold text-brand uppercase tracking-wider mb-1">Schritt 2 von 5</div>
+                        <h3 class="text-xl font-bold mb-2">Ergebnisanalyse & ausführliche Beratung</h3>
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            Wir erklären Ihnen Ihr Audiogramm leicht verständlich auf dem Monitor und analysieren gemeinsam, in welchen Lebensbereichen Sie wieder mehr Verstehen und Klangfreude wünschen.
+                        </p>
+                        <div class="text-[11px] text-gray-600 bg-slateBg p-2.5 rounded-lg border border-borderSubtle">
+                            💡 Wir nehmen uns Zeit für Ihre Fragen — ganz ohne Zeitdruck.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div x-show="activeServiceStep === 3" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-5 rounded-xl overflow-hidden h-56">
+                        <img src="img/consultation.jpg" alt="Hörsystem" class="w-full h-full object-cover">
+                    </div>
+                    <div class="md:col-span-7">
+                        <div class="text-xs font-bold text-brand uppercase tracking-wider mb-1">Schritt 3 von 5</div>
+                        <h3 class="text-xl font-bold mb-2">Das passende Hörsystem auswählen</h3>
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            Ob winzig klein und unsichtbar im Ohr (IdO), mit externem Hörer (RIC) oder klassisch hinter dem Ohr (HdO): Wir stellen Ihnen die infrage kommenden Modelle vor.
+                        </p>
+                        <div class="text-[11px] text-brand font-semibold">
+                            ✓ Kostenloses Probetragen in Ihrem vertrauten Alltag möglich!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div x-show="activeServiceStep === 4" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-5 rounded-xl overflow-hidden h-56">
+                        <img src="img/otoscan-exam.jpg" alt="Anpassung" class="w-full h-full object-cover">
+                    </div>
+                    <div class="md:col-span-7">
+                        <div class="text-xs font-bold text-brand uppercase tracking-wider mb-1">Schritt 4 von 5</div>
+                        <h3 class="text-xl font-bold mb-2">3D-Otoscan & maßgenaue Anpassung</h3>
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            Mit unserem innovativen 3D-Otoscan erstellen wir einen berührungslosen, digitalen Scan Ihres Gehörgangs. Sie verfolgen den Vorgang live auf dem Bildschirm — ganz ohne Abdruckmasse!
+                        </p>
+                        <div class="text-[11px] text-gray-600 bg-slateBg p-2.5 rounded-lg border border-borderSubtle">
+                            🎯 Perfekter Sitz, optimaler Halt und maximale Klangübertragung.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div x-show="activeServiceStep === 5" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-5 rounded-xl overflow-hidden h-56">
+                        <img src="img/room-werkstatt.jpg" alt="Nachsorge" class="w-full h-full object-cover">
+                    </div>
+                    <div class="md:col-span-7">
+                        <div class="text-xs font-bold text-brand uppercase tracking-wider mb-1">Schritt 5 von 5</div>
+                        <h3 class="text-xl font-bold mb-2">Eigene Meisterwerkstatt, Wartung & Nachsorge</h3>
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            Wir lassen Sie nach dem Kauf nicht allein: Feineinstellungen, professionelle Reinigung, Filter- und Batteriewechsel sowie Reparaturen führen wir direkt vor Ort in Krefeld durch.
+                        </p>
+                        <div class="text-[11px] text-brand font-semibold">
+                            ✓ Kostenlose Leihgeräte bei Einsendungen oder Servicearbeiten.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compact About Section & 4-Room Gallery -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-10">
+                <div class="lg:col-span-4">
+                    <img src="img/emel-portrait.jpg" alt="Emel Bozçelik" class="w-full h-80 object-cover rounded-xl shadow-md border border-borderSubtle">
+                </div>
+                <div class="lg:col-span-8">
+                    <span class="text-xs font-bold tracking-wider uppercase text-brand" data-i18n="about_section_title">Über uns</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-charcoal mt-1 mb-4" data-i18n="about_section_heading">
+                        Wir helfen Ihnen, wieder uneingeschränkt am Leben teilzunehmen
+                    </h2>
+                    <p class="text-gray-600 text-xs sm:text-sm mb-4 leading-relaxed">
+                        Seit 2002 steht Emel Bozçelik für höchste Qualität in der Hörakustik. Nach der bestandenen Meisterprüfung 2011 und der Zusatzausbildung als Pädakustikerin 2010 leitet sie die Krefelder Hörmanufaktur mit Herz, modernster Messtechnik und persönlicher Fürsorge.
+                    </p>
+
+                    <!-- Credential badges -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+                        <div class="bg-slateBg p-2.5 rounded-lg border border-borderSubtle text-center">
+                            <span class="block text-brand font-extrabold text-sm">Seit 2002</span>
+                            <span class="text-[10px] text-gray-500">Branchenerfahrung</span>
+                        </div>
+                        <div class="bg-slateBg p-2.5 rounded-lg border border-borderSubtle text-center">
+                            <span class="block text-brand font-extrabold text-sm">2011</span>
+                            <span class="text-[10px] text-gray-500">Meisterprüfung</span>
+                        </div>
+                        <div class="bg-slateBg p-2.5 rounded-lg border border-borderSubtle text-center">
+                            <span class="block text-brand font-extrabold text-sm">2010</span>
+                            <span class="text-[10px] text-gray-500">Pädakustikerin</span>
+                        </div>
+                        <div class="bg-slateBg p-2.5 rounded-lg border border-borderSubtle text-center">
+                            <span class="block text-brand font-extrabold text-sm">HWK Halle</span>
+                            <span class="text-[10px] text-gray-500">Prüferin Ausschuss</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button @click="navigate('uebermich')" class="text-xs font-bold text-brand hover:text-brand-dark flex items-center gap-1">
+                            Vollständigen Werdegang lesen →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compact 4-Photo Practice Gallery -->
+            <div class="border-t border-borderSubtle pt-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-sm font-bold text-charcoal uppercase tracking-wider" data-i18n="gallery_title">Einblicke in unsere Räumlichkeiten</h3>
+                    <span class="text-[11px] text-gray-500">Friedrichstraße 14–16, Krefeld</span>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video">
+                        <img src="img/room-reception.jpg" alt="Empfang" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute bottom-1.5 left-1.5 bg-black/60 backdrop-blur-xs text-white text-[10px] px-1.5 py-0.5 rounded">Empfang</span>
+                    </div>
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video">
+                        <img src="img/room-otoscan.jpg" alt="3D Otoscan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute bottom-1.5 left-1.5 bg-black/60 backdrop-blur-xs text-white text-[10px] px-1.5 py-0.5 rounded">3D-Scanraum</span>
+                    </div>
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video">
+                        <img src="img/room-kinder.jpg" alt="Kinderbereich" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute bottom-1.5 left-1.5 bg-black/60 backdrop-blur-xs text-white text-[10px] px-1.5 py-0.5 rounded">Kinderbereich</span>
+                    </div>
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video">
+                        <img src="img/room-werkstatt.jpg" alt="Werkstatt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute bottom-1.5 left-1.5 bg-black/60 backdrop-blur-xs text-white text-[10px] px-1.5 py-0.5 rounded">Werkstatt</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- VIEW: ÜBER MICH                                     -->
+<!-- ═════════════════════════════════════════════════════ -->
+<div x-show="currentRoute==='uebermich'" x-transition.opacity.duration.250ms x-cloak class="py-10 bg-slateBg">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <div class="md:col-span-5">
+                    <img src="img/emel-portrait.jpg" class="w-full h-96 object-cover rounded-xl shadow-md border border-borderSubtle" alt="Emel Bozçelik">
+                </div>
+                <div class="md:col-span-7 space-y-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="nav_about">Über mich</span>
+                    <h1 class="text-3xl font-extrabold text-charcoal" data-i18n="about_name">Emel Bozçelik</h1>
+                    <p class="text-brand font-semibold text-sm" data-i18n="about_role">Inhaberin, Hörakustik-Meisterin und Pädakustikerin</p>
+                    <p class="text-gray-600 text-xs sm:text-sm leading-relaxed" data-i18n="about_long_1"></p>
+                    <p class="text-gray-600 text-xs sm:text-sm leading-relaxed" data-i18n="about_long_2"></p>
+                    <p class="text-charcoal font-semibold text-xs sm:text-sm" data-i18n="about_long_3"></p>
+                    <div class="pt-2">
+                        <button @click="openModal('appointment')" class="bg-brand text-white px-5 py-2.5 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="cta_button">
+                            Termin vereinbaren
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- VIEW: ERWACHSENE                                    -->
+<!-- ═════════════════════════════════════════════════════ -->
+<div x-show="currentRoute==='erwachsene'" x-transition.opacity.duration.250ms x-cloak class="py-10 bg-slateBg">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-6">
+            <div class="mb-8">
+                <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="nav_adults">Erwachsene</span>
+                <h1 class="text-3xl font-extrabold text-charcoal">Hörversorgung für Erwachsene</h1>
+            </div>
+
+            <!-- Card 1: Hörtest -->
+            <div id="hoertest" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center py-6 border-b border-borderSubtle">
+                <div class="md:col-span-5 h-64 rounded-xl overflow-hidden">
+                    <img src="img/adult-hoertest.jpg" class="w-full h-full object-cover" alt="Hörtest">
+                </div>
+                <div class="md:col-span-7">
+                    <h2 class="text-xl font-bold mb-2" data-i18n="erw_title">Der kostenlose Hörtest für Erwachsene</h2>
+                    <p class="text-xs font-semibold text-brand mb-2" data-i18n="erw_desc_1"></p>
+                    <p class="text-xs text-gray-600 mb-2 leading-relaxed" data-i18n="erw_desc_2"></p>
+                    <p class="text-xs text-gray-600 mb-4 leading-relaxed" data-i18n="erw_desc_3"></p>
+                    <div class="flex gap-2">
+                        <button @click="openModal('appointment')" class="bg-brand text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="erw_termin">Termin vereinbaren</button>
+                        <a href="https://digitalhearingtest.com/de-DE/Krefelder_Hoermanufaktur/1" target="_blank" class="border border-brand text-brand px-4 py-2 rounded-lg text-xs font-semibold hover:bg-brand hover:text-white transition-colors" data-i18n="erw_online_test">Online Hörtest</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Beratung & Otoscan -->
+            <div id="analyse" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center py-6 border-b border-borderSubtle">
+                <div class="md:col-span-5 h-64 rounded-xl overflow-hidden md:order-2">
+                    <img src="img/consultation.jpg" class="w-full h-full object-cover" alt="Beratung">
+                </div>
+                <div class="md:col-span-7 md:order-1">
+                    <h2 class="text-xl font-bold mb-2" data-i18n="erw_beratung_title">Beratung</h2>
+                    <p class="text-xs text-gray-600 leading-relaxed mb-4" data-i18n="erw_beratung"></p>
+                </div>
+            </div>
+
+            <!-- Card 3: Otoscan -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center pt-6">
+                <div class="md:col-span-5 h-64 rounded-xl overflow-hidden">
+                    <img src="img/otoscan-exam.jpg" class="w-full h-full object-cover" alt="Otoscan">
+                </div>
+                <div class="md:col-span-7">
+                    <h2 class="text-xl font-bold mb-2" data-i18n="erw_otoscan_title">Otoscan</h2>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="erw_otoscan"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- VIEW: KINDER (PÄDAKUSTIK)                           -->
+<!-- ═════════════════════════════════════════════════════ -->
+<div x-show="currentRoute==='kinder'" x-transition.opacity.duration.250ms x-cloak class="py-10 bg-slateBg">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-6">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-xs font-bold" data-i18n="kids_badge">Für die Kleinsten</span>
+                <h1 class="text-3xl font-extrabold text-charcoal font-kids" data-i18n="kids_title">Kinder Hörakustik</h1>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-8">
+                <div class="md:col-span-5">
+                    <img src="img/kind-boy-emel.jpg" alt="Pädakustik" class="w-full h-80 object-cover rounded-2xl shadow-md border-4 border-pink-100 mb-4">
+                    <div class="bg-pink-50 p-4 rounded-xl border border-pink-200">
+                        <span class="block text-xs font-bold text-pink-900 mb-1">Einfühlsam & Vertrauensvoll</span>
+                        <p class="text-[11px] text-pink-800">Wir nehmen uns besonders viel Zeit, um spielerisch das Vertrauen unserer jüngsten Kunden zu gewinnen.</p>
+                    </div>
+                </div>
+
+                <div class="md:col-span-7 space-y-4">
+                    <div id="kids-test" class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
+                        <h3 class="font-bold text-base mb-2 text-charcoal" data-i18n="kind_title_1">Hörtest und Hörsimulation in der Pädakustik</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-2" data-i18n="kind_desc_1"></p>
+                        <p class="text-xs text-gray-600 leading-relaxed font-semibold" data-i18n="kind_desc_2"></p>
+                    </div>
+
+                    <div id="kids-beratung" class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
+                        <h3 class="font-bold text-base mb-2 text-charcoal" data-i18n="kind_title_2">Beratung für Eltern</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-2" data-i18n="kind_desc_3"></p>
+                        <p class="text-xs text-gray-600 leading-relaxed" data-i18n="kind_desc_4"></p>
+                    </div>
+
+                    <div class="p-4 bg-yellow-50 rounded-xl border border-yellow-200">
+                        <h4 class="font-bold text-xs text-yellow-900 mb-2 uppercase tracking-wider" data-i18n="kind_aufgaben_title">Aufgabenbereiche</h4>
+                        <ul class="text-xs text-yellow-900 space-y-1 list-disc list-inside">
+                            <li data-i18n="kind_aufgaben_1">Abwicklung mit gesetzlichen Krankenversicherungen</li>
+                            <li data-i18n="kind_aufgaben_2">Ausstattung von Regelschulen mit Übertragungsanlagen</li>
+                            <li data-i18n="kind_aufgaben_3">Einweisung an Lehrer & Schüler vor Ort</li>
+                            <li data-i18n="kind_aufgaben_4">Regelmäßige Kontrollen der Geräte & Hörtests</li>
+                        </ul>
+                    </div>
+
+                    <button @click="openModal('appointment')" class="bg-brand text-white px-6 py-2.5 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="kids_cta">
+                        Beratungstermin für Kinder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- VIEW: SONDERVERSORGUNG                              -->
+<!-- ═════════════════════════════════════════════════════ -->
+<div x-show="currentRoute==='sonderversorgung'" x-transition.opacity.duration.250ms x-cloak class="py-10 bg-slateBg">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-6">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="sond_title_1">Sonderversorgung</span>
+            <h1 class="text-3xl font-extrabold text-charcoal mt-1 mb-6">Knochenleitung & Tinnitus</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-base mb-2" data-i18n="sond_title_2">Versorgung über die Knochenleitung</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4" data-i18n="sond_desc_1"></p>
+                    </div>
+                    <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/3/a/csm_Baha_5_Systems_SPs_black_02_ac2b1932c8.jpg" class="h-40 object-cover rounded-lg w-full" alt="Baha">
+                </div>
+
+                <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-base mb-2" data-i18n="sond_title_3">Belastung durch Tinnitus</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4" data-i18n="sond_desc_2"></p>
+                    </div>
+                    <img src="img/consultation.jpg" class="h-40 object-cover rounded-lg w-full" alt="Tinnitus">
+                </div>
+            </div>
+
+            <button @click="openModal('appointment')" class="bg-brand text-white px-5 py-2.5 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="cta_button">
+                Termin vereinbaren
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- VIEW: ZUBEHÖR                                       -->
+<!-- ═════════════════════════════════════════════════════ -->
+<div x-show="currentRoute==='zubehoer'" x-transition.opacity.duration.250ms x-cloak class="py-10 bg-slateBg">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-6">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="nav_accessories">Zubehör</span>
+            <h1 class="text-3xl font-extrabold text-charcoal mt-1 mb-6">Gehörschutz & Arbeitsplatzausstattung</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle">
+                    <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_1">Arbeitsplatz & Schule</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_1"></p>
+                </div>
+                <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle">
+                    <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_2">Lösungen für Gehörlose</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_2"></p>
+                </div>
+                <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle">
+                    <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_3">Gehör vor Schäden schützen</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_3"></p>
+                </div>
+            </div>
+
+            <button @click="openModal('appointment')" class="bg-brand text-white px-5 py-2.5 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="cta_button">
+                Beratungstermin vereinbaren
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- VIEW: SERVICE                                       -->
+<!-- ═════════════════════════════════════════════════════ -->
+<div x-show="currentRoute==='service'" x-transition.opacity.duration.250ms x-cloak class="py-10 bg-slateBg">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-8">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="nav_service">Service</span>
+            <h1 class="text-3xl font-extrabold text-charcoal mt-1 mb-8" data-i18n="service_hero_title">Unser Service</h1>
+
+            <!-- 5 Steps list in clean compact layout -->
+            <div class="space-y-6">
+                <div class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
+                    <h3 class="font-bold text-base text-charcoal mb-1" data-i18n="service_hoertest_title">Alles fängt mit einem Hörtest an...</h3>
+                    <p class="text-xs text-brand font-semibold mb-2" data-i18n="service_hoertest_sub"></p>
+                    <p class="text-xs text-gray-600 leading-relaxed mb-2" data-i18n="service_hoertest_p1"></p>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_hoertest_p2"></p>
+                </div>
+                <div class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
+                    <h3 class="font-bold text-base text-charcoal mb-1" data-i18n="service_analyse_title">Ergebnisanalyse und Beratung</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_analyse_p1"></p>
+                </div>
+                <div class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
+                    <h3 class="font-bold text-base text-charcoal mb-1" data-i18n="service_system_title">Das richtige Hörsystem</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_system_p1"></p>
+                </div>
+                <div class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
+                    <h3 class="font-bold text-base text-charcoal mb-1" data-i18n="service_anpassung_title">Anpassung</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_anpassung_p1"></p>
+                </div>
+                <div class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
+                    <h3 class="font-bold text-base text-charcoal mb-1" data-i18n="service_nachsorge_title">Nachsorge</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_nachsorge_p1"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- COMPACT CONTACT, MAPS & FOOTER SECTION              -->
+<!-- ═════════════════════════════════════════════════════ -->
+<section id="kontakt" class="bg-white border-t border-borderSubtle py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left Info & Hours -->
+            <div class="lg:col-span-5 flex flex-col justify-between">
+                <div>
+                    <span class="text-xs font-bold tracking-wider uppercase text-brand" data-i18n="contact_title">SO FINDEN SIE UNS:</span>
+                    <h2 class="text-2xl font-bold text-charcoal mt-1 mb-4">Kontakt & Anfahrt</h2>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                        <!-- Address & Tel -->
+                        <div class="bg-slateBg p-4 rounded-xl border border-borderSubtle">
+                            <span class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Standort</span>
+                            <p class="text-xs text-charcoal font-semibold mb-2">Friedrichstraße 14–16<br>47798 Krefeld</p>
+                            <a href="tel:021516567294" class="text-brand font-bold text-xs hover:underline flex items-center gap-1">
+                                📞 02151-6567294
+                            </a>
+                        </div>
+                        <!-- Opening hours -->
+                        <div class="bg-slateBg p-4 rounded-xl border border-borderSubtle">
+                            <span class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1" data-i18n="contact_hours_title">ÖFFNUNGSZEITEN</span>
+                            <div class="text-xs text-charcoal">
+                                <span class="font-semibold">Mo – Do:</span> 9–13 & 14–18 Uhr<br>
+                                <span class="font-semibold">Freitag:</span> 9–13 Uhr
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transit & Car summary -->
+                    <div class="text-[11px] text-gray-500 space-y-1 mb-6">
+                        <div><strong>ÖPNV:</strong> Bus 052 (Station Nordwall) | Tram 041 (Station Friedrichstraße)</div>
+                        <div><strong>Auto:</strong> Ausfahrt A57 Krefeld-Gartenstadt → Charlottering → Hülser Str. → Friedrichstr.</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <button @click="openModal('appointment')" class="bg-brand text-white px-5 py-2.5 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="cta_button">
+                        Termin online buchen
+                    </button>
+                    <button @click="openModal('contact')" class="border border-borderSubtle text-charcoal px-4 py-2.5 rounded-lg text-xs font-semibold hover:border-brand hover:text-brand transition-colors" data-i18n="contact_form_btn">
+                        Kontaktformular
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right: Compact Google Maps Widget -->
+            <div class="lg:col-span-7">
+                <div class="rounded-2xl overflow-hidden border border-borderSubtle shadow-sm h-[320px] relative bg-gray-100">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2496.8123284042857!2d6.561494876939906!3d51.33230997177309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8ba4a77e77a2f%3A0x6b6459f0f9b6c167!2sFriedrichstra%C3%9Fe%2014-16%2C%2047798%20Krefeld!5e0!3m2!1sde!2sde!4v1716380000000!5m2!1sde!2sde"
+                        width="100%"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Standort Krefelder Hörmanufaktur auf Google Maps">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bar -->
+        <div class="border-t border-borderSubtle mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-3">
+            <p>© 2026 Krefelder Hörmanufaktur — Inhaberin: Emel Bozçelik</p>
+            <div class="flex space-x-6 font-medium">
+                <a href="#" class="hover:text-brand" data-i18n="footer_privacy">Datenschutz</a>
+                <a href="#" class="hover:text-brand" data-i18n="footer_imprint">Impressum</a>
+                <a href="variations.html" class="text-brand hover:underline">🎨 Alle Designvarianten</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- APPOINTMENT & CONTACT MODAL                         -->
+<!-- ═════════════════════════════════════════════════════ -->
+<div x-show="showModal" x-transition.opacity.duration.200ms x-cloak class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div @click.away="showModal = false" class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-borderSubtle">
+        <div class="flex justify-between items-center mb-5 pb-3 border-b border-borderSubtle">
+            <h3 class="text-lg font-bold text-charcoal" data-i18n="form_title">Kontakt & Termin</h3>
+            <button @click="showModal = false" class="text-gray-400 hover:text-charcoal text-lg">✕</button>
+        </div>
+
+        <form @submit.prevent="alert('Vielen Dank! Ihre Anfrage wurde übermittelt.'); showModal = false;" class="space-y-4">
+            <!-- Anliegen toggle -->
+            <div class="flex rounded-lg bg-slateBg p-1 border border-borderSubtle">
+                <button type="button" @click="formType='appointment'" :class="formType==='appointment' ? 'bg-white shadow-xs text-brand font-bold' : 'text-gray-500 hover:text-charcoal font-medium'" class="flex-1 py-1.5 text-xs rounded transition-all" data-i18n="form_type_appointment">
+                    Termin vereinbaren
+                </button>
+                <button type="button" @click="formType='contact'" :class="formType==='contact' ? 'bg-white shadow-xs text-brand font-bold' : 'text-gray-500 hover:text-charcoal font-medium'" class="flex-1 py-1.5 text-xs rounded transition-all" data-i18n="form_type_contact">
+                    Allgemeine Anfrage
+                </button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1" data-i18n="form_name">Name</label>
+                    <input type="text" required class="w-full bg-slateBg border border-borderSubtle rounded-lg px-3 py-2 text-xs focus:ring-1 focus:ring-brand focus:border-brand outline-none">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1" data-i18n="form_phone_input">Telefon</label>
+                    <input type="tel" required class="w-full bg-slateBg border border-borderSubtle rounded-lg px-3 py-2 text-xs focus:ring-1 focus:ring-brand focus:border-brand outline-none">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1" data-i18n="form_email">E-Mail</label>
+                <input type="email" required class="w-full bg-slateBg border border-borderSubtle rounded-lg px-3 py-2 text-xs focus:ring-1 focus:ring-brand focus:border-brand outline-none">
+            </div>
+
+            <!-- Date & Time when appointment -->
+            <template x-if="formType==='appointment'">
+                <div class="grid grid-cols-2 gap-3 bg-brand-light/50 p-3 rounded-lg border border-brand/20">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-brand-dark uppercase tracking-wider mb-1" data-i18n="form_date">Wunschdatum</label>
+                        <input type="date" required class="w-full bg-white border border-borderSubtle rounded px-2.5 py-1.5 text-xs outline-none focus:ring-1 focus:ring-brand">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-brand-dark uppercase tracking-wider mb-1" data-i18n="form_time">Wunschuhrzeit</label>
+                        <input type="time" required class="w-full bg-white border border-borderSubtle rounded px-2.5 py-1.5 text-xs outline-none focus:ring-1 focus:ring-brand">
+                    </div>
+                </div>
+            </template>
+
+            <div>
+                <label class="block text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1" data-i18n="form_message">Ihre Nachricht</label>
+                <textarea rows="3" required class="w-full bg-slateBg border border-borderSubtle rounded-lg px-3 py-2 text-xs focus:ring-1 focus:ring-brand focus:border-brand outline-none resize-none"></textarea>
+            </div>
+
+            <div class="flex justify-end gap-2 pt-2 border-t border-borderSubtle">
+                <button type="button" @click="showModal = false" class="px-4 py-2 text-xs font-semibold text-gray-500 hover:text-charcoal" data-i18n="form_cancel">
+                    Abbrechen
+                </button>
+                <button type="submit" class="bg-brand text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="form_submit">
+                    Absenden
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="translations.js"></script>
+<script>
+function updateTranslations(lang){
+    if(typeof translations === 'undefined') return;
+    const dict = translations[lang];
+    if(!dict) return;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if(dict[key]){
+            if(dict[key].includes('<br>') || dict[key].includes('<')){
+                el.innerHTML = dict[key];
+            } else {
+                el.textContent = dict[key];
+            }
+        }
+    });
+}
+</script>
+</body>
+</html>
