@@ -1,163 +1,797 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krefelder Hörmanufaktur — Warm Luxury</title>
+    <title>Krefelder Hörmanufaktur — Warm Luxury & Meister-Tradition</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
-        tailwind.config = { theme: { extend: { colors: {
-            navy: { DEFAULT:'#0a1628', light:'#132240' },
-            gold: { DEFAULT:'#c9a96e', light:'#e0cc9e', dark:'#a88940' }
-        }, fontFamily: { serif: ['"Playfair Display"','serif'], sans: ['"Inter"','sans-serif'] }}}}
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            DEFAULT: '#081220',
+                            light: '#0e1d33',
+                            surface: '#132542',
+                            border: '#1f3559'
+                        },
+                        gold: {
+                            DEFAULT: '#c9a96e',
+                            light: '#e6d3ad',
+                            dark: '#9d7c3b',
+                            muted: '#6f5a32'
+                        },
+                        champagne: '#f8f5ee'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        sans: ['"Inter"', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
     <style>
-        html{scroll-behavior:smooth}
-        .gold-line{width:60px;height:2px;background:#c9a96e}
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #f8f5ee 0%, #c9a96e 50%, #e6d3ad 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-glow:hover {
+            box-shadow: 0 0 25px rgba(201, 169, 110, 0.25);
+        }
+        .luxury-card {
+            background: linear-gradient(180deg, rgba(19, 37, 66, 0.85) 0%, rgba(8, 18, 32, 0.95) 100%);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .luxury-card:hover {
+            border-color: rgba(201, 169, 110, 0.6);
+            transform: translateY(-4px);
+        }
     </style>
 </head>
-<body class="bg-navy text-white font-sans antialiased">
+<body class="bg-navy text-champagne font-sans antialiased selection:bg-gold selection:text-navy" x-data="{ mobileMenu: false, activeTab: 'all', appointmentModal: false, selectedService: 'Allgemeine Meisterberatung', appointmentSuccess: false }">
 
-<!-- Nav -->
-<nav class="fixed top-0 w-full z-50 bg-navy/95 backdrop-blur-sm border-b border-gold/20">
-    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-20">
-        <a href="#" class="font-serif text-gold text-xl tracking-wide">Krefelder Hörmanufaktur</a>
-        <div class="hidden md:flex items-center space-x-10 text-[13px] tracking-[0.15em] uppercase text-gold-light/70">
-            <a href="#about" class="hover:text-gold transition-colors">Über uns</a>
-            <a href="#services" class="hover:text-gold transition-colors">Leistungen</a>
-            <a href="#service-flow" class="hover:text-gold transition-colors">Service</a>
-            <a href="#contact" class="hover:text-gold transition-colors">Kontakt</a>
-            <a href="#" class="border border-gold text-gold px-5 py-2 hover:bg-gold hover:text-navy transition-all">Termin</a>
-        </div>
-    </div>
-</nav>
-
-<!-- Hero -->
-<section class="relative min-h-screen flex items-center pt-20">
-    <div class="absolute inset-0">
-        <img src="img/emel-portrait.jpg" class="w-full h-full object-cover opacity-30" alt="">
-        <div class="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-navy/40"></div>
-    </div>
-    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
-        <div class="max-w-2xl">
-            <div class="gold-line mb-8"></div>
-            <h1 class="font-serif text-6xl lg:text-8xl text-gold leading-[1.05] mb-8">Krefelder<br>Hörmanufaktur</h1>
-            <p class="text-gold-light/60 text-xl font-light leading-relaxed mb-12 max-w-lg">Exzellente Hörakustik in eleganter Atmosphäre. Wir sind an Ihrer Seite.</p>
-            <div class="flex gap-6">
-                <a href="#contact" class="bg-gold text-navy px-8 py-4 text-sm font-semibold tracking-[0.15em] uppercase hover:bg-gold-dark transition-colors">Termin vereinbaren</a>
-                <a href="#services" class="border border-gold/40 text-gold px-8 py-4 text-sm font-semibold tracking-[0.15em] uppercase hover:border-gold transition-colors">Entdecken</a>
+    <!-- Top Luxury Bar -->
+    <div class="bg-[#050c17] text-gold/80 text-[11px] tracking-[0.2em] uppercase py-2 px-6 border-b border-gold/15 hidden md:block">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <span>📍 Friedrichstraße 14-16, 47798 Krefeld</span>
+                <span>⏱️ Mo–Do 9–13 & 14–18 Uhr · Fr 9–13 Uhr</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="tel:021516567294" class="hover:text-gold transition-colors font-medium">📞 02151 - 656 72 94</a>
+                <span class="text-gold/40">|</span>
+                <span class="text-gold-light">Meisterbetrieb & Pädakustik</span>
             </div>
         </div>
     </div>
-</section>
 
-<!-- Services -->
-<section id="services" class="py-32 bg-navy-light border-y border-gold/10">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-20">
-            <div class="gold-line mx-auto mb-6"></div>
-            <h2 class="font-serif text-4xl text-gold">Unsere Leistungen</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="border border-gold/20 p-8 hover:border-gold/60 transition-colors group">
-                <img src="img/otoscan-exam.jpg" class="w-full aspect-square object-cover mb-6 grayscale group-hover:grayscale-0 transition-all duration-700" alt="Erwachsene">
-                <h3 class="font-serif text-xl text-gold mb-3">Erwachsene</h3>
-                <p class="text-gold-light/50 text-sm leading-relaxed">Kostenlose Hörtests und individuelle Beratung mit modernster Technik.</p>
-            </div>
-            <div class="border border-gold/20 p-8 hover:border-gold/60 transition-colors group">
-                <img src="img/kind-boy-buttons.jpg" class="w-full aspect-square object-cover mb-6 grayscale group-hover:grayscale-0 transition-all duration-700" alt="Kinder">
-                <h3 class="font-serif text-xl text-gold mb-3">Kinder</h3>
-                <p class="text-gold-light/50 text-sm leading-relaxed">Spielerische Hörtests und einfühlsame Betreuung für unsere Jüngsten.</p>
-            </div>
-            <div class="border border-gold/20 p-8 hover:border-gold/60 transition-colors group">
-                <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/3/a/csm_Baha_5_Systems_SPs_black_02_ac2b1932c8.jpg" class="w-full aspect-square object-cover mb-6 grayscale group-hover:grayscale-0 transition-all duration-700" alt="Sonderversorgung">
-                <h3 class="font-serif text-xl text-gold mb-3">Sonderversorgung</h3>
-                <p class="text-gold-light/50 text-sm leading-relaxed">Knochenleitungsgeräte und Tinnitus-Lösungen für besondere Anforderungen.</p>
-            </div>
-            <div class="border border-gold/20 p-8 hover:border-gold/60 transition-colors group">
-                <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/2/1/csm_Packshot_Roger_Charging_Rack_Family_055-3010-P5_0884b900eb.png" class="w-full aspect-square object-cover mb-6 grayscale group-hover:grayscale-0 transition-all duration-700" alt="Zubehör">
-                <h3 class="font-serif text-xl text-gold mb-3">Zubehör</h3>
-                <p class="text-gold-light/50 text-sm leading-relaxed">Gehörschutz, Lichtsignalanlagen und Arbeitsplatzausstattungen.</p>
-            </div>
-        </div>
-    </div>
-</section>
+    <!-- Navigation -->
+    <nav class="sticky top-0 w-full z-40 bg-navy/95 backdrop-blur-md border-b border-gold/20 transition-all">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-20">
+            <a href="#" class="flex flex-col">
+                <span class="font-serif text-xl sm:text-2xl text-gold font-semibold tracking-wider">Krefelder Hörmanufaktur</span>
+                <span class="text-[10px] tracking-[0.25em] text-gold-light/60 uppercase">Emel Bozcelik · Hörakustikmeisterin</span>
+            </a>
 
-<!-- About -->
-<section id="about" class="py-32 bg-navy">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="flex flex-col lg:flex-row items-center gap-20">
-            <div class="lg:w-5/12">
-                <img src="img/emel-reception.jpg" class="w-full object-cover border border-gold/20" alt="Team">
+            <!-- Desktop Nav Links -->
+            <div class="hidden lg:flex items-center space-x-8 text-[12px] tracking-[0.18em] uppercase text-gold-light/80 font-medium">
+                <a href="#leistungen" class="hover:text-gold transition-colors">Leistungen</a>
+                <a href="#ueber-uns" class="hover:text-gold transition-colors">Über Uns</a>
+                <a href="#galerie" class="hover:text-gold transition-colors flex items-center gap-1.5">
+                    <span>Praxiseinblicke</span>
+                    <span class="bg-gold/20 text-gold text-[9px] px-2 py-0.5 rounded-full border border-gold/30">Gestern & Heute</span>
+                </a>
+                <a href="#ablauf" class="hover:text-gold transition-colors">Ablauf</a>
+                <a href="#kontakt" class="hover:text-gold transition-colors">Kontakt</a>
+                <a href="variations.html" class="text-gray-400 hover:text-white transition-colors text-[11px] border border-gray-700 px-3 py-1.5 rounded">Alle Varianten ↗</a>
+                <button @click="appointmentModal = true" class="bg-gradient-to-r from-gold-dark via-gold to-gold-light text-navy px-6 py-2.5 rounded text-[11px] font-bold tracking-[0.15em] uppercase hover:shadow-[0_0_20px_rgba(201,169,110,0.4)] transition-all">
+                    Termin vereinbaren
+                </button>
             </div>
-            <div class="lg:w-7/12">
-                <div class="gold-line mb-6"></div>
-                <p class="text-[11px] tracking-[0.2em] uppercase text-gold/60 mb-4">Über uns</p>
-                <h2 class="font-serif text-4xl text-gold mb-8 leading-snug">Wir helfen Ihnen, wieder uneingeschränkt am Leben teilzunehmen</h2>
-                <p class="text-gold-light/50 leading-relaxed mb-6">In unseren neuen, nach modernstem Stand der Technik eingerichteten Räumen möchten wir Sie gern willkommen heißen. In angenehmer Atmosphäre nehmen wir uns gerne Zeit für Sie, um die beste Hörlösung mit Ihnen zu ermitteln.</p>
-                <p class="text-gold-light/50 leading-relaxed">Das beginnt mit einem umfassenden Hörtest mit anschließendem Beratungsgespräch und endet noch lange nicht mit dem Erhalt Ihres persönlichen Hörsystems.</p>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Service Flow -->
-<section id="service-flow" class="py-32 bg-navy-light border-y border-gold/10">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-        <div class="gold-line mx-auto mb-6"></div>
-        <h2 class="font-serif text-4xl text-gold mb-20">Unser Prozess</h2>
-        <div class="space-y-16">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold font-serif text-2xl flex-shrink-0">1</div>
-                <div class="text-left"><h3 class="font-serif text-2xl text-gold mb-2">Hörtest</h3><p class="text-gold-light/50">Zunächst machen wir einen Termin für einen Hörtest mit Ihnen aus, um Ihr aktuelles Hörvermögen einzuschätzen.</p></div>
-            </div>
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold font-serif text-2xl flex-shrink-0">2</div>
-                <div class="text-left"><h3 class="font-serif text-2xl text-gold mb-2">Analyse & Beratung</h3><p class="text-gold-light/50">Wir sehen uns das Audiogramm an und erläutern Ihnen das Ergebnis. Hier klären wir Ursachen und Umfang.</p></div>
-            </div>
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold font-serif text-2xl flex-shrink-0">3</div>
-                <div class="text-left"><h3 class="font-serif text-2xl text-gold mb-2">Anpassung & Nachsorge</h3><p class="text-gold-light/50">Wir finden das perfekte System, passen es an und begleiten Sie auch danach mit Wartung und Service.</p></div>
-            </div>
+            <!-- Mobile Hamburger -->
+            <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-gold p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path x-show="mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
         </div>
-    </div>
-</section>
 
-<!-- Gallery -->
-<section class="py-24 bg-navy">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <img src="img/beratung.webp" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700 border border-gold/10" alt="">
-            <img src="img/beratung.webp" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700 border border-gold/10" alt="">
-            <img src="img/kind.webp" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700 border border-gold/10" alt="">
-            <img src="img/kind.webp" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700 border border-gold/10" alt="">
+        <!-- Mobile Menu Dropdown -->
+        <div x-show="mobileMenu" x-cloak class="lg:hidden bg-navy-surface border-b border-gold/30 px-6 py-6 space-y-4 text-sm uppercase tracking-wider text-gold-light">
+            <a href="#leistungen" @click="mobileMenu = false" class="block hover:text-gold">Leistungen</a>
+            <a href="#ueber-uns" @click="mobileMenu = false" class="block hover:text-gold">Über Uns</a>
+            <a href="#galerie" @click="mobileMenu = false" class="block hover:text-gold">Praxiseinblicke (Gestern & Heute)</a>
+            <a href="#ablauf" @click="mobileMenu = false" class="block hover:text-gold">Ablauf</a>
+            <a href="#kontakt" @click="mobileMenu = false" class="block hover:text-gold">Kontakt</a>
+            <a href="variations.html" class="block text-gray-400">Alle Design-Varianten ↗</a>
+            <button @click="mobileMenu = false; appointmentModal = true" class="w-full bg-gold text-navy py-3 rounded font-bold uppercase tracking-wider text-xs">
+                Termin vereinbaren
+            </button>
         </div>
-    </div>
-</section>
+    </nav>
 
-<!-- Contact -->
-<section id="contact" class="py-32 bg-navy-light border-t border-gold/10">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="flex flex-col lg:flex-row gap-20">
-            <div class="lg:w-1/2">
-                <div class="gold-line mb-6"></div>
-                <h2 class="font-serif text-4xl text-gold mb-12">Kontakt</h2>
-                <div class="space-y-8 text-gold-light/60">
-                    <div><p class="text-[11px] tracking-[0.2em] uppercase text-gold/40 mb-2">Adresse</p><p>Friedrichstraße 14-16<br>47798 Krefeld</p></div>
-                    <div><p class="text-[11px] tracking-[0.2em] uppercase text-gold/40 mb-2">Telefon</p><a href="tel:021516567294" class="text-gold hover:text-gold-light transition-colors text-lg">02151 - 656 72 94</a></div>
-                    <div><p class="text-[11px] tracking-[0.2em] uppercase text-gold/40 mb-2">Öffnungszeiten</p><p>Mo – Do: 9–13 & 14–18 Uhr<br>Fr: 9–13 Uhr</p></div>
+    <!-- Hero Section -->
+    <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-12 pb-24">
+        <!-- Background Imagery with Dark Warm Tint -->
+        <div class="absolute inset-0 z-0">
+            <img src="img/room-reception.jpg" class="w-full h-full object-cover opacity-25 filter brightness-75 scale-105" alt="Krefelder Hörmanufaktur">
+            <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/85 to-navy/70"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/10 via-transparent to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 w-full text-center">
+            <div class="inline-flex items-center gap-2 border border-gold/30 bg-gold/10 px-4 py-1.5 rounded-full mb-8 backdrop-blur-sm">
+                <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+                <span class="text-gold text-xs font-medium tracking-[0.2em] uppercase">Meisterhandwerk & Feingefühl seit 2002</span>
+            </div>
+
+            <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-champagne leading-[1.08] mb-8 max-w-5xl mx-auto font-normal">
+                Präzision, die man hört.<br>
+                <span class="gold-gradient-text italic font-medium">Herzlichkeit, die man spürt.</span>
+            </h1>
+
+            <p class="text-gold-light/75 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-12">
+                In stilvollem Ambiente nehmen wir uns viel Zeit für Ihr Gehör. Von modernster digitaler 3D-Otoscan-Vermessung bis hin zur einfühlsamen Pädakustik für Kinder.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5 max-w-md mx-auto mb-16">
+                <button @click="appointmentModal = true" class="w-full sm:w-auto bg-gradient-to-r from-gold-dark via-gold to-gold-light text-navy px-9 py-4 text-xs font-bold tracking-[0.2em] uppercase hover:shadow-[0_0_30px_rgba(201,169,110,0.5)] transition-all">
+                    Kostenlosen Hörtest buchen
+                </button>
+                <a href="#galerie" class="w-full sm:w-auto border border-gold/40 text-gold px-8 py-4 text-xs font-semibold tracking-[0.2em] uppercase hover:bg-gold/10 hover:border-gold transition-colors">
+                    Praxis & Historie entdecken
+                </a>
+            </div>
+
+            <!-- Key Trust Badges -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto pt-8 border-t border-gold/15 text-left">
+                <div class="border-l border-gold/30 pl-4">
+                    <span class="block font-serif text-2xl text-gold">20+ Jahre</span>
+                    <span class="text-xs text-gold-light/60 uppercase tracking-wider">Erfahrung in der Akustik</span>
+                </div>
+                <div class="border-l border-gold/30 pl-4">
+                    <span class="block font-serif text-2xl text-gold">Pädakustik</span>
+                    <span class="text-xs text-gold-light/60 uppercase tracking-wider">Spezialisiert auf Kinder</span>
+                </div>
+                <div class="border-l border-gold/30 pl-4">
+                    <span class="block font-serif text-2xl text-gold">3D-Otoscan</span>
+                    <span class="text-xs text-gold-light/60 uppercase tracking-wider">Kontaktlose Ohr-Abtastung</span>
+                </div>
+                <div class="border-l border-gold/30 pl-4">
+                    <span class="block font-serif text-2xl text-gold">100% Kassen</span>
+                    <span class="text-xs text-gold-light/60 uppercase tracking-wider">Volle Abrechnungssicherheit</span>
                 </div>
             </div>
-            <div class="lg:w-1/2">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2497.5!2d6.5637!3d51.3339!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8b92f1c0e7a7d%3A0x4c2e2c7e7d8f5a0!2sFriedrichstra%C3%9Fe%2014-16%2C%2047798%20Krefeld%2C%20Germany!5e0!3m2!1sde!2sde" width="100%" height="400" style="border:0;filter:invert(90%) hue-rotate(180deg) brightness(0.8)" allowfullscreen loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="leistungen" class="py-32 bg-navy-light relative border-t border-gold/15">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-20">
+                <div class="w-12 h-0.5 bg-gold mx-auto mb-4"></div>
+                <span class="text-gold text-xs tracking-[0.25em] uppercase font-semibold">Exzellente Versorgung</span>
+                <h2 class="font-serif text-4xl sm:text-5xl text-champagne mt-2 mb-4 font-normal">Unsere Fachbereiche</h2>
+                <p class="text-gold-light/60 text-sm sm:text-base leading-relaxed">
+                    Individuelle Betreuung ohne Kompromisse. Ob im Alltag, für die Jüngsten oder bei speziellen medizinischen Anforderungen.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 1. Erwachsene -->
+                <div class="luxury-card rounded-xl p-6 group flex flex-col justify-between">
+                    <div>
+                        <div class="relative aspect-square rounded-lg overflow-hidden mb-6 border border-gold/20">
+                            <img src="img/old-erwachsene-hoertest.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Erwachsene Hörtest">
+                            <span class="absolute top-3 left-3 bg-navy/80 backdrop-blur-md text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                                Audiometrie
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-2xl text-gold mb-3">Erwachsene</h3>
+                        <p class="text-gold-light/60 text-xs sm:text-sm leading-relaxed mb-6">
+                            Kostenloser Meister-Hörtest, präzise Video-Otoskopie und diskreteste Hörsysteme (Im-Ohr & Hinter-dem-Ohr) zum unverbindlichen Probetragen.
+                        </p>
+                    </div>
+                    <button @click="selectedService = 'Erwachsene (Kostenloser Hörtest)'; appointmentModal = true" class="text-gold text-xs font-semibold tracking-wider uppercase flex items-center gap-2 group-hover:text-champagne transition-colors pt-4 border-t border-gold/15">
+                        <span>Hörtest anfragen</span>
+                        <span>→</span>
+                    </button>
+                </div>
+
+                <!-- 2. Kinder / Pädakustik -->
+                <div class="luxury-card rounded-xl p-6 group flex flex-col justify-between">
+                    <div>
+                        <div class="relative aspect-square rounded-lg overflow-hidden mb-6 border border-gold/20">
+                            <img src="img/old-kinder-bereich.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Pädakustik Kinderbereich">
+                            <span class="absolute top-3 left-3 bg-navy/80 backdrop-blur-md text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                                Pädakustik
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-2xl text-gold mb-3">Kinder & Familie</h3>
+                        <p class="text-gold-light/60 text-xs sm:text-sm leading-relaxed mb-6">
+                            Einfühlsame Spielaudiometrie in kindgerechter Atmosphäre. Hörverlust-Simulation für Eltern und FM-Funkübertragungsanlagen für Schule & Kita.
+                        </p>
+                    </div>
+                    <button @click="selectedService = 'Kinder (Pädakustik & Spielaudiometrie)'; appointmentModal = true" class="text-gold text-xs font-semibold tracking-wider uppercase flex items-center gap-2 group-hover:text-champagne transition-colors pt-4 border-t border-gold/15">
+                        <span>Kinder-Termin</span>
+                        <span>→</span>
+                    </button>
+                </div>
+
+                <!-- 3. Sonderversorgung -->
+                <div class="luxury-card rounded-xl p-6 group flex flex-col justify-between">
+                    <div>
+                        <div class="relative aspect-square rounded-lg overflow-hidden mb-6 border border-gold/20">
+                            <img src="img/old-baha.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Sonderversorgung Knochenleitung">
+                            <span class="absolute top-3 left-3 bg-navy/80 backdrop-blur-md text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                                Speziallösungen
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-2xl text-gold mb-3">Sonderversorgung</h3>
+                        <p class="text-gold-light/60 text-xs sm:text-sm leading-relaxed mb-6">
+                            Knochenleitungs-Hörsysteme (z.B. BAHA) bei anatomischen Besonderheiten sowie ganzheitliche Tinnitus-Beratung und klangtherapeutische Noiser.
+                        </p>
+                    </div>
+                    <button @click="selectedService = 'Sonderversorgung & Knochenleitung'; appointmentModal = true" class="text-gold text-xs font-semibold tracking-wider uppercase flex items-center gap-2 group-hover:text-champagne transition-colors pt-4 border-t border-gold/15">
+                        <span>Beratung anfragen</span>
+                        <span>→</span>
+                    </button>
+                </div>
+
+                <!-- 4. Zubehör & Gehörschutz -->
+                <div class="luxury-card rounded-xl p-6 group flex flex-col justify-between">
+                    <div>
+                        <div class="relative aspect-square rounded-lg overflow-hidden mb-6 border border-gold/20">
+                            <img src="img/old-gehoerschutz.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Maßgefertigter Gehörschutz">
+                            <span class="absolute top-3 left-3 bg-navy/80 backdrop-blur-md text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                                Maßarbeit
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-2xl text-gold mb-3">Gehörschutz</h3>
+                        <p class="text-gold-light/60 text-xs sm:text-sm leading-relaxed mb-6">
+                            Individuell gegossene Otoplastiken für Musiker, Industrie, Schwimmsport und erholsamen Schlaf sowie Lichtsignalanlagen für Barrierefreiheit.
+                        </p>
+                    </div>
+                    <button @click="selectedService = 'Gehörschutz & Zubehör'; appointmentModal = true" class="text-gold text-xs font-semibold tracking-wider uppercase flex items-center gap-2 group-hover:text-champagne transition-colors pt-4 border-t border-gold/15">
+                        <span>Schutz anpassen</span>
+                        <span>→</span>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<footer class="bg-navy py-8 border-t border-gold/10 text-center">
-    <p class="text-gold/30 text-xs tracking-[0.15em] uppercase">© 2026 Krefelder Hörmanufaktur · Datenschutz · Impressum</p>
-</footer>
+    <!-- Über uns / Emel Bozcelik (Dual History Showcase) -->
+    <section id="ueber-uns" class="py-32 bg-navy relative border-t border-gold/15 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+                
+                <!-- Dual Images Collage (Classic Authentic + Modern Studio) -->
+                <div class="lg:w-1/2 relative w-full">
+                    <div class="grid grid-cols-2 gap-4 relative z-10">
+                        <!-- Classic Original Portrait -->
+                        <div class="space-y-4">
+                            <div class="relative rounded-2xl overflow-hidden border border-gold/30 shadow-2xl">
+                                <img src="img/old-emel-portrait.jpg" class="w-full aspect-[4/5] object-cover filter contrast-105" alt="Emel Bozcelik - Hörakustikmeisterin">
+                                <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-navy to-transparent p-4">
+                                    <span class="text-gold text-[11px] font-serif italic">Emel Bozcelik</span>
+                                    <span class="block text-champagne/70 text-[9px] uppercase tracking-wider">Hörakustik-Meisterin</span>
+                                </div>
+                            </div>
+                            <div class="relative rounded-2xl overflow-hidden border border-gold/20">
+                                <img src="img/old-empfang-raum.jpg" class="w-full aspect-video object-cover" alt="Praxisempfang Krefeld">
+                                <span class="absolute top-2 left-2 bg-navy/80 text-gold text-[9px] px-2 py-0.5 rounded uppercase tracking-wider">
+                                    Praxis Krefeld
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Modern Studio Experience -->
+                        <div class="space-y-4 pt-8">
+                            <div class="relative rounded-2xl overflow-hidden border border-gold/20">
+                                <img src="img/emel-reception.jpg" class="w-full aspect-video object-cover" alt="Beratungsraum">
+                                <span class="absolute top-2 left-2 bg-navy/80 text-gold text-[9px] px-2 py-0.5 rounded uppercase tracking-wider">
+                                    Meister-Beratung
+                                </span>
+                            </div>
+                            <div class="relative rounded-2xl overflow-hidden border border-gold/30 shadow-2xl">
+                                <img src="img/kind-boy-emel.jpg" class="w-full aspect-[4/5] object-cover" alt="Pädakustik & Herzlichkeit">
+                                <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-navy to-transparent p-4">
+                                    <span class="text-gold text-[11px] font-serif italic">Pädakustik mit Herz</span>
+                                    <span class="block text-champagne/70 text-[9px] uppercase tracking-wider">Vertrauen für Groß & Klein</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Decorative Gold Frame Ornament -->
+                    <div class="absolute -top-6 -left-6 w-32 h-32 border-t-2 border-l-2 border-gold/40 rounded-tl-3xl pointer-events-none"></div>
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 border-b-2 border-r-2 border-gold/40 rounded-br-3xl pointer-events-none"></div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="lg:w-1/2">
+                    <div class="w-12 h-0.5 bg-gold mb-6"></div>
+                    <span class="text-gold text-xs tracking-[0.25em] uppercase font-semibold">Persönliche Meisterin</span>
+                    <h2 class="font-serif text-4xl sm:text-5xl text-champagne mt-2 mb-8 leading-snug font-normal">
+                        »Gutes Hören schenkt Ihnen die Nähe zu den Menschen zurück.«
+                    </h2>
+                    
+                    <div class="space-y-5 text-gold-light/75 text-sm sm:text-base leading-relaxed font-light">
+                        <p>
+                            Ich bin seit <strong class="text-gold font-normal">2002</strong> mit Leidenschaft in der Hörakustik tätig. Nach meiner fundierten Ausbildung und vielseitigen Stationen in der Akustik absolvierte ich 2010 die Spezial-Fortbildung zur <strong class="text-gold font-normal">zertifizierten Pädakustikerin</strong>. Die Arbeit mit Kindern liegt mir seither ganz besonders am Herzen.
+                        </p>
+                        <p>
+                            Im Jahre 2011 folgte die bestandene Meisterprüfung und die Leitung renommierter Fachgeschäfte. Seit 2015 engagiere ich mich zudem ehrenamtlich als <strong class="text-gold font-normal">Prüferin des Meisterprüfungsausschusses</strong> der Handwerkskammer.
+                        </p>
+                        <p>
+                            In der <strong class="text-gold font-normal">Krefelder Hörmanufaktur</strong> verbinde ich diese über 20-jährige Handwerkserfahrung mit modernster Diagnosetechnologie – in einer warmen, privaten Atmosphäre ohne Hektik.
+                        </p>
+                    </div>
+
+                    <div class="mt-10 pt-8 border-t border-gold/20 flex flex-wrap gap-6 items-center">
+                        <button @click="appointmentModal = true" class="bg-gold text-navy px-8 py-3.5 text-xs font-bold tracking-[0.15em] uppercase hover:bg-gold-light transition-colors">
+                            Persönlich kennenlernen
+                        </button>
+                        <div class="flex items-center gap-3 text-gold-light/60 text-xs">
+                            <span class="text-gold text-base">★</span>
+                            <span>Ehrenamtliche Meisterprüferin HWK</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- GRAND GALLERY: PRAXISEINBLICKE (Gestern & Heute) -->
+    <section id="galerie" class="py-32 bg-navy-light relative border-t border-gold/15">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="w-12 h-0.5 bg-gold mx-auto mb-4"></div>
+                <span class="text-gold text-xs tracking-[0.25em] uppercase font-semibold">Exklusive Fotostrecke</span>
+                <h2 class="font-serif text-4xl sm:text-5xl text-champagne mt-2 mb-4 font-normal">Praxiseinblicke: Gestern & Heute</h2>
+                <p class="text-gold-light/70 text-sm sm:text-base leading-relaxed">
+                    Erleben Sie die authentische Geschichte und das stilvolle Interieur unserer Manufaktur. Wir vereinen unsere geschätzten Originalaufnahmen mit modernen Werkstatt- und Behandlungsräumen.
+                </p>
+
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap items-center justify-center gap-3 mt-10">
+                    <button @click="activeTab = 'all'" :class="activeTab === 'all' ? 'bg-gold text-navy font-bold' : 'bg-navy-surface text-gold/80 hover:bg-gold/20'" class="px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all border border-gold/30">
+                        Alle Aufnahmen
+                    </button>
+                    <button @click="activeTab = 'praxis'" :class="activeTab === 'praxis' ? 'bg-gold text-navy font-bold' : 'bg-navy-surface text-gold/80 hover:bg-gold/20'" class="px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all border border-gold/30">
+                        Praxisräume & Empfang
+                    </button>
+                    <button @click="activeTab = 'kinder'" :class="activeTab === 'kinder' ? 'bg-gold text-navy font-bold' : 'bg-navy-surface text-gold/80 hover:bg-gold/20'" class="px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all border border-gold/30">
+                        Kinderwelt & Pädakustik
+                    </button>
+                    <button @click="activeTab = 'technik'" :class="activeTab === 'technik' ? 'bg-gold text-navy font-bold' : 'bg-navy-surface text-gold/80 hover:bg-gold/20'" class="px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all border border-gold/30">
+                        Technik & Meisterwerkstatt
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gallery Grid with Luxury Frames & Hover Color Reveals -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- 1. Original Empfang -->
+                <div x-show="activeTab === 'all' || activeTab === 'praxis'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/old-empfang-raum.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Praxisempfang Krefeld">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Original Praxis-Ambiente
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Stilvoller Empfangsbereich</h4>
+                        <p class="text-gold-light/60 text-xs">Echtholzboden, warme Farbakzente und diskrete Begrüßung ohne Wartezimmer-Charakter.</p>
+                    </div>
+                </div>
+
+                <!-- 2. Original Kinder-Bereich (Baum-Wand) -->
+                <div x-show="activeTab === 'all' || activeTab === 'kinder'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/old-kinder-bereich.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Kinderbereich mit Baum-Wandbild">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Pädakustik-Klassiker
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Kinder-Kreativbereich</h4>
+                        <p class="text-gold-light/60 text-xs">Das beliebte handgemalte Wandbild und der Spieletisch für entspanntes Ankommen der Kleinen.</p>
+                    </div>
+                </div>
+
+                <!-- 3. Original Otoscan 3D-Monitor -->
+                <div x-show="activeTab === 'all' || activeTab === 'technik'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/old-otoscan-monitor.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Otoscan Bildschirm">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Digitale 3D-Diagnostik
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">3D-Ohrkanal-Visualisierung</h4>
+                        <p class="text-gold-light/60 text-xs">Echtzeit-Aufzeichnung der Gehörgang-Geometrie für passgenaueste Otoplastiken.</p>
+                    </div>
+                </div>
+
+                <!-- 4. Original Kinder-Raum -->
+                <div x-show="activeTab === 'all' || activeTab === 'kinder'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/old-kinder-raum.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Kinder-Hörraum">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Original Spielaudiometrie
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Spezial-Hörraum für Kinder</h4>
+                        <p class="text-gold-light/60 text-xs">Geschützter Raum zum Malen, Bauklötze-Spielen und angstfreien Hörvermögens-Testen.</p>
+                    </div>
+                </div>
+
+                <!-- 5. Original Hörtest Erwachsene -->
+                <div x-show="activeTab === 'all' || activeTab === 'technik'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/old-erwachsene-hoertest.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Hörtest bei Erwachsenen">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Tonschwellen-Prüfung
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Schallisolierte Messkabine</h4>
+                        <p class="text-gold-light/60 text-xs">Exakte Frequenz- und Sprachverständlichkeitsanalyse nach modernsten klinischen Standards.</p>
+                    </div>
+                </div>
+
+                <!-- 6. Original Mädchen mit Hörgerät -->
+                <div x-show="activeTab === 'all' || activeTab === 'kinder'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/old-maedchen.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Mädchen mit Hörgerät">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Lebensfreude
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Natürliche Hörfreude für Kinder</h4>
+                        <p class="text-gold-light/60 text-xs">Bunte Gehäuse, Sticker und modernste Technik, die unbeschwerte Entwicklung ermöglicht.</p>
+                    </div>
+                </div>
+
+                <!-- 7. Meisterwerkstatt (Neues DSLR Panorama) -->
+                <div x-show="activeTab === 'all' || activeTab === 'technik'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/room-werkstatt.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Meisterwerkstatt">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Inhouse-Labor
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Eigene Meisterwerkstatt</h4>
+                        <p class="text-gold-light/60 text-xs">Sofortige Reparaturen, Reinigungen, Fräsarbeiten und UV-Härtung direkt vor Ort in Krefeld.</p>
+                    </div>
+                </div>
+
+                <!-- 8. Otoscan 3D Laser Abtastung (Modernes Studio) -->
+                <div x-show="activeTab === 'all' || activeTab === 'technik'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/otoscan-exam.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Otoscan 3D Scan">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            High-Tech Abtastung
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Berührungsloser Otoscan</h4>
+                        <p class="text-gold-light/60 text-xs">Keine unangenehme Silikonmasse im Ohr – millimetergenauer Laser-3D-Scan in Sekunden.</p>
+                    </div>
+                </div>
+
+                <!-- 9. Modernes Praxis-Panorama -->
+                <div x-show="activeTab === 'all' || activeTab === 'praxis'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/room-panorama.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Praxis Panorama">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Architektur
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Barrierefreie Räumlichkeiten</h4>
+                        <p class="text-gold-light/60 text-xs">Helle, klimatisierte Beratungsräume mit modernster Akustik-Dämmung und Wohlfühlatmosphäre.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Der Meisterprozess (4 Steps) -->
+    <section id="ablauf" class="py-32 bg-navy relative border-t border-gold/15">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <div class="w-12 h-0.5 bg-gold mx-auto mb-4"></div>
+                <span class="text-gold text-xs tracking-[0.25em] uppercase font-semibold">Exzellente Begleitung</span>
+                <h2 class="font-serif text-4xl sm:text-5xl text-champagne mt-2 mb-4 font-normal">Ihr Weg zum perfekten Klang</h2>
+                <p class="text-gold-light/60 text-sm max-w-lg mx-auto">Vier transparente Schritte für ein neues Hörerlebnis ohne Überraschungen.</p>
+            </div>
+
+            <div class="space-y-12">
+                <div class="flex flex-col md:flex-row items-start gap-8 luxury-card p-8 rounded-2xl">
+                    <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold font-serif text-2xl flex-shrink-0 bg-navy">
+                        I
+                    </div>
+                    <div>
+                        <span class="text-gold text-[11px] font-semibold tracking-[0.2em] uppercase">Schritt 1</span>
+                        <h3 class="font-serif text-2xl text-champagne mb-2">Unverbindlicher Meister-Hörtest</h3>
+                        <p class="text-gold-light/70 text-sm leading-relaxed">
+                            In unserer schallgedämmten Akustikkabine ermitteln wir Ihr Hörprofil über alle relevanten Frequenzen. Sie erhalten ein detailliertes Audiogramm und eine verständliche Auswertung.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-start gap-8 luxury-card p-8 rounded-2xl">
+                    <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold font-serif text-2xl flex-shrink-0 bg-navy">
+                        II
+                    </div>
+                    <div>
+                        <span class="text-gold text-[11px] font-semibold tracking-[0.2em] uppercase">Schritt 2</span>
+                        <h3 class="font-serif text-2xl text-champagne mb-2">Bedarfsanalyse & Systemauswahl</h3>
+                        <p class="text-gold-light/70 text-sm leading-relaxed">
+                            Gemeinsam besprechen wir Ihre individuellen Lebensbereiche – von Familie über Theater bis hin zu Beruf und Sport. Wir stellen Ihnen die idealen Systeme aller führenden Hersteller vor.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-start gap-8 luxury-card p-8 rounded-2xl">
+                    <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold font-serif text-2xl flex-shrink-0 bg-navy">
+                        III
+                    </div>
+                    <div>
+                        <span class="text-gold text-[11px] font-semibold tracking-[0.2em] uppercase">Schritt 3</span>
+                        <h3 class="font-serif text-2xl text-champagne mb-2">3D-Otoscan & Feinabstimmung</h3>
+                        <p class="text-gold-light/70 text-sm leading-relaxed">
+                            Mit digitalem 3D-Laser-Scan vermessen wir Ihren Gehörgang millimetergenau. Ihr Hörsystem wird maßgefertigt und mit feinsten Frequenzfiltern auf Ihre Klangwahrnehmung programmiert.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-start gap-8 luxury-card p-8 rounded-2xl">
+                    <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold font-serif text-2xl flex-shrink-0 bg-navy">
+                        IV
+                    </div>
+                    <div>
+                        <span class="text-gold text-[11px] font-semibold tracking-[0.2em] uppercase">Schritt 4</span>
+                        <h3 class="font-serif text-2xl text-champagne mb-2">Kostenloses Probetragen & Nachsorge</h3>
+                        <p class="text-gold-light/70 text-sm leading-relaxed">
+                            Testen Sie Ihr Hörsystem mehrere Wochen kostenlos in Ihrem echten Alltag. Auch danach begleiten wir Sie dauerhaft mit unserem Wartungs-, Reinigungs- und Reparaturservice.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <button @click="appointmentModal = true" class="bg-gradient-to-r from-gold-dark via-gold to-gold-light text-navy px-10 py-4 rounded text-xs font-bold tracking-[0.2em] uppercase hover:shadow-[0_0_25px_rgba(201,169,110,0.5)] transition-all">
+                    Jetzt unverbindlichen Hörtest vereinbaren
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt & Google Maps Widget -->
+    <section id="kontakt" class="py-32 bg-navy-light relative border-t border-gold/15">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-16 lg:gap-20">
+                
+                <!-- Left: Contact Information -->
+                <div class="lg:w-1/2">
+                    <div class="w-12 h-0.5 bg-gold mb-6"></div>
+                    <span class="text-gold text-xs tracking-[0.25em] uppercase font-semibold">Besuchen Sie uns</span>
+                    <h2 class="font-serif text-4xl sm:text-5xl text-champagne mt-2 mb-10 font-normal">Kontakt & Lage</h2>
+
+                    <div class="space-y-8 text-gold-light/80">
+                        <div class="border-b border-gold/15 pb-6">
+                            <span class="text-[11px] tracking-[0.2em] uppercase text-gold block mb-1">Standort</span>
+                            <p class="font-serif text-xl text-champagne">Friedrichstraße 14-16</p>
+                            <p class="text-sm">47798 Krefeld (Zentrum)</p>
+                        </div>
+
+                        <div class="border-b border-gold/15 pb-6">
+                            <span class="text-[11px] tracking-[0.2em] uppercase text-gold block mb-1">Telefonische Erreichbarkeit</span>
+                            <a href="tel:021516567294" class="font-serif text-2xl text-gold hover:text-champagne transition-colors block">
+                                02151 - 656 72 94
+                            </a>
+                            <p class="text-xs text-gold-light/60 mt-1">Gerne beraten wir Sie persönlich oder reservieren Ihren Wunschtermin.</p>
+                        </div>
+
+                        <div class="border-b border-gold/15 pb-6">
+                            <span class="text-[11px] tracking-[0.2em] uppercase text-gold block mb-1">Öffnungszeiten</span>
+                            <div class="grid grid-cols-2 gap-4 text-sm pt-1">
+                                <div>
+                                    <span class="text-champagne font-medium">Montag – Donnerstag</span>
+                                    <p class="text-xs text-gold-light/70">09:00 – 13:00 Uhr<br>14:00 – 18:00 Uhr</p>
+                                </div>
+                                <div>
+                                    <span class="text-champagne font-medium">Freitag</span>
+                                    <p class="text-xs text-gold-light/70">09:00 – 13:00 Uhr</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="text-[11px] tracking-[0.2em] uppercase text-gold block mb-1">Anfahrt mit Bus & Bahn</span>
+                            <p class="text-xs text-gold-light/70 leading-relaxed">
+                                Straßenbahn 041 bis Haltestelle <strong class="text-gold">Krefeld Friedrichstraße</strong> (direkt vor der Tür)<br>
+                                Buslinie 052 bis Haltestelle <strong class="text-gold">Krefeld Nordwall</strong> (ca. 2 Gehminuten)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-10">
+                        <button @click="appointmentModal = true" class="bg-gold text-navy px-8 py-3.5 rounded text-xs font-bold tracking-[0.15em] uppercase hover:bg-gold-light transition-all">
+                            Termin reservieren
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Styled Google Maps Frame -->
+                <div class="lg:w-1/2 flex flex-col justify-center">
+                    <div class="relative rounded-2xl overflow-hidden border border-gold/30 shadow-2xl bg-navy">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2497.5!2d6.5637!3d51.3339!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8b92f1c0e7a7d%3A0x4c2e2c7e7d8f5a0!2sFriedrichstra%C3%9Fe%2014-16%2C%2047798%20Krefeld%2C%20Germany!5e0!3m2!1sde!2sde!4v1693000000000!5m2!1sde!2sde" 
+                            width="100%" 
+                            height="480" 
+                            style="border:0; filter: invert(90%) hue-rotate(185deg) contrast(1.1) brightness(0.85);" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Standort Krefelder Hörmanufaktur">
+                        </iframe>
+                        <div class="absolute bottom-4 left-4 right-4 bg-navy/95 backdrop-blur-md p-3.5 rounded-xl border border-gold/30 flex items-center justify-between text-xs">
+                            <span class="text-champagne">📍 Friedrichstraße 14-16, 47798 Krefeld</span>
+                            <a href="https://maps.google.com/?q=Friedrichstraße+14-16+47798+Krefeld" target="_blank" rel="noopener noreferrer" class="text-gold hover:text-champagne font-bold uppercase tracking-wider text-[10px]">
+                                In Google Maps öffnen ↗
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Luxury Footer -->
+    <footer class="bg-[#050c17] py-14 border-t border-gold/15 text-center">
+        <div class="max-w-7xl mx-auto px-6">
+            <span class="font-serif text-2xl text-gold block mb-2 font-normal">Krefelder Hörmanufaktur</span>
+            <p class="text-gold-light/50 text-xs tracking-[0.2em] uppercase mb-8">Inhaberin Emel Bozcelik · Hörakustik-Meisterin & Pädakustikerin</p>
+            
+            <div class="flex flex-wrap justify-center gap-8 text-[11px] text-gold/70 tracking-[0.18em] uppercase mb-8 font-medium">
+                <a href="#leistungen" class="hover:text-gold transition-colors">Leistungen</a>
+                <a href="#ueber-uns" class="hover:text-gold transition-colors">Über Uns</a>
+                <a href="#galerie" class="hover:text-gold transition-colors">Praxiseinblicke</a>
+                <a href="#ablauf" class="hover:text-gold transition-colors">Ablauf</a>
+                <a href="#kontakt" class="hover:text-gold transition-colors">Kontakt & Anfahrt</a>
+                <a href="variations.html" class="text-gray-400 hover:text-white">Design-Varianten ↗</a>
+            </div>
+
+            <div class="w-24 h-px bg-gold/20 mx-auto mb-6"></div>
+
+            <p class="text-gold-light/40 text-xs tracking-wider">
+                © 2026 Krefelder Hörmanufaktur · Alle Rechte vorbehalten · Datenschutz · Impressum
+            </p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE APPOINTMENT MODAL (Warm Luxury Styled) -->
+    <div x-show="appointmentModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <!-- Backdrop -->
+        <div x-show="appointmentModal" x-transition.opacity.duration.300ms class="absolute inset-0 bg-black/85 backdrop-blur-md" @click="appointmentModal = false"></div>
+
+        <!-- Modal Container -->
+        <div x-show="appointmentModal" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0" class="relative bg-navy-surface border border-gold/40 w-full max-w-xl rounded-2xl shadow-[0_0_50px_rgba(201,169,110,0.25)] overflow-hidden z-10 p-6 sm:p-10">
+            
+            <!-- Close Button -->
+            <button @click="appointmentModal = false" class="absolute top-6 right-6 text-gold/60 hover:text-gold transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <!-- Success State -->
+            <div x-show="appointmentSuccess" class="text-center py-8">
+                <div class="w-16 h-16 rounded-full bg-gold/20 border-2 border-gold flex items-center justify-center text-gold text-3xl mx-auto mb-4">
+                    ✓
+                </div>
+                <h3 class="font-serif text-3xl text-gold mb-2 font-normal">Terminanfrage erhalten</h3>
+                <p class="text-gold-light/70 text-sm leading-relaxed mb-6">
+                    Vielen Dank für Ihr Vertrauen! Wir prüfen Ihren Wunschtermin und melden uns innerhalb von 24 Stunden persönlich bei Ihnen zurück.
+                </p>
+                <button @click="appointmentModal = false; appointmentSuccess = false" class="bg-gold text-navy px-8 py-3 rounded text-xs font-bold uppercase tracking-wider">
+                    Schließen
+                </button>
+            </div>
+
+            <!-- Form State -->
+            <div x-show="!appointmentSuccess">
+                <div class="mb-6">
+                    <span class="text-gold text-[10px] tracking-[0.2em] uppercase font-semibold">Exklusive Reservierung</span>
+                    <h3 class="font-serif text-3xl text-champagne mt-1 font-normal">Termin anfragen</h3>
+                    <p class="text-gold-light/60 text-xs mt-1">Wählen Sie Ihren gewünschten Schwerpunkt und Wunschzeitraum.</p>
+                </div>
+
+                <form @submit.prevent="appointmentSuccess = true" class="space-y-4">
+                    <div>
+                        <label class="block text-gold text-xs uppercase tracking-wider mb-1.5 font-medium">Bereich / Anliegen</label>
+                        <select x-model="selectedService" class="w-full bg-navy border border-gold/30 rounded px-4 py-2.5 text-champagne text-sm focus:border-gold focus:outline-none">
+                            <option value="Erwachsene (Kostenloser Hörtest)">Erwachsene — Kostenloser Meister-Hörtest</option>
+                            <option value="Kinder (Pädakustik & Spielaudiometrie)">Kinder — Pädakustik & Spielaudiometrie</option>
+                            <option value="Sonderversorgung & Knochenleitung">Sonderversorgung (Knochenleitung / BAHA)</option>
+                            <option value="Gehörschutz & Zubehör">Maßgefertigter Gehörschutz / Zubehör</option>
+                            <option value="Allgemeine Meisterberatung">Allgemeine Meisterberatung / Reparatur</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gold text-xs uppercase tracking-wider mb-1.5 font-medium">Ihr Name</label>
+                            <input type="text" required placeholder="Vor- und Nachname" class="w-full bg-navy border border-gold/30 rounded px-4 py-2.5 text-champagne text-sm focus:border-gold focus:outline-none placeholder-gold/30">
+                        </div>
+                        <div>
+                            <label class="block text-gold text-xs uppercase tracking-wider mb-1.5 font-medium">Telefonnummer</label>
+                            <input type="tel" required placeholder="02151..." class="w-full bg-navy border border-gold/30 rounded px-4 py-2.5 text-champagne text-sm focus:border-gold focus:outline-none placeholder-gold/30">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gold text-xs uppercase tracking-wider mb-1.5 font-medium">E-Mail-Adresse</label>
+                        <input type="email" required placeholder="name@beispiel.de" class="w-full bg-navy border border-gold/30 rounded px-4 py-2.5 text-champagne text-sm focus:border-gold focus:outline-none placeholder-gold/30">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gold text-xs uppercase tracking-wider mb-1.5 font-medium">Wunschdatum</label>
+                            <input type="date" class="w-full bg-navy border border-gold/30 rounded px-4 py-2.5 text-champagne text-sm focus:border-gold focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-gold text-xs uppercase tracking-wider mb-1.5 font-medium">Wunschzeit</label>
+                            <select class="w-full bg-navy border border-gold/30 rounded px-4 py-2.5 text-champagne text-sm focus:border-gold focus:outline-none">
+                                <option value="Vormittags">Vormittags (09:00 - 13:00 Uhr)</option>
+                                <option value="Nachmittags">Nachmittags (14:00 - 18:00 Uhr)</option>
+                                <option value="Egal">Flexibel</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gold text-xs uppercase tracking-wider mb-1.5 font-medium">Ihre Notiz (optional)</label>
+                        <textarea rows="2" placeholder="Gibt es bereits Vorbefunde oder spezielle Wünsche?" class="w-full bg-navy border border-gold/30 rounded px-4 py-2 text-champagne text-sm focus:border-gold focus:outline-none placeholder-gold/30"></textarea>
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit" class="w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-navy py-3.5 rounded text-xs font-bold tracking-[0.2em] uppercase hover:shadow-[0_0_25px_rgba(201,169,110,0.5)] transition-all">
+                            Anfrage verbindlich absenden
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
 </body>
 </html>
