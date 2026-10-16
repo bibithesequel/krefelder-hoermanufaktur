@@ -40,33 +40,52 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .gold-border-glow:hover {
-            box-shadow: 0 0 25px rgba(201, 169, 110, 0.25);
-        }
         .luxury-card {
             background: linear-gradient(180deg, rgba(19, 37, 66, 0.85) 0%, rgba(8, 18, 32, 0.95) 100%);
             border: 1px solid rgba(201, 169, 110, 0.2);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .luxury-card:hover {
-            border-color: rgba(201, 169, 110, 0.6);
+            border-color: rgba(201, 169, 110, 0.65);
             transform: translateY(-4px);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(201, 169, 110, 0.2);
         }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="bg-navy text-champagne font-sans antialiased selection:bg-gold selection:text-navy" x-data="{ mobileMenu: false, activeTab: 'all', appointmentModal: false, selectedService: 'Allgemeine Meisterberatung', appointmentSuccess: false }">
+<body class="bg-navy text-champagne font-sans antialiased selection:bg-gold selection:text-navy" 
+      x-data="{ 
+          mobileMenu: false, 
+          activeTab: 'all', 
+          appointmentModal: false, 
+          selectedService: 'Allgemeine Meisterberatung', 
+          appointmentSuccess: false,
+          currentLang: 'de',
+          onlineTestUrl: 'https://digitalhearingtest.com/de-DE/Krefelder_Hoermanufaktur/4?hz=1000'
+      }">
 
-    <!-- Top Luxury Bar -->
-    <div class="bg-[#050c17] text-gold/80 text-[11px] tracking-[0.2em] uppercase py-2 px-6 border-b border-gold/15 hidden md:block">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-6">
+    <!-- Top Luxury Bar with Language Switcher & Quick Contacts -->
+    <div class="bg-[#050c17] text-gold/80 text-[11px] tracking-[0.18em] uppercase py-2 px-6 border-b border-gold/15">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center space-x-6">
                 <span>📍 Friedrichstraße 14-16, 47798 Krefeld</span>
-                <span>⏱️ Mo–Do 9–13 & 14–18 Uhr · Fr 9–13 Uhr</span>
+                <span class="hidden md:inline">⏱️ Mo–Do 9–13 & 14–18 Uhr · Fr 9–13 Uhr</span>
             </div>
-            <div class="flex items-center gap-6">
-                <a href="tel:021516567294" class="hover:text-gold transition-colors font-medium">📞 02151 - 656 72 94</a>
-                <span class="text-gold/40">|</span>
-                <span class="text-gold-light">Meisterbetrieb & Pädakustik</span>
+            <div class="flex items-center space-x-5 ml-auto">
+                <a :href="onlineTestUrl" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 text-gold hover:text-champagne transition-colors font-medium border border-gold/30 px-2.5 py-0.5 rounded">
+                    <span>🎧</span>
+                    <span>Online-Hörtest (3 Min.) ↗</span>
+                </a>
+                <a href="tel:021516567294" class="hover:text-gold transition-colors font-semibold">📞 02151 - 656 72 94</a>
+                
+                <!-- Language Switcher DE | TR | EN -->
+                <div class="flex items-center space-x-1.5 pl-3 border-l border-gold/25 font-bold">
+                    <button @click="currentLang = 'de'" :class="currentLang === 'de' ? 'text-gold underline' : 'text-gold/50 hover:text-gold'">DE</button>
+                    <span class="text-gold/30">|</span>
+                    <button @click="currentLang = 'tr'" :class="currentLang === 'tr' ? 'text-gold underline' : 'text-gold/50 hover:text-gold'">TR</button>
+                    <span class="text-gold/30">|</span>
+                    <button @click="currentLang = 'en'" :class="currentLang === 'en' ? 'text-gold underline' : 'text-gold/50 hover:text-gold'">EN</button>
+                </div>
             </div>
         </div>
     </div>
@@ -80,7 +99,7 @@
             </a>
 
             <!-- Desktop Nav Links -->
-            <div class="hidden lg:flex items-center space-x-8 text-[12px] tracking-[0.18em] uppercase text-gold-light/80 font-medium">
+            <div class="hidden lg:flex items-center space-x-7 text-[12px] tracking-[0.18em] uppercase text-gold-light/80 font-medium">
                 <a href="#leistungen" class="hover:text-gold transition-colors">Leistungen</a>
                 <a href="#ueber-uns" class="hover:text-gold transition-colors">Über Uns</a>
                 <a href="#galerie" class="hover:text-gold transition-colors flex items-center gap-1.5">
@@ -89,8 +108,11 @@
                 </a>
                 <a href="#ablauf" class="hover:text-gold transition-colors">Ablauf</a>
                 <a href="#kontakt" class="hover:text-gold transition-colors">Kontakt</a>
-                <a href="variations.html" class="text-gray-400 hover:text-white transition-colors text-[11px] border border-gray-700 px-3 py-1.5 rounded">Alle Varianten ↗</a>
-                <button @click="appointmentModal = true" class="bg-gradient-to-r from-gold-dark via-gold to-gold-light text-navy px-6 py-2.5 rounded text-[11px] font-bold tracking-[0.15em] uppercase hover:shadow-[0_0_20px_rgba(201,169,110,0.4)] transition-all">
+                <a :href="onlineTestUrl" target="_blank" rel="noopener noreferrer" class="text-gold hover:text-champagne transition-colors border-b border-gold/40 pb-0.5">
+                    Online-Hörtest ↗
+                </a>
+                <a href="variations.html" class="text-gray-400 hover:text-white transition-colors text-[11px] border border-gray-700 px-2.5 py-1 rounded">Varianten ↗</a>
+                <button @click="appointmentModal = true" class="bg-gradient-to-r from-gold-dark via-gold to-gold-light text-navy px-5 py-2.5 rounded text-[11px] font-bold tracking-[0.15em] uppercase hover:shadow-[0_0_20px_rgba(201,169,110,0.4)] transition-all">
                     Termin vereinbaren
                 </button>
             </div>
@@ -111,6 +133,7 @@
             <a href="#galerie" @click="mobileMenu = false" class="block hover:text-gold">Praxiseinblicke (Gestern & Heute)</a>
             <a href="#ablauf" @click="mobileMenu = false" class="block hover:text-gold">Ablauf</a>
             <a href="#kontakt" @click="mobileMenu = false" class="block hover:text-gold">Kontakt</a>
+            <a :href="onlineTestUrl" target="_blank" class="block text-gold">Online-Hörtest (3 Min.) ↗</a>
             <a href="variations.html" class="block text-gray-400">Alle Design-Varianten ↗</a>
             <button @click="mobileMenu = false; appointmentModal = true" class="w-full bg-gold text-navy py-3 rounded font-bold uppercase tracking-wider text-xs">
                 Termin vereinbaren
@@ -134,20 +157,23 @@
             </div>
 
             <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-champagne leading-[1.08] mb-8 max-w-5xl mx-auto font-normal">
-                Präzision, die man hört.<br>
+                Klangkunst mit Feingefühl.<br>
                 <span class="gold-gradient-text italic font-medium">Herzlichkeit, die man spürt.</span>
             </h1>
 
             <p class="text-gold-light/75 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-12">
-                In stilvollem Ambiente nehmen wir uns viel Zeit für Ihr Gehör. Von modernster digitaler 3D-Otoscan-Vermessung bis hin zur einfühlsamen Pädakustik für Kinder.
+                In stilvollem Ambiente nehmen wir uns viel Zeit für Ihr Gehör. Von modernster digitaler 3D-Otoscan-Vermessung bis hin zur liebevollen Pädakustik für Kinder aller Altersstufen.
             </p>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-5 max-w-md mx-auto mb-16">
-                <button @click="appointmentModal = true" class="w-full sm:w-auto bg-gradient-to-r from-gold-dark via-gold to-gold-light text-navy px-9 py-4 text-xs font-bold tracking-[0.2em] uppercase hover:shadow-[0_0_30px_rgba(201,169,110,0.5)] transition-all">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto mb-16">
+                <button @click="appointmentModal = true" class="w-full sm:w-auto bg-gradient-to-r from-gold-dark via-gold to-gold-light text-navy px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase hover:shadow-[0_0_30px_rgba(201,169,110,0.5)] transition-all">
                     Kostenlosen Hörtest buchen
                 </button>
-                <a href="#galerie" class="w-full sm:w-auto border border-gold/40 text-gold px-8 py-4 text-xs font-semibold tracking-[0.2em] uppercase hover:bg-gold/10 hover:border-gold transition-colors">
-                    Praxis & Historie entdecken
+                <a :href="onlineTestUrl" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto border border-gold/50 bg-navy/60 text-gold px-7 py-4 text-xs font-semibold tracking-[0.18em] uppercase hover:bg-gold hover:text-navy transition-all">
+                    Online-Hörtest (3 Min.) ↗
+                </a>
+                <a href="#galerie" class="w-full sm:w-auto text-gold-light/70 hover:text-gold px-6 py-4 text-xs font-semibold tracking-[0.18em] uppercase transition-colors">
+                    Galerie ansehen ↓
                 </a>
             </div>
 
@@ -163,11 +189,11 @@
                 </div>
                 <div class="border-l border-gold/30 pl-4">
                     <span class="block font-serif text-2xl text-gold">3D-Otoscan</span>
-                    <span class="text-xs text-gold-light/60 uppercase tracking-wider">Kontaktlose Ohr-Abtastung</span>
+                    <span class="text-xs text-gold-light/60 uppercase tracking-wider">Berührungslose Laser-Abtastung</span>
                 </div>
                 <div class="border-l border-gold/30 pl-4">
                     <span class="block font-serif text-2xl text-gold">100% Kassen</span>
-                    <span class="text-xs text-gold-light/60 uppercase tracking-wider">Volle Abrechnungssicherheit</span>
+                    <span class="text-xs text-gold-light/60 uppercase tracking-wider">Volle Kostenübernahme</span>
                 </div>
             </div>
         </div>
@@ -197,7 +223,7 @@
                         </div>
                         <h3 class="font-serif text-2xl text-gold mb-3">Erwachsene</h3>
                         <p class="text-gold-light/60 text-xs sm:text-sm leading-relaxed mb-6">
-                            Kostenloser Meister-Hörtest, präzise Video-Otoskopie und diskreteste Hörsysteme (Im-Ohr & Hinter-dem-Ohr) zum unverbindlichen Probetragen.
+                            Kostenloser Meister-Hörtest, hochauflösende Video-Otoskopie und diskreteste Hörsysteme (Im-Ohr & Hinter-dem-Ohr) zum unverbindlichen Probetragen.
                         </p>
                     </div>
                     <button @click="selectedService = 'Erwachsene (Kostenloser Hörtest)'; appointmentModal = true" class="text-gold text-xs font-semibold tracking-wider uppercase flex items-center gap-2 group-hover:text-champagne transition-colors pt-4 border-t border-gold/15">
@@ -206,18 +232,18 @@
                     </button>
                 </div>
 
-                <!-- 2. Kinder / Pädakustik -->
+                <!-- 2. Kinder / Pädakustik (Mit beiden Fotos der Kinder) -->
                 <div class="luxury-card rounded-xl p-6 group flex flex-col justify-between">
                     <div>
                         <div class="relative aspect-square rounded-lg overflow-hidden mb-6 border border-gold/20">
-                            <img src="img/old-kinder-bereich.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Pädakustik Kinderbereich">
+                            <img src="img/kind-boy-emel.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Pädakustik & Spielaudiometrie">
                             <span class="absolute top-3 left-3 bg-navy/80 backdrop-blur-md text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
                                 Pädakustik
                             </span>
                         </div>
                         <h3 class="font-serif text-2xl text-gold mb-3">Kinder & Familie</h3>
                         <p class="text-gold-light/60 text-xs sm:text-sm leading-relaxed mb-6">
-                            Einfühlsame Spielaudiometrie in kindgerechter Atmosphäre. Hörverlust-Simulation für Eltern und FM-Funkübertragungsanlagen für Schule & Kita.
+                            Einfühlsame Spielaudiometrie ohne Angst. Hörverlust-Simulation für Eltern und FM-Funkübertragungsanlagen für Schule, Kita und Freizeit.
                         </p>
                     </div>
                     <button @click="selectedService = 'Kinder (Pädakustik & Spielaudiometrie)'; appointmentModal = true" class="text-gold text-xs font-semibold tracking-wider uppercase flex items-center gap-2 group-hover:text-champagne transition-colors pt-4 border-t border-gold/15">
@@ -257,7 +283,7 @@
                         </div>
                         <h3 class="font-serif text-2xl text-gold mb-3">Gehörschutz</h3>
                         <p class="text-gold-light/60 text-xs sm:text-sm leading-relaxed mb-6">
-                            Individuell gegossene Otoplastiken für Musiker, Industrie, Schwimmsport und erholsamen Schlaf sowie Lichtsignalanlagen für Barrierefreiheit.
+                            Individuell gefertigte Otoplastiken für Musiker, Industrie, Schwimmsport und Schlaf sowie Lichtsignalanlagen für Barrierefreiheit zu Hause.
                         </p>
                     </div>
                     <button @click="selectedService = 'Gehörschutz & Zubehör'; appointmentModal = true" class="text-gold text-xs font-semibold tracking-wider uppercase flex items-center gap-2 group-hover:text-champagne transition-colors pt-4 border-t border-gold/15">
@@ -277,7 +303,7 @@
                 <!-- Dual Images Collage (Classic Authentic + Modern Studio) -->
                 <div class="lg:w-1/2 relative w-full">
                     <div class="grid grid-cols-2 gap-4 relative z-10">
-                        <!-- Classic Original Portrait -->
+                        <!-- Classic Original Portrait & Reception -->
                         <div class="space-y-4">
                             <div class="relative rounded-2xl overflow-hidden border border-gold/30 shadow-2xl">
                                 <img src="img/old-emel-portrait.jpg" class="w-full aspect-[4/5] object-cover filter contrast-105" alt="Emel Bozcelik - Hörakustikmeisterin">
@@ -330,7 +356,7 @@
                             Ich bin seit <strong class="text-gold font-normal">2002</strong> mit Leidenschaft in der Hörakustik tätig. Nach meiner fundierten Ausbildung und vielseitigen Stationen in der Akustik absolvierte ich 2010 die Spezial-Fortbildung zur <strong class="text-gold font-normal">zertifizierten Pädakustikerin</strong>. Die Arbeit mit Kindern liegt mir seither ganz besonders am Herzen.
                         </p>
                         <p>
-                            Im Jahre 2011 folgte die bestandene Meisterprüfung und die Leitung renommierter Fachgeschäfte. Seit 2015 engagiere ich mich zudem ehrenamtlich als <strong class="text-gold font-normal">Prüferin des Meisterprüfungsausschusses</strong> der Handwerkskammer.
+                            Im Jahre 2011 folgte die bestandene Meisterprüfung und die Leitung renommierter Fachgeschäfte. Seit 2015 engagiere ich mich zudem ehrenamtlich als <strong class="text-gold font-normal">Prüferin des Meisterprüfungsausschusses</strong>.
                         </p>
                         <p>
                             In der <strong class="text-gold font-normal">Krefelder Hörmanufaktur</strong> verbinde ich diese über 20-jährige Handwerkserfahrung mit modernster Diagnosetechnologie – in einer warmen, privaten Atmosphäre ohne Hektik.
@@ -343,7 +369,7 @@
                         </button>
                         <div class="flex items-center gap-3 text-gold-light/60 text-xs">
                             <span class="text-gold text-base">★</span>
-                            <span>Ehrenamtliche Meisterprüferin HWK</span>
+                            <span>Ehrenamtliche Meisterprüferin</span>
                         </div>
                     </div>
                 </div>
@@ -352,15 +378,15 @@
         </div>
     </section>
 
-    <!-- GRAND GALLERY: PRAXISEINBLICKE (Gestern & Heute) -->
+    <!-- GRAND GALLERY: PRAXISEINBLICKE (Gestern & Heute — Kinderwelt & Räumlichkeiten) -->
     <section id="galerie" class="py-32 bg-navy-light relative border-t border-gold/15">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <div class="w-12 h-0.5 bg-gold mx-auto mb-4"></div>
-                <span class="text-gold text-xs tracking-[0.25em] uppercase font-semibold">Exklusive Fotostrecke</span>
+                <span class="text-gold text-xs tracking-[0.25em] uppercase font-semibold">Umfangreiche Fotostrecke</span>
                 <h2 class="font-serif text-4xl sm:text-5xl text-champagne mt-2 mb-4 font-normal">Praxiseinblicke: Gestern & Heute</h2>
                 <p class="text-gold-light/70 text-sm sm:text-base leading-relaxed">
-                    Erleben Sie die authentische Geschichte und das stilvolle Interieur unserer Manufaktur. Wir vereinen unsere geschätzten Originalaufnahmen mit modernen Werkstatt- und Behandlungsräumen.
+                    Unsere authentische Praxis-Geschichte, die liebevolle Betreuung beider Kinder aus dem neuen Shooting sowie unsere geschätzten Erinnerungen.
                 </p>
 
                 <!-- Filter Tabs -->
@@ -369,7 +395,7 @@
                         Alle Aufnahmen
                     </button>
                     <button @click="activeTab = 'praxis'" :class="activeTab === 'praxis' ? 'bg-gold text-navy font-bold' : 'bg-navy-surface text-gold/80 hover:bg-gold/20'" class="px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all border border-gold/30">
-                        Praxisräume & Empfang
+                        Praxisräume & Kabine
                     </button>
                     <button @click="activeTab = 'kinder'" :class="activeTab === 'kinder' ? 'bg-gold text-navy font-bold' : 'bg-navy-surface text-gold/80 hover:bg-gold/20'" class="px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all border border-gold/30">
                         Kinderwelt & Pädakustik
@@ -380,7 +406,7 @@
                 </div>
             </div>
 
-            <!-- Gallery Grid with Luxury Frames & Hover Color Reveals -->
+            <!-- Rich Gallery Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
                 <!-- 1. Original Empfang -->
@@ -398,82 +424,142 @@
                     </div>
                 </div>
 
-                <!-- 2. Original Kinder-Bereich (Baum-Wand) -->
+                <!-- 2. Erwachsenenkabine (Schallisolierte Messkabine) -->
+                <div x-show="activeTab === 'all' || activeTab === 'praxis'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/room-otoscan.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Erwachsenenkabine">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Audiometrie
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Erwachsenenkabine</h4>
+                        <p class="text-gold-light/60 text-xs">Modernste, schallisolierte Audiometriekabine für exakte Hörschwellen- und Sprachtests bei Erwachsenen.</p>
+                    </div>
+                </div>
+
+                <!-- 3. Neuer Junge: Emel lacht mit Junge am Tisch -->
                 <div x-show="activeTab === 'all' || activeTab === 'kinder'" class="luxury-card rounded-xl overflow-hidden group">
                     <div class="relative aspect-[4/3] overflow-hidden">
-                        <img src="img/old-kinder-bereich.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Kinderbereich mit Baum-Wandbild">
+                        <img src="img/kind-boy-emel.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Spielaudiometrie mit Emel">
                         <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
                         <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
-                            Pädakustik-Klassiker
+                            Pädakustik-Abenteuer
                         </span>
                     </div>
                     <div class="p-5">
-                        <h4 class="font-serif text-lg text-gold mb-1">Kinder-Kreativbereich</h4>
-                        <p class="text-gold-light/60 text-xs">Das beliebte handgemalte Wandbild und der Spieletisch für entspanntes Ankommen der Kleinen.</p>
+                        <h4 class="font-serif text-lg text-gold mb-1">Spielaudiometrie mit Herz</h4>
+                        <p class="text-gold-light/60 text-xs">Gemeinsames Lachen und spielerisches Vertrauensschaffen am bunten Tisch.</p>
                     </div>
                 </div>
 
-                <!-- 3. Original Otoscan 3D-Monitor -->
-                <div x-show="activeTab === 'all' || activeTab === 'technik'" class="luxury-card rounded-xl overflow-hidden group">
-                    <div class="relative aspect-[4/3] overflow-hidden">
-                        <img src="img/old-otoscan-monitor.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Otoscan Bildschirm">
-                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
-                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
-                            Digitale 3D-Diagnostik
-                        </span>
-                    </div>
-                    <div class="p-5">
-                        <h4 class="font-serif text-lg text-gold mb-1">3D-Ohrkanal-Visualisierung</h4>
-                        <p class="text-gold-light/60 text-xs">Echtzeit-Aufzeichnung der Gehörgang-Geometrie für passgenaueste Otoplastiken.</p>
-                    </div>
-                </div>
-
-                <!-- 4. Original Kinder-Raum -->
+                <!-- 4. Neues Mädchen: Otoskopie-Untersuchung -->
                 <div x-show="activeTab === 'all' || activeTab === 'kinder'" class="luxury-card rounded-xl overflow-hidden group">
                     <div class="relative aspect-[4/3] overflow-hidden">
-                        <img src="img/old-kinder-raum.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Kinder-Hörraum">
+                        <img src="img/kind-girl-exam.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Sanfte Ohruntersuchung">
                         <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
                         <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
-                            Original Spielaudiometrie
+                            Sanfte Otoskopie
                         </span>
                     </div>
                     <div class="p-5">
-                        <h4 class="font-serif text-lg text-gold mb-1">Spezial-Hörraum für Kinder</h4>
-                        <p class="text-gold-light/60 text-xs">Geschützter Raum zum Malen, Bauklötze-Spielen und angstfreien Hörvermögens-Testen.</p>
+                        <h4 class="font-serif text-lg text-gold mb-1">Einfühlsame Ohr-Kontrolle</h4>
+                        <p class="text-gold-light/60 text-xs">Völlig schmerzfrei und mit Neugier: Kinder dürfen ihr eigenes Ohr am Monitor mitbetrachten.</p>
                     </div>
                 </div>
 
-                <!-- 5. Original Hörtest Erwachsene -->
-                <div x-show="activeTab === 'all' || activeTab === 'technik'" class="luxury-card rounded-xl overflow-hidden group">
-                    <div class="relative aspect-[4/3] overflow-hidden">
-                        <img src="img/old-erwachsene-hoertest.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Hörtest bei Erwachsenen">
-                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
-                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
-                            Tonschwellen-Prüfung
-                        </span>
-                    </div>
-                    <div class="p-5">
-                        <h4 class="font-serif text-lg text-gold mb-1">Schallisolierte Messkabine</h4>
-                        <p class="text-gold-light/60 text-xs">Exakte Frequenz- und Sprachverständlichkeitsanalyse nach modernsten klinischen Standards.</p>
-                    </div>
-                </div>
-
-                <!-- 6. Original Mädchen mit Hörgerät -->
+                <!-- 5. Neuer Junge: Bunte Knöpfe drücken mit Kopfhörern -->
                 <div x-show="activeTab === 'all' || activeTab === 'kinder'" class="luxury-card rounded-xl overflow-hidden group">
                     <div class="relative aspect-[4/3] overflow-hidden">
-                        <img src="img/old-maedchen.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Mädchen mit Hörgerät">
+                        <img src="img/kind-boy-buttons.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Bunte Buzzer-Tasten">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Kinder-Hörtest
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Interaktive Hörspiel-Tasten</h4>
+                        <p class="text-gold-light/60 text-xs">Große bunte Tasten statt langweiliger Knöpfe: Hörtests werden zum spannenden Spiel.</p>
+                    </div>
+                </div>
+
+                <!-- 6. Neues Mädchen: Holzklotz-Test mit Kopfhörern -->
+                <div x-show="activeTab === 'all' || activeTab === 'kinder'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/kind-girl-test.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Holzklotz-Hörtest">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Spielerisches Testen
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Klang- & Steckspiel</h4>
+                        <p class="text-gold-light/60 text-xs">Ton hören, Baustein setzen: Konzentration und Freude an der eigenen Wahrnehmung.</p>
+                    </div>
+                </div>
+
+                <!-- 7. Original Kind: Emels Neffe mit Hörsystem -->
+                <div x-show="activeTab === 'all' || activeTab === 'kinder'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/old-kind-dsc.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Emels Neffe mit Hörsystem">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Familie & Herz
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Aus tiefster Überzeugung</h4>
+                        <p class="text-gold-light/60 text-xs">Emels Neffe: Von klein auf bestens versorgt für ein unbeschwertes Aufwachsen.</p>
+                    </div>
+                </div>
+
+                <!-- 8. Original Kind: Tochter der engen Freundin -->
+                <div x-show="activeTab === 'all' || activeTab === 'kinder'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/old-maedchen.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Mädchen mit buntem Hörsystem">
                         <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
                         <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
                             Lebensfreude
                         </span>
                     </div>
                     <div class="p-5">
-                        <h4 class="font-serif text-lg text-gold mb-1">Natürliche Hörfreude für Kinder</h4>
-                        <p class="text-gold-light/60 text-xs">Bunte Gehäuse, Sticker und modernste Technik, die unbeschwerte Entwicklung ermöglicht.</p>
+                        <h4 class="font-serif text-lg text-gold mb-1">Freundschaft & Vertrauen</h4>
+                        <p class="text-gold-light/60 text-xs">Fröhliches Lachen mit farbenfrohem Hörgerät – echte Kunden aus unserem engen Kreis.</p>
                     </div>
                 </div>
 
-                <!-- 7. Meisterwerkstatt (Neues DSLR Panorama) -->
+                <!-- 9. Original Kinder-Bereich (Handgemaltes Baum-Wandbild) -->
+                <div x-show="activeTab === 'all' || activeTab === 'kinder'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/old-kinder-bereich.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Kinder-Spielecke Baum-Wand">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Originale Spielecke
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">Das beliebte Baum-Wandbild</h4>
+                        <p class="text-gold-light/60 text-xs">Der gemütliche Rückzugsort mit Holzstühlen und Spielen für kleine Besucher.</p>
+                    </div>
+                </div>
+
+                <!-- 10. Original Otoscan 3D-Monitor -->
+                <div x-show="activeTab === 'all' || activeTab === 'technik'" class="luxury-card rounded-xl overflow-hidden group">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        <img src="img/old-otoscan-monitor.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Otoscan 3D Monitor">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
+                            Digitale Diagnostik
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-serif text-lg text-gold mb-1">3D-Ohrkanal-Visualisierung</h4>
+                        <p class="text-gold-light/60 text-xs">Live-Abtastung der Gehörgangskontur auf dem Bildschirm für perfekte Passgenauigkeit.</p>
+                    </div>
+                </div>
+
+                <!-- 11. Meisterwerkstatt (Neues DSLR Panorama) -->
                 <div x-show="activeTab === 'all' || activeTab === 'technik'" class="luxury-card rounded-xl overflow-hidden group">
                     <div class="relative aspect-[4/3] overflow-hidden">
                         <img src="img/room-werkstatt.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Meisterwerkstatt">
@@ -488,22 +574,7 @@
                     </div>
                 </div>
 
-                <!-- 8. Otoscan 3D Laser Abtastung (Modernes Studio) -->
-                <div x-show="activeTab === 'all' || activeTab === 'technik'" class="luxury-card rounded-xl overflow-hidden group">
-                    <div class="relative aspect-[4/3] overflow-hidden">
-                        <img src="img/otoscan-exam.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Otoscan 3D Scan">
-                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
-                        <span class="absolute top-3 left-3 bg-navy/90 text-gold text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded border border-gold/30 uppercase">
-                            High-Tech Abtastung
-                        </span>
-                    </div>
-                    <div class="p-5">
-                        <h4 class="font-serif text-lg text-gold mb-1">Berührungsloser Otoscan</h4>
-                        <p class="text-gold-light/60 text-xs">Keine unangenehme Silikonmasse im Ohr – millimetergenauer Laser-3D-Scan in Sekunden.</p>
-                    </div>
-                </div>
-
-                <!-- 9. Modernes Praxis-Panorama -->
+                <!-- 12. Modernes Praxis-Panorama -->
                 <div x-show="activeTab === 'all' || activeTab === 'praxis'" class="luxury-card rounded-xl overflow-hidden group">
                     <div class="relative aspect-[4/3] overflow-hidden">
                         <img src="img/room-panorama.jpg" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Praxis Panorama">
@@ -586,10 +657,13 @@
                 </div>
             </div>
 
-            <div class="mt-16 text-center">
+            <div class="mt-16 text-center flex flex-col sm:flex-row justify-center items-center gap-4">
                 <button @click="appointmentModal = true" class="bg-gradient-to-r from-gold-dark via-gold to-gold-light text-navy px-10 py-4 rounded text-xs font-bold tracking-[0.2em] uppercase hover:shadow-[0_0_25px_rgba(201,169,110,0.5)] transition-all">
-                    Jetzt unverbindlichen Hörtest vereinbaren
+                    Termin für Hörtest vereinbaren
                 </button>
+                <a :href="onlineTestUrl" target="_blank" rel="noopener noreferrer" class="border border-gold text-gold hover:bg-gold hover:text-navy px-8 py-4 rounded text-xs font-bold tracking-[0.2em] uppercase transition-all">
+                    Online-Hörtest durchführen ↗
+                </a>
             </div>
         </div>
     </section>
@@ -643,10 +717,13 @@
                         </div>
                     </div>
 
-                    <div class="mt-10">
+                    <div class="mt-10 flex gap-4">
                         <button @click="appointmentModal = true" class="bg-gold text-navy px-8 py-3.5 rounded text-xs font-bold tracking-[0.15em] uppercase hover:bg-gold-light transition-all">
                             Termin reservieren
                         </button>
+                        <a :href="onlineTestUrl" target="_blank" rel="noopener noreferrer" class="border border-gold text-gold hover:bg-gold hover:text-navy px-6 py-3.5 rounded text-xs font-bold tracking-[0.15em] uppercase transition-all">
+                            Online-Hörtest ↗
+                        </a>
                     </div>
                 </div>
 
@@ -687,6 +764,7 @@
                 <a href="#ueber-uns" class="hover:text-gold transition-colors">Über Uns</a>
                 <a href="#galerie" class="hover:text-gold transition-colors">Praxiseinblicke</a>
                 <a href="#ablauf" class="hover:text-gold transition-colors">Ablauf</a>
+                <a :href="onlineTestUrl" target="_blank" class="text-gold hover:underline">Online-Hörtest (3 Min.) ↗</a>
                 <a href="#kontakt" class="hover:text-gold transition-colors">Kontakt & Anfahrt</a>
                 <a href="variations.html" class="text-gray-400 hover:text-white">Design-Varianten ↗</a>
             </div>
