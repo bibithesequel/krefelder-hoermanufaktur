@@ -293,7 +293,7 @@
                 <!-- 3. Sonderversorgung -->
                 <div class="compact-card bg-slateBg border border-borderSubtle rounded-xl overflow-hidden flex flex-col cursor-pointer" @click="navigate('sonderversorgung')">
                     <div class="h-44 overflow-hidden relative bg-white">
-                        <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/3/a/csm_Baha_5_Systems_SPs_black_02_ac2b1932c8.jpg" alt="Sonderversorgung" class="w-full h-full object-cover">
+                        <img src="img/old-baha.jpg" alt="Sonderversorgung" class="w-full h-full object-cover">
                         <span class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-sm text-charcoal text-[11px] font-bold px-2 py-0.5 rounded shadow-xs">Spezialversorgung</span>
                     </div>
                     <div class="p-4 flex-1 flex flex-col justify-between">
@@ -313,7 +313,7 @@
                 <!-- 4. Zubehör -->
                 <div class="compact-card bg-slateBg border border-borderSubtle rounded-xl overflow-hidden flex flex-col cursor-pointer" @click="navigate('zubehoer')">
                     <div class="h-44 overflow-hidden relative bg-white">
-                        <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/2/1/csm_Packshot_Roger_Charging_Rack_Family_055-3010-P5_0884b900eb.png" alt="Zubehör" class="w-full h-full object-cover">
+                        <img src="img/old-gehoerschutz.jpg" alt="Zubehör" class="w-full h-full object-cover">
                         <span class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-sm text-charcoal text-[11px] font-bold px-2 py-0.5 rounded shadow-xs">Zubehör & Schutz</span>
                     </div>
                     <div class="p-4 flex-1 flex flex-col justify-between">
@@ -408,7 +408,7 @@
                 <!-- Step 3 -->
                 <div x-show="activeServiceStep === 3" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
                     <div class="md:col-span-5 rounded-xl overflow-hidden h-56">
-                        <img src="img/consultation.jpg" alt="Hörsystem" class="w-full h-full object-cover">
+                        <img src="img/old-hoergeraete.jpg" alt="Hörsysteme" class="w-full h-full object-cover">
                     </div>
                     <div class="md:col-span-7">
                         <div class="text-xs font-bold text-brand uppercase tracking-wider mb-1">Schritt 3 von 5</div>
@@ -425,7 +425,7 @@
                 <!-- Step 4 -->
                 <div x-show="activeServiceStep === 4" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
                     <div class="md:col-span-5 rounded-xl overflow-hidden h-56">
-                        <img src="img/otoscan-exam.jpg" alt="Anpassung" class="w-full h-full object-cover">
+                        <img src="img/old-otoscan-monitor.jpg" alt="3D-Otoscan Anpassung" class="w-full h-full object-cover">
                     </div>
                     <div class="md:col-span-7">
                         <div class="text-xs font-bold text-brand uppercase tracking-wider mb-1">Schritt 4 von 5</div>
@@ -503,28 +503,53 @@
                 </div>
             </div>
 
-            <!-- Compact 4-Photo Practice Gallery -->
+            <!-- Compact 8-Photo Practice Gallery (Gestern & Heute) -->
             <div class="border-t border-borderSubtle pt-8">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-sm font-bold text-charcoal uppercase tracking-wider" data-i18n="gallery_title">Einblicke in unsere Räumlichkeiten</h3>
-                    <span class="text-[11px] text-gray-500">Friedrichstraße 14–16, Krefeld</span>
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-sm font-bold text-charcoal uppercase tracking-wider" data-i18n="gallery_title">Einblicke in unsere Räumlichkeiten</h3>
+                            <span class="bg-brand-soft text-brand-dark text-[10px] font-bold px-2 py-0.5 rounded-full">Gestern & Heute</span>
+                        </div>
+                        <p class="text-[11px] text-gray-500 mt-0.5">Friedrichstraße 14–16, Krefeld · Authentische Praxisaufnahmen & moderne Diagnostikräume</p>
+                    </div>
+                    <span class="text-[11px] text-brand font-semibold hidden sm:inline">Meisterbetrieb seit 2011</span>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video">
-                        <img src="img/room-reception.jpg" alt="Empfang" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <span class="absolute bottom-1.5 left-1.5 bg-black/60 backdrop-blur-xs text-white text-[10px] px-1.5 py-0.5 rounded">Empfang</span>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <!-- Row 1: Originale Klassiker -->
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                        <img src="img/old-empfang-raum.jpg" alt="Original Empfang" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute bottom-1.5 left-1.5 bg-black/70 backdrop-blur-xs text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Praxisempfang</span>
                     </div>
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video">
-                        <img src="img/room-otoscan.jpg" alt="3D Otoscan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <span class="absolute bottom-1.5 left-1.5 bg-black/60 backdrop-blur-xs text-white text-[10px] px-1.5 py-0.5 rounded">3D-Scanraum</span>
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                        <img src="img/old-kinder-bereich.jpg" alt="Original Kinder-Spielecke" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute bottom-1.5 left-1.5 bg-black/70 backdrop-blur-xs text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Kinder-Spielecke</span>
                     </div>
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video">
-                        <img src="img/room-kinder.jpg" alt="Kinderbereich" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <span class="absolute bottom-1.5 left-1.5 bg-black/60 backdrop-blur-xs text-white text-[10px] px-1.5 py-0.5 rounded">Kinderbereich</span>
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                        <img src="img/old-otoscan-monitor.jpg" alt="Original Otoscan Monitor" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute bottom-1.5 left-1.5 bg-black/70 backdrop-blur-xs text-white text-[9px] px-1.5 py-0.5 rounded font-medium">3D-Otoscan Monitor</span>
                     </div>
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video">
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                        <img src="img/old-erwachsene-hoertest.jpg" alt="Original Hörkabine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute bottom-1.5 left-1.5 bg-black/70 backdrop-blur-xs text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Akustikkabine</span>
+                    </div>
+
+                    <!-- Row 2: Moderne Studio-Einblicke -->
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                        <img src="img/room-reception.jpg" alt="Moderner Empfang" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute bottom-1.5 left-1.5 bg-black/70 backdrop-blur-xs text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Empfangsbereich</span>
+                    </div>
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
                         <img src="img/room-werkstatt.jpg" alt="Werkstatt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <span class="absolute bottom-1.5 left-1.5 bg-black/60 backdrop-blur-xs text-white text-[10px] px-1.5 py-0.5 rounded">Werkstatt</span>
+                        <span class="absolute bottom-1.5 left-1.5 bg-black/70 backdrop-blur-xs text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Meisterwerkstatt</span>
+                    </div>
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                        <img src="img/room-kinder.jpg" alt="Kinder-Hörraum" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute bottom-1.5 left-1.5 bg-black/70 backdrop-blur-xs text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Pädakustikraum</span>
+                    </div>
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                        <img src="img/old-maedchen.jpg" alt="Junior-Versorgung" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute bottom-1.5 left-1.5 bg-black/70 backdrop-blur-xs text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Junior-Versorgung</span>
                     </div>
                 </div>
             </div>
@@ -541,8 +566,21 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
         <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-8">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                <div class="md:col-span-5">
-                    <img src="img/emel-portrait.jpg" class="w-full h-96 object-cover rounded-xl shadow-md border border-borderSubtle" alt="Emel Bozçelik">
+                <div class="md:col-span-5 space-y-3">
+                    <div class="relative rounded-xl overflow-hidden shadow-md border border-borderSubtle">
+                        <img src="img/emel-portrait.jpg" class="w-full h-64 object-cover" alt="Emel Bozçelik">
+                        <span class="absolute bottom-2 left-2 bg-charcoal/80 text-white text-[10px] px-2 py-0.5 rounded font-semibold">Aktuell</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative rounded-lg overflow-hidden border border-borderSubtle shadow-2xs">
+                            <img src="img/old-emel-portrait.jpg" class="w-full h-24 object-cover" alt="Emel Bozçelik Meisterin">
+                            <span class="absolute bottom-1 left-1 bg-charcoal/80 text-white text-[9px] px-1.5 py-0.5 rounded">Meisterin seit 2011</span>
+                        </div>
+                        <div class="relative rounded-lg overflow-hidden border border-borderSubtle shadow-2xs">
+                            <img src="img/old-empfang-raum.jpg" class="w-full h-24 object-cover" alt="Praxis Krefeld">
+                            <span class="absolute bottom-1 left-1 bg-charcoal/80 text-white text-[9px] px-1.5 py-0.5 rounded">Praxis Krefeld</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="md:col-span-7 space-y-4">
                     <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="nav_about">Über mich</span>
@@ -576,8 +614,8 @@
 
             <!-- Card 1: Hörtest -->
             <div id="hoertest" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center py-6 border-b border-borderSubtle">
-                <div class="md:col-span-5 h-64 rounded-xl overflow-hidden">
-                    <img src="img/adult-hoertest.jpg" class="w-full h-full object-cover" alt="Hörtest">
+                <div class="md:col-span-5 h-64 rounded-xl overflow-hidden shadow-xs">
+                    <img src="img/old-erwachsene-hoertest.jpg" class="w-full h-full object-cover" alt="Hörtest">
                 </div>
                 <div class="md:col-span-7">
                     <h2 class="text-xl font-bold mb-2" data-i18n="erw_title">Der kostenlose Hörtest für Erwachsene</h2>
@@ -604,8 +642,8 @@
 
             <!-- Card 3: Otoscan -->
             <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center pt-6">
-                <div class="md:col-span-5 h-64 rounded-xl overflow-hidden">
-                    <img src="img/otoscan-exam.jpg" class="w-full h-full object-cover" alt="Otoscan">
+                <div class="md:col-span-5 h-64 rounded-xl overflow-hidden shadow-xs">
+                    <img src="img/old-otoscan-monitor.jpg" class="w-full h-full object-cover" alt="Otoscan">
                 </div>
                 <div class="md:col-span-7">
                     <h2 class="text-xl font-bold mb-2" data-i18n="erw_otoscan_title">Otoscan</h2>
@@ -630,7 +668,21 @@
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-8">
                 <div class="md:col-span-5">
-                    <img src="img/kind-boy-emel.jpg" alt="Pädakustik" class="w-full h-80 object-cover rounded-2xl shadow-md border-4 border-pink-100 mb-4">
+                    <img src="img/kind-boy-emel.jpg" alt="Pädakustik" class="w-full h-72 object-cover rounded-2xl shadow-md border-4 border-pink-100 mb-3">
+                    <div class="grid grid-cols-3 gap-2 mb-4">
+                        <div class="relative rounded-lg overflow-hidden border border-pink-200 aspect-square shadow-2xs">
+                            <img src="img/old-kinder-bereich.jpg" alt="Spielecke mit Baum" class="w-full h-full object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/60 text-white text-[8px] px-1 rounded">Spielecke</span>
+                        </div>
+                        <div class="relative rounded-lg overflow-hidden border border-pink-200 aspect-square shadow-2xs">
+                            <img src="img/old-kinder-raum.jpg" alt="Hörraum Kinder" class="w-full h-full object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/60 text-white text-[8px] px-1 rounded">Hörraum</span>
+                        </div>
+                        <div class="relative rounded-lg overflow-hidden border border-pink-200 aspect-square shadow-2xs">
+                            <img src="img/old-maedchen.jpg" alt="Kind mit Hörgerät" class="w-full h-full object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/60 text-white text-[8px] px-1 rounded">Freude</span>
+                        </div>
+                    </div>
                     <div class="bg-pink-50 p-4 rounded-xl border border-pink-200">
                         <span class="block text-xs font-bold text-pink-900 mb-1">Einfühlsam & Vertrauensvoll</span>
                         <p class="text-[11px] text-pink-800">Wir nehmen uns besonders viel Zeit, um spielerisch das Vertrauen unserer jüngsten Kunden zu gewinnen.</p>
@@ -685,7 +737,7 @@
                         <h3 class="font-bold text-base mb-2" data-i18n="sond_title_2">Versorgung über die Knochenleitung</h3>
                         <p class="text-xs text-gray-600 leading-relaxed mb-4" data-i18n="sond_desc_1"></p>
                     </div>
-                    <img src="https://www.krefelder-hoermanufaktur.de/fileadmin/_processed_/3/a/csm_Baha_5_Systems_SPs_black_02_ac2b1932c8.jpg" class="h-40 object-cover rounded-lg w-full" alt="Baha">
+                    <img src="img/old-baha.jpg" class="h-40 object-cover rounded-lg w-full" alt="Baha">
                 </div>
 
                 <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
@@ -715,17 +767,32 @@
             <h1 class="text-3xl font-extrabold text-charcoal mt-1 mb-6">Gehörschutz & Arbeitsplatzausstattung</h1>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle">
-                    <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_1">Arbeitsplatz & Schule</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_1"></p>
+                <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
+                    <div>
+                        <div class="h-32 rounded-lg overflow-hidden mb-3 border border-borderSubtle bg-white">
+                            <img src="img/old-roger.png" alt="Arbeitsplatz Roger" class="w-full h-full object-contain p-2">
+                        </div>
+                        <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_1">Arbeitsplatz & Schule</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_1"></p>
+                    </div>
                 </div>
-                <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle">
-                    <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_2">Lösungen für Gehörlose</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_2"></p>
+                <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
+                    <div>
+                        <div class="h-32 rounded-lg overflow-hidden mb-3 border border-borderSubtle bg-white">
+                            <img src="img/old-hoergeraete.jpg" alt="Lichtsignalanlagen & Zubehör" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_2">Lösungen für Gehörlose</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_2"></p>
+                    </div>
                 </div>
-                <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle">
-                    <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_3">Gehör vor Schäden schützen</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_3"></p>
+                <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
+                    <div>
+                        <div class="h-32 rounded-lg overflow-hidden mb-3 border border-borderSubtle bg-white">
+                            <img src="img/old-gehoerschutz.jpg" alt="Gehörschutz Otoplastiken" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_3">Gehör vor Schäden schützen</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_3"></p>
+                    </div>
                 </div>
             </div>
 
@@ -745,6 +812,26 @@
         <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-8">
             <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="nav_service">Service</span>
             <h1 class="text-3xl font-extrabold text-charcoal mt-1 mb-8" data-i18n="service_hero_title">Unser Service</h1>
+
+            <!-- 4-Photo Process Showcase (Gestern & Heute) -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+                <div class="rounded-lg overflow-hidden border border-borderSubtle aspect-video relative shadow-xs">
+                    <img src="img/old-erwachsene-hoertest.jpg" alt="Hörtest" class="w-full h-full object-cover">
+                    <span class="absolute bottom-1 left-1 bg-black/70 text-white text-[9px] px-1.5 py-0.5 rounded">1. Hörtest</span>
+                </div>
+                <div class="rounded-lg overflow-hidden border border-borderSubtle aspect-video relative shadow-xs">
+                    <img src="img/old-otoscan-monitor.jpg" alt="3D Otoscan" class="w-full h-full object-cover">
+                    <span class="absolute bottom-1 left-1 bg-black/70 text-white text-[9px] px-1.5 py-0.5 rounded">2. 3D-Scan</span>
+                </div>
+                <div class="rounded-lg overflow-hidden border border-borderSubtle aspect-video relative shadow-xs">
+                    <img src="img/old-hoergeraete.jpg" alt="Hörsysteme" class="w-full h-full object-cover">
+                    <span class="absolute bottom-1 left-1 bg-black/70 text-white text-[9px] px-1.5 py-0.5 rounded">3. Systeme</span>
+                </div>
+                <div class="rounded-lg overflow-hidden border border-borderSubtle aspect-video relative shadow-xs">
+                    <img src="img/room-werkstatt.jpg" alt="Meisterwerkstatt" class="w-full h-full object-cover">
+                    <span class="absolute bottom-1 left-1 bg-black/70 text-white text-[9px] px-1.5 py-0.5 rounded">4. Werkstatt</span>
+                </div>
+            </div>
 
             <!-- 5 Steps list in clean compact layout -->
             <div class="space-y-6">
