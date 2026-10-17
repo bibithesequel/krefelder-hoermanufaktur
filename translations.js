@@ -22,7 +22,7 @@ const translations = {
         // Hero
         hero_title: "Krefelder Hörmanufaktur",
         hero_subtitle: "Wir sind an Ihrer Seite.",
-        hero_cta: "KOSTENLOSER HÖRTEST",
+        hero_cta: "Kostenloser Hörtest",
         
         // Home services section
         services_title: "Unser Service für Sie",
@@ -224,7 +224,7 @@ const translations = {
         // Hero
         hero_title: "Krefelder Hörmanufaktur",
         hero_subtitle: "We are by your side.",
-        hero_cta: "FREE HEARING TEST",
+        hero_cta: "Free Hearing Test",
         
         // Home services section
         services_title: "Our service for you",
@@ -426,7 +426,7 @@ const translations = {
         // Hero
         hero_title: "Krefelder Hörmanufaktur",
         hero_subtitle: "Yanınızdayız.",
-        hero_cta: "ÜCRETSİZ İŞİTME TESTİ",
+        hero_cta: "Ücretsiz İşitme Testi",
         
         // Home services section
         services_title: "Sizin için hizmetlerimiz",

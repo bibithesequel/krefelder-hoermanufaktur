@@ -31,7 +31,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -49,7 +49,7 @@
                         borderSubtle: '#e2e8f0',
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+                        sans: ['Outfit', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
                         serif: ['Playfair Display', 'Georgia', 'serif'],
                         kids: ['Nunito', 'sans-serif']
                     }
@@ -173,62 +173,74 @@
 <!-- ═════════════════════════════════════════════════════ -->
 <div x-show="currentRoute==='home'" x-transition.opacity.duration.250ms>
 
-    <!-- Compact Hero Section (Split Layout) -->
-    <section class="bg-gradient-to-b from-slateBg to-white py-10 lg:py-14 border-b border-borderSubtle">
+    <!-- Modern Compact Hero Section (Split Layout) -->
+    <section class="bg-gradient-to-b from-slateBg via-white to-white py-10 lg:py-16 border-b border-borderSubtle">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 <!-- Left: Headline & Benefits -->
                 <div class="lg:col-span-7">
-                    <div class="inline-flex items-center gap-2 bg-brand-light text-brand px-3 py-1 rounded-full text-xs font-semibold mb-4">
+                    <div class="inline-flex items-center gap-2 bg-brand/10 text-brand-dark border border-brand/20 px-3.5 py-1 rounded-full text-xs font-medium mb-5">
                         <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
                         <span data-i18n="hero_subtitle">Wir sind an Ihrer Seite.</span> • Meisterbetrieb Krefeld
                     </div>
-                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-charcoal tracking-tight leading-[1.15] mb-4">
+                    
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-charcoal tracking-tight leading-[1.16] mb-5">
                         Individuelle Hörakustik für <span class="text-brand">Erwachsene & Kinder</span>
                     </h1>
-                    <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-6 max-w-xl">
+                    
+                    <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-6 max-w-xl font-normal">
                         In unserer modernen Fachpraxis in Krefeld verbinden wir digitales 3D-Otoscan, audiologische Fachkompetenz und einfühlsame Betreuung zu Ihrer optimalen Hörlösung.
                     </p>
 
-                    <!-- 3 Feature Badges in Compact Row -->
-                    <div class="grid grid-cols-3 gap-3 mb-6 max-w-lg">
-                        <div class="bg-white p-3 rounded-lg border border-borderSubtle shadow-xs">
-                            <div class="text-brand font-bold text-xs">✓ Kostenlos</div>
-                            <div class="text-[11px] text-gray-500 font-medium">Hörtest & Analyse</div>
+                    <!-- 3 Modern Feature Cards -->
+                    <div class="grid grid-cols-3 gap-3 mb-8 max-w-lg">
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-xs hover:border-brand/40 transition-colors">
+                            <div class="text-brand font-bold text-xs sm:text-sm">✓ Kostenlos</div>
+                            <div class="text-[11px] text-gray-500 font-medium mt-0.5">Hörtest & Analyse</div>
                         </div>
-                        <div class="bg-white p-3 rounded-lg border border-borderSubtle shadow-xs">
-                            <div class="text-brand font-bold text-xs">✓ 3D-Otoscan</div>
-                            <div class="text-[11px] text-gray-500 font-medium">Digitaler Ohrscan</div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-xs hover:border-brand/40 transition-colors">
+                            <div class="text-brand font-bold text-xs sm:text-sm">✓ 3D-Otoscan</div>
+                            <div class="text-[11px] text-gray-500 font-medium mt-0.5">Digitaler Ohrscan</div>
                         </div>
-                        <div class="bg-white p-3 rounded-lg border border-borderSubtle shadow-xs">
-                            <div class="text-brand font-bold text-xs">✓ Alle Kassen</div>
-                            <div class="text-[11px] text-gray-500 font-medium">Volle Abwicklung</div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-xs hover:border-brand/40 transition-colors">
+                            <div class="text-brand font-bold text-xs sm:text-sm">✓ Alle Kassen</div>
+                            <div class="text-[11px] text-gray-500 font-medium mt-0.5">Volle Abwicklung</div>
                         </div>
                     </div>
 
-                    <!-- CTA Buttons -->
+                    <!-- Modern CTA Buttons -->
                     <div class="flex flex-wrap items-center gap-3">
-                        <button @click="openModal('appointment')" class="bg-brand text-white px-5 py-2.5 rounded-lg text-xs font-bold tracking-wide hover:bg-brand-dark shadow transition-all flex items-center gap-2" data-i18n="hero_cta">
-                            <span>KOSTENLOSER HÖRTEST</span> →
+                        <button @click="openModal('appointment')" class="bg-brand text-white px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold hover:bg-brand-dark shadow-sm hover:shadow transition-all flex items-center gap-2" data-i18n="hero_cta">
+                            <span>Kostenloser Hörtest</span> <span class="text-white/80">→</span>
                         </button>
-                        <a href="https://digitalhearingtest.com/de-DE/Krefelder_Hoermanufaktur/4?hz=1000" target="_blank" class="border border-gray-300 text-gray-700 px-4 py-2.5 rounded-lg text-xs font-semibold hover:border-brand hover:text-brand transition-colors">
+                        <a href="https://digitalhearingtest.com/de-DE/Krefelder_Hoermanufaktur/4?hz=1000" target="_blank" class="border border-slate-200 bg-white text-gray-700 px-4 py-3 rounded-xl text-xs sm:text-sm font-medium hover:border-brand hover:text-brand transition-colors shadow-2xs">
                             Online-Hörtest (3 Min.)
                         </a>
-                        <a href="tel:021516567294" class="text-gray-600 hover:text-charcoal px-3 py-2 text-xs font-semibold flex items-center gap-1.5">
-                            📞 02151-6567294
+                        <a href="tel:021516567294" class="text-gray-700 hover:text-brand px-3 py-3 text-xs sm:text-sm font-semibold flex items-center gap-2">
+                            <span>📞</span> <span>02151-6567294</span>
                         </a>
                     </div>
                 </div>
 
-                <!-- Right: Visual Card with Emel -->
+                <!-- Right: High-Res Portrait Card of Emel Bozçelik -->
                 <div class="lg:col-span-5">
-                    <div class="relative rounded-2xl overflow-hidden border border-borderSubtle shadow-lg bg-white">
-                        <img src="img/emel-welcome.jpg" alt="Emel Bozçelik Hörakustikmeisterin" class="w-full h-80 lg:h-96 object-cover object-top">
-                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
-                        <div class="absolute bottom-4 left-4 right-4 text-white">
-                            <div class="text-xs font-bold tracking-wide uppercase text-brand-light">Inhaberin & Leitung</div>
-                            <div class="text-lg font-bold">Emel Bozçelik</div>
-                            <p class="text-xs text-gray-200">Hörakustik-Meisterin & zertifizierte Pädakustikerin</p>
+                    <div class="relative rounded-3xl overflow-hidden border border-slate-200/80 shadow-xl bg-slate-50 group">
+                        <img src="img/emel-close.jpg" alt="Emel Bozçelik — Inhaberin & Hörakustikmeisterin" class="w-full h-[420px] sm:h-[460px] lg:h-[480px] object-cover object-[center_16%]">
+                        
+                        <!-- Modern Floating Frosted Glass Badge -->
+                        <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md border border-slate-200/80 rounded-2xl p-4 shadow-lg flex items-center justify-between">
+                            <div>
+                                <div class="flex items-center gap-1.5 mb-0.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider text-brand">Ihre Meisterin vor Ort</span>
+                                </div>
+                                <div class="text-base font-bold text-charcoal">Emel Bozçelik</div>
+                                <p class="text-xs text-gray-500 font-normal">Hörakustik-Meisterin & Pädakustikerin</p>
+                            </div>
+                            <div class="hidden sm:flex flex-col items-end border-l border-slate-200 pl-3">
+                                <span class="text-[10px] uppercase font-bold tracking-wider text-gray-400">Praxis Krefeld</span>
+                                <span class="text-xs font-bold text-brand">Seit 2011</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -464,7 +476,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-10">
                 <div class="lg:col-span-4">
-                    <img src="img/emel-portrait.jpg" alt="Emel Bozçelik" class="w-full h-80 object-cover rounded-xl shadow-md border border-borderSubtle">
+                    <img src="img/emel-portrait.jpg" alt="Emel Bozçelik" class="w-full aspect-[4/5] max-h-96 object-cover object-top rounded-2xl shadow-md border border-borderSubtle">
                 </div>
                 <div class="lg:col-span-8">
                     <span class="text-xs font-bold tracking-wider uppercase text-brand" data-i18n="about_section_title">Über uns</span>
