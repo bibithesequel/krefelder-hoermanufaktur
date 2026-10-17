@@ -584,20 +584,20 @@
 <div x-show="currentRoute==='uebermich'" x-transition.opacity.duration.250ms x-cloak class="py-10 bg-slateBg">
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
         <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
                 <div class="md:col-span-5 space-y-3">
-                    <div class="relative rounded-xl overflow-hidden shadow-md border border-borderSubtle">
-                        <img src="img/emel-portrait.jpg" class="w-full h-64 object-cover" alt="Emel Bozçelik">
-                        <span class="absolute bottom-2 left-2 bg-charcoal/80 text-white text-[10px] px-2 py-0.5 rounded font-semibold">Aktuell</span>
+                    <div class="relative rounded-2xl overflow-hidden shadow-lg border border-borderSubtle bg-slateBg">
+                        <img src="img/emel-portrait.jpg" class="w-full aspect-[3/4] object-cover object-top" alt="Emel Bozçelik Hörakustik-Meisterin">
+                        <span class="absolute bottom-2.5 left-2.5 bg-charcoal/85 text-white text-[11px] px-2.5 py-1 rounded-md font-semibold backdrop-blur-xs">Aktuell</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="relative rounded-lg overflow-hidden border border-borderSubtle shadow-2xs">
-                            <img src="img/old-emel-portrait.jpg" class="w-full h-24 object-cover" alt="Emel Bozçelik Meisterin">
-                            <span class="absolute bottom-1 left-1 bg-charcoal/80 text-white text-[9px] px-1.5 py-0.5 rounded">Meisterin seit 2011</span>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <div class="relative rounded-xl overflow-hidden border border-borderSubtle shadow-xs bg-slateBg">
+                            <img src="img/old-emel-portrait.jpg" class="w-full aspect-[3/4] object-cover object-top" alt="Emel Bozçelik Meisterin">
+                            <span class="absolute bottom-1.5 left-1.5 bg-charcoal/85 text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Meisterin seit 2011</span>
                         </div>
-                        <div class="relative rounded-lg overflow-hidden border border-borderSubtle shadow-2xs">
-                            <img src="img/old-empfang-raum.jpg" class="w-full h-24 object-cover" alt="Praxis Krefeld">
-                            <span class="absolute bottom-1 left-1 bg-charcoal/80 text-white text-[9px] px-1.5 py-0.5 rounded">Praxis Krefeld</span>
+                        <div class="relative rounded-xl overflow-hidden border border-borderSubtle shadow-xs bg-slateBg">
+                            <img src="img/old-empfang-raum.jpg" class="w-full aspect-[3/4] object-cover" alt="Praxis Krefeld">
+                            <span class="absolute bottom-1.5 left-1.5 bg-charcoal/85 text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Praxis Krefeld</span>
                         </div>
                     </div>
                 </div>
@@ -605,13 +605,24 @@
                     <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="nav_about">Über mich</span>
                     <h1 class="text-3xl font-extrabold text-charcoal" data-i18n="about_name">Emel Bozçelik</h1>
                     <p class="text-brand font-semibold text-sm" data-i18n="about_role">Inhaberin, Hörakustik-Meisterin und Pädakustikerin</p>
-                    <p class="text-gray-600 text-xs sm:text-sm leading-relaxed" data-i18n="about_long_1"></p>
-                    <p class="text-gray-600 text-xs sm:text-sm leading-relaxed" data-i18n="about_long_2"></p>
-                    <p class="text-charcoal font-semibold text-xs sm:text-sm" data-i18n="about_long_3"></p>
-                    <div class="pt-2">
+                    
+                    <p class="text-gray-600 text-xs sm:text-sm leading-relaxed" data-i18n="about_long_1">
+                        Ich bin seit 2002 in der Branche tätig und hatte die Möglichkeit, sehr viele Erfahrungen in der Hörakustik zu sammeln. Höranalysen, Hörberatungen und Hörgeräteanpassungen gehören zum Alltag. Da ich immer schon mit Kindern gerne arbeite, habe ich im Jahre 2010 eine Fortbildung als Pädakustikerin absolviert. Seitdem arbeite ich auch aktiv im Kinderbereich.
+                    </p>
+                    <p class="text-gray-600 text-xs sm:text-sm leading-relaxed" data-i18n="about_long_2">
+                        Im Jahre 2011 folgte die bestandene Meisterprüfung in der Hörakustik und somit begann auch die Fachgeschäftsleitung. In meinem beruflichen Werdegang hatte ich viele Auszubildenden sowie auch angehende Meister. Seit 2015 begleite ich ehrenamtlich als Prüferin des Meisterprüfungsausschusses.
+                    </p>
+                    <p class="text-charcoal font-semibold text-xs sm:text-sm leading-relaxed" data-i18n="about_long_3">
+                        Zu meinen besonderen fachlichen Kompetenzen gehören auch Sonderversorgungen, wie z.B. Knochenleitungsversorgungen. Ich arbeite mit dem Ziel, die beste Hörlösung für Sie zu finden.
+                    </p>
+
+                    <div class="pt-3 flex flex-wrap items-center gap-3">
                         <button @click="openModal('appointment')" class="bg-brand text-white px-5 py-2.5 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="cta_button">
                             Termin vereinbaren
                         </button>
+                        <a href="tel:021516567294" class="text-xs font-bold text-charcoal hover:text-brand flex items-center gap-1.5 border border-borderSubtle px-4 py-2.5 rounded-lg">
+                            📞 02151-6567294
+                        </a>
                     </div>
                 </div>
             </div>
@@ -638,9 +649,9 @@
                 </div>
                 <div class="md:col-span-7">
                     <h2 class="text-xl font-bold mb-2" data-i18n="erw_title">Der kostenlose Hörtest für Erwachsene</h2>
-                    <p class="text-xs font-semibold text-brand mb-2" data-i18n="erw_desc_1"></p>
-                    <p class="text-xs text-gray-600 mb-2 leading-relaxed" data-i18n="erw_desc_2"></p>
-                    <p class="text-xs text-gray-600 mb-4 leading-relaxed" data-i18n="erw_desc_3"></p>
+                    <p class="text-xs font-semibold text-brand mb-2" data-i18n="erw_desc_1">Um herauszufinden, ob Sie eine Hörminderung haben, bieten wir Ihnen einen unverbindlichen und kostenlosen Hörtest.</p>
+                    <p class="text-xs text-gray-600 mb-2 leading-relaxed" data-i18n="erw_desc_2">Der Hörtest wird nach modernsten Standards in unseren Räumlichkeiten durchgeführt. Dabei werden Ihnen Töne in unterschiedlichen Höhen (Frequenzen) bei ansteigender Lautstärke vorgespielt. Sie müssen nichts weiter tun als genau hinhören und bescheid geben, ab wann Sie die Töne wahrnehmen können.</p>
+                    <p class="text-xs text-gray-600 mb-4 leading-relaxed" data-i18n="erw_desc_3">Das Ergebnis ist ein detailliertes Audiogramm, das als Grundlage unseres darauffolgenden Beratungsgesprächs dienen wird.</p>
                     <div class="flex gap-2">
                         <button @click="openModal('appointment')" class="bg-brand text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="erw_termin">Termin vereinbaren</button>
                         <a href="https://digitalhearingtest.com/de-DE/Krefelder_Hoermanufaktur/4?hz=1000" target="_blank" class="border border-brand text-brand px-4 py-2 rounded-lg text-xs font-semibold hover:bg-brand hover:text-white transition-colors" data-i18n="erw_online_test">Online Hörtest</a>
@@ -661,7 +672,7 @@
                 </div>
                 <div class="md:col-span-7 md:order-1">
                     <h2 class="text-xl font-bold mb-2" data-i18n="erw_beratung_title">Beratung & Erwachsenenkabine</h2>
-                    <p class="text-xs text-gray-600 leading-relaxed mb-4" data-i18n="erw_beratung"></p>
+                    <p class="text-xs text-gray-600 leading-relaxed mb-4" data-i18n="erw_beratung">Die Bedürfnisse und die Lebensqualität sind bei jedem sehr individuell. Durch eine ausführliche Beratung suchen wir das bestmögliche Hörgerät für Sie aus. Dieses wird individuell, bedarfsgerecht und nach Ihren Wünschen mit der neuesten Technik eingestellt. Sie haben die Möglichkeit, das Hörgerät kostenlos Probe zu tragen. Sollten Sie nicht zu 100% zufrieden sein, können Sie gern ein anderes Modell austesten.</p>
                     <div class="bg-slateBg p-3 rounded-lg border border-borderSubtle text-xs text-gray-600">
                         🎧 Hörschwellenprüfung in unserer schallgedämmten Erwachsenenkabine für unverfälschte Messergebnisse.
                     </div>
@@ -675,7 +686,7 @@
                 </div>
                 <div class="md:col-span-7">
                     <h2 class="text-xl font-bold mb-2" data-i18n="erw_otoscan_title">Otoscan</h2>
-                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="erw_otoscan"></p>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="erw_otoscan">Für eine bestmögliche Versorgung benötigen wir eine gutsitzende Otoplastik oder auch Im- Ohr-Hörgeräte. Mit der neusten Technik können wir einen digitalen 3D-Scan des Gehörgangs und der Ohrmuschel durchführen. Während des Scanvorgangs führt der Scanner eine Video-Otoskopie durch. Sie können den ganzen Ablauf mit anschauen. Die neue sichere und einfache Möglichkeit.</p>
                 </div>
             </div>
         </div>
@@ -750,14 +761,14 @@
                 <div class="md:col-span-7 space-y-4">
                     <div id="kids-test" class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
                         <h3 class="font-bold text-base mb-2 text-charcoal" data-i18n="kind_title_1">Hörtest und Hörsimulation in der Pädakustik</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed mb-2" data-i18n="kind_desc_1"></p>
-                        <p class="text-xs text-gray-600 leading-relaxed font-semibold" data-i18n="kind_desc_2"></p>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-2" data-i18n="kind_desc_1">Bevor wir einen Hörtest durchführen, ist es uns sehr wichtig, dass wir das Vertrauen unserer Junior-Kunden gewinnen. Der Ablauf des Tests verläuft im Vergleich zum Erwachsenenhörtest anders. Der Kinderhörtest wird sehr spielerisch gestaltet und ist bei jedem Kind individuell. Mal spielen wir mit den Klötzen, mal wird gemalt.</p>
+                        <p class="text-xs text-gray-600 leading-relaxed font-semibold" data-i18n="kind_desc_2">Damit Sie sich als Eltern eine Vorstellung über das Hörvermögen ihres Kindes machen können, simulieren wir die Hörminderung.</p>
                     </div>
 
                     <div id="kids-beratung" class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
                         <h3 class="font-bold text-base mb-2 text-charcoal" data-i18n="kind_title_2">Beratung für Eltern</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed mb-2" data-i18n="kind_desc_3"></p>
-                        <p class="text-xs text-gray-600 leading-relaxed" data-i18n="kind_desc_4"></p>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-2" data-i18n="kind_desc_3">Unsere Junior-Kunden werden mit der neuesten Technik versorgt. Nach einer ausführlichen Beratung suchen wir das geeignete Hörgerät aus. Da gibt es viele bunte Möglichkeiten, mit denen sich ihr Kind frei entfalten kann.</p>
+                        <p class="text-xs text-gray-600 leading-relaxed" data-i18n="kind_desc_4">Damit die Sprachentwicklung auch in schwierigeren Hörsituationen nicht stark beeinträchtigt wird, werden die Kinder ab dem Kindergartenalter mit einer Übertragungsanlage ausgestattet.</p>
                     </div>
 
                     <div class="p-4 bg-yellow-50 rounded-xl border border-yellow-200">
@@ -793,7 +804,7 @@
                 <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
                     <div>
                         <h3 class="font-bold text-base mb-2" data-i18n="sond_title_2">Versorgung über die Knochenleitung</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed mb-4" data-i18n="sond_desc_1"></p>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4" data-i18n="sond_desc_1">Falls eine Hörgeräte-Versorgung aus anatomischen Gründen oder wegen chronischen Ohrerkrankungen nicht möglich ist, bieten wir die Knochenleitungsgeräte an. Wir schauen gemeinsam an, ob die Knochenleitungsgeräte für Ihre Schwerhörigkeit geeignet ist.</p>
                     </div>
                     <img src="img/old-baha.jpg" class="h-40 object-cover rounded-lg w-full" alt="Baha">
                 </div>
@@ -801,7 +812,7 @@
                 <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
                     <div>
                         <h3 class="font-bold text-base mb-2" data-i18n="sond_title_3">Belastung durch Tinnitus</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed mb-4" data-i18n="sond_desc_2"></p>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4" data-i18n="sond_desc_2">Das Thema Tinnitus ist sehr umfangreich und sehr individuell. Viele Betroffene fühlen sich belastet, so dass psychische Belastungen entstehen können. Es gibt viele technische Hilfsmittel, die den Tinnitus lindern.</p>
                     </div>
                     <img src="img/consultation.jpg" class="h-40 object-cover rounded-lg w-full" alt="Tinnitus">
                 </div>
@@ -831,7 +842,7 @@
                             <img src="img/old-roger.png" alt="Arbeitsplatz Roger" class="w-full h-full object-contain p-2">
                         </div>
                         <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_1">Arbeitsplatz & Schule</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_1"></p>
+                        <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_1">Sie tragen Hörgeräte und haben weiterhin Schwierigkeiten am Arbeitsplatz entsprechend gut zu hören und zu verstehen? Es gibt viele Möglichkeiten diese Probleme zu beheben.</p>
                     </div>
                 </div>
                 <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
@@ -840,7 +851,7 @@
                             <img src="img/old-hoergeraete.jpg" alt="Lichtsignalanlagen & Zubehör" class="w-full h-full object-cover">
                         </div>
                         <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_2">Lösungen für Gehörlose</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_2"></p>
+                        <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_2">Die Erleichterung für Schwerhörige und Gehörlose. Die Lichtsignalanlagen sind für Personen gedacht, die akustische Signale nicht gut oder gar nicht wahrnehmen können. Ideal für Tür, Telefon, Rauchmelder oder auch Babysender. Wir können diese Anlage Ihren Wünschen entsprechend zusammenstellen. Bei hochgradigen Schwerhörigkeiten bis zur Gehörlosigkeit werden unter Vorlage eines Rezeptes die Kosten durch die Krankenkasse (mit geringfügigem Eigenanteil) übernommen.</p>
                     </div>
                 </div>
                 <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
@@ -849,7 +860,7 @@
                             <img src="img/old-gehoerschutz.jpg" alt="Gehörschutz Otoplastiken" class="w-full h-full object-cover">
                         </div>
                         <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_3">Gehör vor Schäden schützen</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_3"></p>
+                        <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_3">Sie arbeiten in einem lauten Umfeld? Sie sind Musiker oder besuchen gerne laute Konzerte? Oder schlafen Sie aufgrund eines lauten Umfelds sehr schlecht? Für alle möglichen Probleme haben wir die passende Lösung parat. Ob einfache Stöpsel, kindgerechte Over-Ear-"Micky-Mäuse", hochleistungsfähigen Schallschutz oder ein angepasster Gehörschutz mit Otoplastiken und klangneutraler Membran - wir finden die passenden Lösung, Ihr Gehör vor Schäden zu bewahren und Ihre Nerven schützen.</p>
                     </div>
                 </div>
             </div>
@@ -895,25 +906,25 @@
             <div class="space-y-6">
                 <div class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
                     <h3 class="font-bold text-base text-charcoal mb-1" data-i18n="service_hoertest_title">Alles fängt mit einem Hörtest an...</h3>
-                    <p class="text-xs text-brand font-semibold mb-2" data-i18n="service_hoertest_sub"></p>
-                    <p class="text-xs text-gray-600 leading-relaxed mb-2" data-i18n="service_hoertest_p1"></p>
-                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_hoertest_p2"></p>
+                    <p class="text-xs text-brand font-semibold mb-2" data-i18n="service_hoertest_sub">Damit wir für Sie die optimale Lösung finden.</p>
+                    <p class="text-xs text-gray-600 leading-relaxed mb-2" data-i18n="service_hoertest_p1">Zunächst machen wir einen Termin für einen Hörtest mit Ihnen aus. Dieser wird uns dabei helfen, Ihr aktuelles Hörvermögen einzuschätzen und Defizite zu erkennen.</p>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_hoertest_p2">Der Hörtest wird nach modernsten Standards in unseren Räumlichkeiten durchgeführt. Dabei werden Ihnen Töne in unterschiedlichen Höhen (Frequenzen) in veschiedenen Lautstärken vorgespielt. Sie müssen nichts weiter tun als genau hinhören und bescheid geben, wann Sie die Töne wahrnehmen können.</p>
                 </div>
                 <div class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
                     <h3 class="font-bold text-base text-charcoal mb-1" data-i18n="service_analyse_title">Ergebnisanalyse und Beratung</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_analyse_p1"></p>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_analyse_p1">In unserem umfassenden Beratungsgespräch sehen wir uns dann mit Ihnen zusammen das Audiogramm an und erläutern Ihnen das Ergebnis. Hier können wir erkennen, in welchem Umfang und in welchen Frequenzbereichen Schwächen auftreten. Außerdem lassen sich gegebenenfalls Ursachen klären.</p>
                 </div>
                 <div class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
                     <h3 class="font-bold text-base text-charcoal mb-1" data-i18n="service_system_title">Das richtige Hörsystem</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_system_p1"></p>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_system_p1">Jetzt ermitteln wir Ihre spezielen Bedürfnisse und die Ansprüche, die Sie an ein Hörsystem stellen würden. Anschließend können wir Ihnen dann zeigen, welche Systeme für Sie idealerweise infrage kommen. Diese werden wir Ihnen vorstellen und Ihnen die Funktionsweisen sowie die Vor- und Nachteile der einzelnen Systeme erläutern. Am Ende entscheiden Sie, welches System am Besten zu Ihnen passt.</p>
                 </div>
                 <div class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
                     <h3 class="font-bold text-base text-charcoal mb-1" data-i18n="service_anpassung_title">Anpassung</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_anpassung_p1"></p>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_anpassung_p1">Für eine bestmögliche Versorgung benötigen wir eine gutsitzende Otoplastik oder auch Im- Ohr-Hörgeräte. Das maßgefertigte Ohrpassstück gibt dem Hörgerät perfekten Halt und es dichtet optimal ab.</p>
                 </div>
                 <div class="p-4 bg-slateBg rounded-xl border border-borderSubtle">
                     <h3 class="font-bold text-base text-charcoal mb-1" data-i18n="service_nachsorge_title">Nachsorge</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_nachsorge_p1"></p>
+                    <p class="text-xs text-gray-600 leading-relaxed" data-i18n="service_nachsorge_p1">Halten Sie Ihr Gerät dann endlich in Ihren Händen, lassen wir Sie selbstverständlich nicht allein. Das erste Einsetzen, die richtigen Einstellungen sowie die Handhabung - bei all dem helfen wir Ihnen. Ebenso werden wir Ihnen erklären, wie Sie Ihr Hörsystem richtig pflegen, wie Sie es im Alltag handhaben und wie Sie in besonderen Situationen damit umgehen sollten.</p>
                 </div>
             </div>
         </div>
@@ -1068,6 +1079,7 @@
 
 <script src="translations.js"></script>
 <script>
+document.addEventListener("DOMContentLoaded", function(){ updateTranslations("de"); });
 function updateTranslations(lang){
     if(typeof translations === 'undefined') return;
     const dict = translations[lang];

@@ -606,3 +606,7 @@ const translations = {
         form_cancel: "İptal"
     }
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = translations;
+}
