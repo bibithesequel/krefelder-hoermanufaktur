@@ -31,7 +31,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -44,14 +44,13 @@
                             light: '#eef8f6',
                             soft: '#d2ece7'
                         },
-                        charcoal: '#000000',
-                        slateBg: '#fafafa',
-                        borderSubtle: '#e5e7eb',
+                        charcoal: '#1c2226',
+                        slateBg: '#f8fafb',
+                        borderSubtle: '#e2e8f0',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-                        serif: ['"DM Serif Display"', 'Georgia', 'serif'],
-                        display: ['"DM Serif Display"', 'Georgia', 'serif'],
+                        sans: ['Outfit', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
                         kids: ['Nunito', 'sans-serif']
                     }
                 }
@@ -174,70 +173,67 @@
 <!-- ═════════════════════════════════════════════════════ -->
 <div x-show="currentRoute==='home'" x-transition.opacity.duration.250ms>
 
-    <!-- Modern Editorial Compact Hero Section (Split Layout) -->
-    <section class="bg-white py-12 lg:py-20 border-b border-black/10">
+    <!-- Modern Hero Section Matching User Sketch (Split Layout with Cutout) -->
+    <section class="bg-gradient-to-b from-slateBg via-white to-white pt-10 sm:pt-14 pb-0 border-b border-borderSubtle overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-                <!-- Left: Headline & Benefits -->
-                <div class="lg:col-span-7">
-                    <div class="inline-flex items-center gap-2 bg-black/5 text-black border border-black/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.15em] mb-6">
-                        <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+                <!-- Left: Headline, Description & Direct Buttons (as sketched) -->
+                <div class="lg:col-span-7 pb-8 lg:pb-16">
+                    <div class="inline-flex items-center gap-2 bg-brand/10 text-brand-dark border border-brand/20 px-3.5 py-1 rounded-full text-xs font-medium mb-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
                         <span data-i18n="hero_subtitle">Wir sind an Ihrer Seite.</span> • Meisterbetrieb Krefeld
                     </div>
                     
-                    <h1 class="font-serif text-5xl sm:text-6xl lg:text-[4.25rem] text-black tracking-tight leading-[1.02] mb-6">
-                        Die Kunst<br>des <span class="italic">Hörens.</span>
+                    <!-- Title: Kursiver / Italic Font in reinem Schwarz (as sketched) -->
+                    <h1 class="font-serif italic text-4xl sm:text-5xl lg:text-[56px] font-semibold text-black tracking-normal leading-[1.15] mb-5">
+                        Individuelle Hörakustik für Erwachsene & Kinder
                     </h1>
                     
-                    <p class="text-black/60 text-base sm:text-lg leading-relaxed mb-8 max-w-xl font-normal">
-                        Präzise Hörakustik, persönliche Beratung und meisterliche Handwerkskunst für Erwachsene & Kinder — in unserer Fachpraxis in Krefeld.
+                    <!-- Description (as sketched) -->
+                    <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-7 max-w-xl font-normal">
+                        In unserer modernen Fachpraxis in Krefeld verbinden wir digitales 3D-Otoscan, audiologische Fachkompetenz und einfühlsame Betreuung zu Ihrer optimalen Hörlösung.
                     </p>
 
-                    <!-- 3 Editorial Feature Cards -->
-                    <div class="grid grid-cols-3 gap-3 mb-8 max-w-lg">
-                        <div class="bg-slateBg p-3.5 rounded-lg border border-black/10">
-                            <div class="text-black font-bold text-xs sm:text-sm">✓ Kostenlos</div>
-                            <div class="text-[11px] text-black/50 font-medium mt-0.5">Hörtest & Analyse</div>
-                        </div>
-                        <div class="bg-slateBg p-3.5 rounded-lg border border-black/10">
-                            <div class="text-black font-bold text-xs sm:text-sm">✓ 3D-Otoscan</div>
-                            <div class="text-[11px] text-black/50 font-medium mt-0.5">Digitaler Ohrscan</div>
-                        </div>
-                        <div class="bg-slateBg p-3.5 rounded-lg border border-black/10">
-                            <div class="text-black font-bold text-xs sm:text-sm">✓ Alle Kassen</div>
-                            <div class="text-[11px] text-black/50 font-medium mt-0.5">Volle Abwicklung</div>
-                        </div>
-                    </div>
-
-                    <!-- Editorial CTA Buttons -->
-                    <div class="flex flex-wrap items-center gap-4">
-                        <button @click="openModal('appointment')" class="bg-black text-white px-8 py-4 text-[12px] font-bold tracking-[0.15em] uppercase hover:bg-brand transition-colors shadow-sm flex items-center gap-2" data-i18n="hero_cta">
-                            <span>Termin vereinbaren</span> <span>→</span>
+                    <!-- Direct Action Buttons Row (as sketched: Kostenloser Hörtest, Online Hörtest, Telefon) -->
+                    <div class="flex flex-wrap items-center gap-3 mb-6">
+                        <button @click="openModal('appointment')" class="bg-brand text-white px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold hover:bg-brand-dark shadow-sm hover:shadow transition-all flex items-center gap-2" data-i18n="hero_cta">
+                            <span>Kostenloser Hörtest</span> <span class="text-white/80">→</span>
                         </button>
-                        <a href="https://digitalhearingtest.com/de-DE/Krefelder_Hoermanufaktur/4?hz=1000" target="_blank" class="border border-black text-black px-6 py-4 text-[12px] font-bold tracking-[0.1em] uppercase hover:bg-black hover:text-white transition-colors">
+                        <a href="https://digitalhearingtest.com/de-DE/Krefelder_Hoermanufaktur/4?hz=1000" target="_blank" class="border border-slate-300 bg-white text-gray-800 px-4 py-3 rounded-xl text-xs sm:text-sm font-medium hover:border-brand hover:text-brand transition-colors shadow-2xs">
                             Online-Hörtest (3 Min.)
                         </a>
-                        <a href="tel:021516567294" class="text-black hover:text-brand px-2 py-3 text-xs sm:text-sm font-semibold flex items-center gap-2 transition-colors">
+                        <a href="tel:021516567294" class="text-gray-800 hover:text-brand px-3 py-3 text-xs sm:text-sm font-semibold flex items-center gap-2">
                             <span>📞</span> <span>02151-6567294</span>
                         </a>
                     </div>
+
+                    <!-- Subtle Benefit Trust Pills -->
+                    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-gray-500 pt-3 border-t border-slate-200/60">
+                        <span class="flex items-center gap-1.5 font-medium text-charcoal"><span class="text-brand font-bold">✓</span> Kostenloser Hörtest</span>
+                        <span class="flex items-center gap-1.5 font-medium text-charcoal"><span class="text-brand font-bold">✓</span> Digitaler 3D-Otoscan</span>
+                        <span class="flex items-center gap-1.5 font-medium text-charcoal"><span class="text-brand font-bold">✓</span> Alle Krankenkassen</span>
+                    </div>
                 </div>
 
-                <!-- Right: High-Res Portrait Card of Emel Bozçelik -->
-                <div class="lg:col-span-5">
-                    <div class="relative overflow-hidden border border-black/10 shadow-2xl bg-white group">
-                        <img src="img/emel-portrait.jpg" alt="Emel Bozçelik — Inhaberin & Hörakustikmeisterin" class="w-full h-[460px] sm:h-[500px] lg:h-[530px] object-cover object-top filter contrast-[1.08]">
+                <!-- Right: Emels Foto mit entferntem Hintergrund (Cutout freigestellt) -->
+                <div class="lg:col-span-5 flex justify-center lg:justify-end items-end relative self-end">
+                    <!-- Soft ambient glow behind cutout -->
+                    <div class="absolute bottom-0 right-1/2 translate-x-1/2 lg:translate-x-0 lg:right-4 w-72 h-72 bg-brand/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+                    
+                    <div class="relative flex flex-col items-center lg:items-end">
+                        <picture>
+                            <source srcset="img/emel-cutout-portrait.webp" type="image/webp">
+                            <img src="img/emel-cutout-portrait.png" 
+                                 alt="Emel Bozçelik — Inhaberin & Hörakustikmeisterin" 
+                                 class="w-auto h-[420px] sm:h-[480px] lg:h-[530px] max-w-full object-contain filter drop-shadow-xl select-none">
+                        </picture>
                         
-                        <!-- Editorial Badge in Black & White -->
-                        <div class="absolute bottom-6 left-6 right-6 bg-black text-white p-4 shadow-xl flex items-center justify-between">
+                        <!-- Floating Subtle Name Badge -->
+                        <div class="absolute bottom-4 left-4 sm:left-auto sm:right-2 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl px-4 py-2.5 shadow-lg flex items-center gap-3">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                             <div>
-                                <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 block mb-0.5">Meisterbetrieb Krefeld</span>
-                                <div class="font-serif text-lg text-white">Emel Bozçelik</div>
-                                <p class="text-[11px] text-white/70">Hörakustik-Meisterin & Pädakustikerin</p>
-                            </div>
-                            <div class="border-l border-white/20 pl-4 text-right">
-                                <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-white/50 block">Erfahrung</span>
-                                <span class="text-xs font-bold text-white">Seit 2002</span>
+                                <div class="text-xs sm:text-sm font-bold text-charcoal leading-tight">Emel Bozçelik</div>
+                                <div class="text-[10px] text-gray-500 font-medium">Hörakustik-Meisterin & Pädakustikerin</div>
                             </div>
                         </div>
                     </div>
@@ -252,7 +248,7 @@
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4">
                 <div>
                     <span class="text-xs font-bold tracking-wider uppercase text-brand" data-i18n="services_title">Unser Service für Sie</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl text-black">Individuelle Hörlösungen im Überblick</h2>
+                    <h2 class="text-2xl font-bold text-charcoal">Individuelle Hörlösungen im Überblick</h2>
                 </div>
                 <button @click="navigate('service')" class="text-xs font-bold text-brand hover:text-brand-dark flex items-center gap-1">
                     Gesamten Ablauf ansehen →
@@ -478,7 +474,7 @@
                 </div>
                 <div class="lg:col-span-8">
                     <span class="text-xs font-bold tracking-wider uppercase text-brand" data-i18n="about_section_title">Über uns</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl text-black mt-1 mb-4" data-i18n="about_section_heading">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-charcoal mt-1 mb-4" data-i18n="about_section_heading">
                         Wir helfen Ihnen, wieder uneingeschränkt am Leben teilzunehmen
                     </h2>
                     <p class="text-gray-600 text-xs sm:text-sm mb-4 leading-relaxed">
@@ -518,8 +514,8 @@
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
                     <div>
                         <div class="flex items-center gap-2">
-                            <h3 class="font-serif text-2xl text-black" data-i18n="gallery_title">Einblicke in unsere Räumlichkeiten & Pädakustik</h3>
-                            <span class="bg-black text-white text-[10px] font-bold px-2 py-0.5 rounded">Gestern & Heute</span>
+                            <h3 class="text-sm font-bold text-charcoal uppercase tracking-wider" data-i18n="gallery_title">Einblicke in unsere Räumlichkeiten & Pädakustik</h3>
+                            <span class="bg-brand-soft text-brand-dark text-[10px] font-bold px-2 py-0.5 rounded-full">Gestern & Heute</span>
                         </div>
                         <p class="text-[11px] text-gray-500 mt-0.5">Friedrichstraße 14–16, Krefeld · Vertrautes Praxis-Ambiente, Erwachsenenkabine & Pädakustik</p>
                     </div>
@@ -587,8 +583,8 @@
                 </div>
                 <div class="md:col-span-7 space-y-4">
                     <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="nav_about">Über mich</span>
-                    <h1 class="font-serif text-4xl sm:text-5xl text-black" data-i18n="about_name">Emel Bozçelik</h1>
-                    <p class="text-black/80 font-semibold text-sm" data-i18n="about_role">Inhaberin, Hörakustik-Meisterin und Pädakustikerin</p>
+                    <h1 class="text-3xl font-extrabold text-charcoal" data-i18n="about_name">Emel Bozçelik</h1>
+                    <p class="text-brand font-semibold text-sm" data-i18n="about_role">Inhaberin, Hörakustik-Meisterin und Pädakustikerin</p>
                     
                     <p class="text-gray-600 text-xs sm:text-sm leading-relaxed" data-i18n="about_long_1">
                         Ich bin seit 2002 in der Branche tätig und hatte die Möglichkeit, sehr viele Erfahrungen in der Hörakustik zu sammeln. Höranalysen, Hörberatungen und Hörgeräteanpassungen gehören zum Alltag. Da ich immer schon mit Kindern gerne arbeite, habe ich im Jahre 2010 eine Fortbildung als Pädakustikerin absolviert. Seitdem arbeite ich auch aktiv im Kinderbereich.
@@ -596,15 +592,15 @@
                     <p class="text-gray-600 text-xs sm:text-sm leading-relaxed" data-i18n="about_long_2">
                         Im Jahre 2011 folgte die bestandene Meisterprüfung in der Hörakustik und somit begann auch die Fachgeschäftsleitung. In meinem beruflichen Werdegang hatte ich viele Auszubildenden sowie auch angehende Meister. Seit 2015 begleite ich ehrenamtlich als Prüferin des Meisterprüfungsausschusses.
                     </p>
-                    <p class="text-black font-semibold text-xs sm:text-sm leading-relaxed" data-i18n="about_long_3">
+                    <p class="text-charcoal font-semibold text-xs sm:text-sm leading-relaxed" data-i18n="about_long_3">
                         Zu meinen besonderen fachlichen Kompetenzen gehören auch Sonderversorgungen, wie z.B. Knochenleitungsversorgungen. Ich arbeite mit dem Ziel, die beste Hörlösung für Sie zu finden.
                     </p>
 
                     <div class="pt-3 flex flex-wrap items-center gap-3">
-                        <button @click="openModal('appointment')" class="bg-black text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-brand transition-colors" data-i18n="cta_button">
+                        <button @click="openModal('appointment')" class="bg-brand text-white px-5 py-2.5 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="cta_button">
                             Termin vereinbaren
                         </button>
-                        <a href="tel:021516567294" class="text-xs font-bold text-black hover:text-brand flex items-center gap-1.5 border border-borderSubtle px-4 py-3 rounded-xl">
+                        <a href="tel:021516567294" class="text-xs font-bold text-charcoal hover:text-brand flex items-center gap-1.5 border border-borderSubtle px-4 py-2.5 rounded-lg">
                             📞 02151-6567294
                         </a>
                     </div>
@@ -623,7 +619,7 @@
         <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-6">
             <div class="mb-8">
                 <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="nav_adults">Erwachsene</span>
-                <h1 class="font-serif text-3xl sm:text-4xl text-black">Hörversorgung für Erwachsene</h1>
+                <h1 class="text-3xl font-extrabold text-charcoal">Hörversorgung für Erwachsene</h1>
             </div>
 
             <!-- Card 1: Hörtest -->
@@ -632,13 +628,13 @@
                     <img src="img/old-erwachsene-hoertest.jpg" class="w-full h-full object-cover" alt="Hörtest">
                 </div>
                 <div class="md:col-span-7">
-                    <h2 class="font-serif text-2xl text-black mb-2" data-i18n="erw_title">Der kostenlose Hörtest für Erwachsene</h2>
+                    <h2 class="text-xl font-bold mb-2" data-i18n="erw_title">Der kostenlose Hörtest für Erwachsene</h2>
                     <p class="text-xs font-semibold text-brand mb-2" data-i18n="erw_desc_1">Um herauszufinden, ob Sie eine Hörminderung haben, bieten wir Ihnen einen unverbindlichen und kostenlosen Hörtest.</p>
                     <p class="text-xs text-gray-600 mb-2 leading-relaxed" data-i18n="erw_desc_2">Der Hörtest wird nach modernsten Standards in unseren Räumlichkeiten durchgeführt. Dabei werden Ihnen Töne in unterschiedlichen Höhen (Frequenzen) bei ansteigender Lautstärke vorgespielt. Sie müssen nichts weiter tun als genau hinhören und bescheid geben, ab wann Sie die Töne wahrnehmen können.</p>
                     <p class="text-xs text-gray-600 mb-4 leading-relaxed" data-i18n="erw_desc_3">Das Ergebnis ist ein detailliertes Audiogramm, das als Grundlage unseres darauffolgenden Beratungsgesprächs dienen wird.</p>
                     <div class="flex gap-2">
-                        <button @click="openModal('appointment')" class="bg-black text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-brand transition-colors" data-i18n="erw_termin">Termin vereinbaren</button>
-                        <a href="https://digitalhearingtest.com/de-DE/Krefelder_Hoermanufaktur/4?hz=1000" target="_blank" class="border border-black text-black px-4 py-2.5 rounded-lg text-xs font-semibold hover:bg-black hover:text-white transition-colors" data-i18n="erw_online_test">Online Hörtest</a>
+                        <button @click="openModal('appointment')" class="bg-brand text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="erw_termin">Termin vereinbaren</button>
+                        <a href="https://digitalhearingtest.com/de-DE/Krefelder_Hoermanufaktur/4?hz=1000" target="_blank" class="border border-brand text-brand px-4 py-2 rounded-lg text-xs font-semibold hover:bg-brand hover:text-white transition-colors" data-i18n="erw_online_test">Online Hörtest</a>
                     </div>
                 </div>
             </div>
@@ -686,7 +682,7 @@
         <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-6">
             <div class="flex items-center gap-3 mb-6">
                 <span class="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-xs font-bold" data-i18n="kids_badge">Für die Kleinsten</span>
-                <h1 class="font-serif text-3xl sm:text-4xl text-black" data-i18n="kids_title">Kinder Hörakustik</h1>
+                <h1 class="text-3xl font-extrabold text-charcoal font-kids" data-i18n="kids_title">Kinder Hörakustik</h1>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-8">
@@ -750,7 +746,7 @@
                         </ul>
                     </div>
 
-                    <button @click="openModal('appointment')" class="bg-black text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-brand transition-colors" data-i18n="kids_cta">
+                    <button @click="openModal('appointment')" class="bg-brand text-white px-6 py-2.5 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="kids_cta">
                         Beratungstermin für Kinder
                     </button>
                 </div>
@@ -767,7 +763,7 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
         <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-6">
             <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="sond_title_1">Sonderversorgung</span>
-            <h1 class="font-serif text-3xl sm:text-4xl text-black mt-1 mb-6">Knochenleitung & Tinnitus</h1>
+            <h1 class="text-3xl font-extrabold text-charcoal mt-1 mb-6">Knochenleitung & Tinnitus</h1>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
@@ -787,7 +783,7 @@
                 </div>
             </div>
 
-            <button @click="openModal('appointment')" class="bg-black text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-brand transition-colors" data-i18n="cta_button">
+            <button @click="openModal('appointment')" class="bg-brand text-white px-5 py-2.5 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="cta_button">
                 Termin vereinbaren
             </button>
         </div>
@@ -802,7 +798,7 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
         <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-6">
             <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="nav_accessories">Zubehör</span>
-            <h1 class="font-serif text-3xl sm:text-4xl text-black mt-1 mb-6">Gehörschutz & Arbeitsplatzausstattung</h1>
+            <h1 class="text-3xl font-extrabold text-charcoal mt-1 mb-6">Gehörschutz & Arbeitsplatzausstattung</h1>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
@@ -834,7 +830,7 @@
                 </div>
             </div>
 
-            <button @click="openModal('appointment')" class="bg-black text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-brand transition-colors" data-i18n="cta_button">
+            <button @click="openModal('appointment')" class="bg-brand text-white px-5 py-2.5 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="cta_button">
                 Beratungstermin vereinbaren
             </button>
         </div>
@@ -849,7 +845,7 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
         <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-8">
             <span class="text-xs font-bold uppercase tracking-wider text-brand" data-i18n="nav_service">Service</span>
-            <h1 class="font-serif text-3xl sm:text-4xl text-black mt-1 mb-8" data-i18n="service_hero_title">Unser Service</h1>
+            <h1 class="text-3xl font-extrabold text-charcoal mt-1 mb-8" data-i18n="service_hero_title">Unser Service</h1>
 
             <!-- 4-Photo Process Showcase (Gestern & Heute) -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
@@ -911,7 +907,7 @@
             <div class="lg:col-span-5 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold tracking-wider uppercase text-brand" data-i18n="contact_title">SO FINDEN SIE UNS:</span>
-                    <h2 class="font-serif text-2xl sm:text-3xl text-black mt-1 mb-4">Kontakt & Anfahrt</h2>
+                    <h2 class="text-2xl font-bold text-charcoal mt-1 mb-4">Kontakt & Anfahrt</h2>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                         <!-- Address & Tel -->
@@ -940,10 +936,10 @@
                 </div>
 
                 <div class="flex flex-wrap gap-2 pt-2">
-                    <button @click="openModal('appointment')" class="bg-black text-white px-6 py-3 text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-brand transition-colors" data-i18n="cta_button">
+                    <button @click="openModal('appointment')" class="bg-brand text-white px-5 py-2.5 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="cta_button">
                         Termin online buchen
                     </button>
-                    <button @click="openModal('contact')" class="border border-black text-black px-5 py-3 text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-black hover:text-white transition-colors" data-i18n="contact_form_btn">
+                    <button @click="openModal('contact')" class="border border-borderSubtle text-charcoal px-4 py-2.5 rounded-lg text-xs font-semibold hover:border-brand hover:text-brand transition-colors" data-i18n="contact_form_btn">
                         Kontaktformular
                     </button>
                 </div>
@@ -984,7 +980,7 @@
 <div x-show="showModal" x-transition.opacity.duration.200ms x-cloak class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
     <div @click.away="showModal = false" class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-borderSubtle">
         <div class="flex justify-between items-center mb-5 pb-3 border-b border-borderSubtle">
-            <h3 class="font-serif text-xl font-bold text-black" data-i18n="form_title">Kontakt & Termin</h3>
+            <h3 class="text-lg font-bold text-charcoal" data-i18n="form_title">Kontakt & Termin</h3>
             <button @click="showModal = false" class="text-gray-400 hover:text-charcoal text-lg">✕</button>
         </div>
 
@@ -1038,7 +1034,7 @@
                 <button type="button" @click="showModal = false" class="px-4 py-2 text-xs font-semibold text-gray-500 hover:text-charcoal" data-i18n="form_cancel">
                     Abbrechen
                 </button>
-                <button type="submit" class="bg-black text-white px-6 py-2.5 text-xs font-bold uppercase tracking-wider hover:bg-brand transition-colors" data-i18n="form_submit">
+                <button type="submit" class="bg-brand text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors" data-i18n="form_submit">
                     Absenden
                 </button>
             </div>
