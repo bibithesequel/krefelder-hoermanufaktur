@@ -3,6 +3,8 @@
     currentRoute: 'home',
     activeServiceStep: 1,
     showModal: false,
+    showImpressum: false,
+    showDatenschutz: false,
     formType: 'appointment',
     currentLang: 'de',
     navigate(route) {
@@ -283,7 +285,7 @@
                 <div class="compact-card bg-slateBg border border-borderSubtle rounded-xl overflow-hidden flex flex-col cursor-pointer" @click="navigate('sonderversorgung')">
                     <div class="h-44 overflow-hidden relative bg-white">
                         <img src="img/old-baha.jpg" alt="Sonderversorgung" class="w-full h-full object-cover">
-                        <span class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-sm text-charcoal text-[11px] font-bold px-2 py-0.5 rounded shadow-xs">Spezialversorgung</span>
+                        <span class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-sm text-charcoal text-[11px] font-bold px-2 py-0.5 rounded shadow-xs">Sonderversorgung</span>
                     </div>
                     <div class="p-4 flex-1 flex flex-col justify-between">
                         <div>
@@ -299,15 +301,15 @@
                     </div>
                 </div>
 
-                <!-- 4. Zubehör -->
+                <!-- 4. Zubehör & Gehörschutz -->
                 <div class="compact-card bg-slateBg border border-borderSubtle rounded-xl overflow-hidden flex flex-col cursor-pointer" @click="navigate('zubehoer')">
                     <div class="h-44 overflow-hidden relative bg-white">
-                        <img src="img/old-gehoerschutz.jpg" alt="Zubehör" class="w-full h-full object-cover">
-                        <span class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-sm text-charcoal text-[11px] font-bold px-2 py-0.5 rounded shadow-xs">Zubehör & Schutz</span>
+                        <img src="img/old-gehoerschutz.jpg" alt="Zubehör & Gehörschutz" class="w-full h-full object-cover">
+                        <span class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-sm text-charcoal text-[11px] font-bold px-2 py-0.5 rounded shadow-xs">Gehörschutz</span>
                     </div>
                     <div class="p-4 flex-1 flex flex-col justify-between">
                         <div>
-                            <h3 class="font-bold text-base mb-1.5" data-i18n="serv3_title">Zubehör</h3>
+                            <h3 class="font-bold text-base mb-1.5" data-i18n="serv3_title">Zubehör & Gehörschutz</h3>
                             <p class="text-gray-600 text-xs mb-3 line-clamp-3" data-i18n="serv3_desc">Maßgefertigter Gehörschutz für Beruf & Freizeit, Lichtsignalanlagen und Arbeitsplatzausstattung.</p>
                             <ul class="text-[11px] text-gray-500 space-y-1 mb-3">
                                 <li>• Individueller Gehörschutz</li>
@@ -506,17 +508,17 @@
                 </div>
                 
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                    <!-- Row 1: Praxisräume & Erwachsenenkabine -->
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                    <!-- Row 1: Praxisräume & Meisterbetrieb -->
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Praxisempfang Krefeld">
                         <img src="img/old-empfang-raum.jpg" alt="Praxisempfang" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Moderner Empfang">
                         <img src="img/room-reception.jpg" alt="Moderner Empfangsbereich" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Messkabine für Erwachsene">
                         <img src="img/room-otoscan.jpg" alt="Erwachsenenkabine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Meisterwerkstatt vor Ort">
                         <img src="img/room-werkstatt.jpg" alt="Meisterwerkstatt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
 
@@ -527,11 +529,25 @@
                     <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Höruntersuchung mit Sonde">
                         <img src="img/kind-audiometrie-closed-cabinet.webp" alt="Pädakustik Hörtest" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Sanfte Video-Otoskopie">
-                        <img src="img/kind-girl-exam.jpg" alt="Video-Otoskopie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Kinderhörraum (Spielaudiometrie)">
+                        <img src="img/kinderraum-weitwinkel.webp" alt="Kinderhörraum" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Pädakustik-Raum">
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Pädakustik-Raum & Spielecke">
                         <img src="img/room-kinder.jpg" alt="Pädakustik-Raum" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+
+                    <!-- Row 3: Beratung Erwachsene -->
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Persönliche Beratung Erwachsene">
+                        <img src="img/erwachsene-beratung-mann.webp" alt="Beratungsgespräch Hörgeräte" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Ergebnisanalyse & Hörgeräteauswahl">
+                        <img src="img/erwachsene-beratung-gespraech.webp" alt="Audiologische Analyse" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Sanfte Untersuchung Kinder">
+                        <img src="img/kind-girl-exam.jpg" alt="Video-Otoskopie Kinder" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Farbenfrohe Kinder-Hörgeräte">
+                        <img src="img/kind-hoergeraete-koffer-detail.webp" alt="Kinder-Otoplastiken Koffer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
                 </div>
             </div>
@@ -549,18 +565,24 @@
         <div class="bg-white p-6 sm:p-10 rounded-2xl border border-borderSubtle shadow-sm mb-8">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
                 <div class="md:col-span-5 space-y-3">
-                    <div class="relative rounded-2xl overflow-hidden shadow-lg border border-borderSubtle bg-slateBg">
-                        <img src="img/emel-portrait.jpg" class="w-full aspect-[3/4] object-cover object-top" alt="Emel Bozçelik Hörakustik-Meisterin">
-                        <span class="absolute bottom-2.5 left-2.5 bg-charcoal/85 text-white text-[11px] px-2.5 py-1 rounded-md font-semibold backdrop-blur-xs">Aktuell</span>
+                    <div class="relative rounded-2xl overflow-hidden shadow-lg border border-borderSubtle bg-slateBg group">
+                        <picture>
+                            <source srcset="img/emel-portrait-hoermanufaktur.webp" type="image/webp">
+                            <img src="img/emel-portrait-hoermanufaktur.jpg" class="w-full aspect-[3/4] object-cover object-top" alt="Emel Bozçelik Hörakustik-Meisterin & Pädakustikerin">
+                        </picture>
+                        <span class="absolute bottom-2.5 left-2.5 bg-charcoal/85 text-white text-[11px] px-2.5 py-1 rounded-md font-semibold backdrop-blur-xs">Inhaberin & Meisterin</span>
                     </div>
                     <div class="grid grid-cols-2 gap-2.5">
+                        <div class="relative rounded-xl overflow-hidden border border-borderSubtle shadow-xs bg-slateBg" title="Porträt Emel Bozçelik">
+                            <picture>
+                                <source srcset="img/emel-portrait-schlicht.webp" type="image/webp">
+                                <img src="img/emel-portrait-schlicht.jpg" class="w-full aspect-[3/4] object-cover object-top" alt="Emel Bozçelik">
+                            </picture>
+                            <span class="absolute bottom-1.5 left-1.5 bg-charcoal/85 text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Krefelder Hörmanufaktur</span>
+                        </div>
                         <div class="relative rounded-xl overflow-hidden border border-borderSubtle shadow-xs bg-slateBg">
                             <img src="img/old-emel-portrait.jpg" class="w-full aspect-[3/4] object-cover object-top" alt="Emel Bozçelik Meisterin">
                             <span class="absolute bottom-1.5 left-1.5 bg-charcoal/85 text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Meisterin seit 2011</span>
-                        </div>
-                        <div class="relative rounded-xl overflow-hidden border border-borderSubtle shadow-xs bg-slateBg">
-                            <img src="img/old-empfang-raum.jpg" class="w-full aspect-[3/4] object-cover" alt="Praxis Krefeld">
-                            <span class="absolute bottom-1.5 left-1.5 bg-charcoal/85 text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Praxis Krefeld</span>
                         </div>
                     </div>
                 </div>
@@ -629,8 +651,11 @@
                         <img src="img/room-otoscan.jpg" class="w-full h-full object-cover" alt="Erwachsenenkabine">
                         <span class="absolute bottom-1.5 left-1.5 bg-black/75 text-white text-[9px] px-2 py-0.5 rounded font-bold">Erwachsenenkabine (Messkabine)</span>
                     </div>
-                    <div class="h-28 rounded-xl overflow-hidden shadow-xs">
-                        <img src="img/consultation.jpg" class="w-full h-full object-cover" alt="Beratungsgespräch">
+                    <div class="h-32 rounded-xl overflow-hidden shadow-xs relative group" title="Persönliches Beratungsgespräch">
+                        <picture>
+                            <source srcset="img/erwachsene-beratung-mann.webp" type="image/webp">
+                            <img src="img/erwachsene-beratung-mann.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Emel Bozçelik bei der Hörgeräteberatung">
+                        </picture>
                     </div>
                 </div>
                 <div class="md:col-span-7 md:order-1">
@@ -704,13 +729,21 @@
                         </div>
                     </div>
 
-                    <!-- Kids Room & Play Area Strip -->
+                    <!-- Kids Room & Play Area Strip with new Kinderhörraum photo -->
                     <div class="grid grid-cols-2 gap-2 pt-1">
-                        <div class="relative rounded-lg overflow-hidden border border-borderSubtle aspect-video">
-                            <img src="img/old-kinder-bereich.jpg" alt="Baum-Spielecke" class="w-full h-full object-cover">
+                        <div class="relative rounded-lg overflow-hidden border border-borderSubtle aspect-video group" title="Kinderhörraum (Spielaudiometrie)">
+                            <picture>
+                                <source srcset="img/kinderraum-weitwinkel.webp" type="image/webp">
+                                <img src="img/kinderraum-weitwinkel.jpg" alt="Kinderhörraum Spielaudiometrie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </picture>
+                            <span class="absolute bottom-1 left-1 bg-charcoal/80 text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Kinderhörraum</span>
                         </div>
-                        <div class="relative rounded-lg overflow-hidden border border-borderSubtle aspect-video">
-                            <img src="img/room-kinder.jpg" alt="Pädakustikraum" class="w-full h-full object-cover">
+                        <div class="relative rounded-lg overflow-hidden border border-borderSubtle aspect-video group" title="Spielaudiometrie mit Emel">
+                            <picture>
+                                <source srcset="img/emel-kind-laecheln.webp" type="image/webp">
+                                <img src="img/emel-kind-laecheln.jpg" alt="Emel und Kind beim Hörtest" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </picture>
+                            <span class="absolute bottom-1 left-1 bg-charcoal/80 text-white text-[9px] px-1.5 py-0.5 rounded font-medium">Spielaudiometrie</span>
                         </div>
                     </div>
 
@@ -963,8 +996,8 @@
         <div class="border-t border-borderSubtle mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-3">
             <p>© 2026 Krefelder Hörmanufaktur — Inhaberin: Emel Bozçelik</p>
             <div class="flex space-x-6 font-medium">
-                <a href="#" class="hover:text-brand" data-i18n="footer_privacy">Datenschutz</a>
-                <a href="#" class="hover:text-brand" data-i18n="footer_imprint">Impressum</a>
+                <a href="#" @click.prevent="showDatenschutz = true" class="hover:text-brand transition-colors" data-i18n="footer_privacy">Datenschutz</a>
+                <a href="#" @click.prevent="showImpressum = true" class="hover:text-brand transition-colors" data-i18n="footer_imprint">Impressum</a>
                 <a href="variations.html" class="text-brand hover:underline">🎨 Alle Designvarianten</a>
             </div>
         </div>
@@ -1036,6 +1069,144 @@
                 </button>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- IMPRESSUM MODAL (§ 5 DDG & § 18 MStV)               -->
+<!-- ═════════════════════════════════════════════════════ -->
+<div x-show="showImpressum" x-transition.opacity.duration.200ms x-cloak class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div @click.away="showImpressum = false" class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-borderSubtle max-h-[90vh] overflow-y-auto text-charcoal">
+        <div class="flex justify-between items-center mb-6 pb-3 border-b border-borderSubtle">
+            <h3 class="text-xl font-bold text-charcoal">Impressum</h3>
+            <button @click="showImpressum = false" class="text-gray-400 hover:text-charcoal text-xl font-bold">✕</button>
+        </div>
+
+        <div class="space-y-5 text-xs sm:text-sm text-gray-700 leading-relaxed">
+            <div>
+                <h4 class="font-bold text-charcoal mb-1">Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz):</h4>
+                <p><strong>Emel Bozçelik</strong><br>
+                Krefelder Hörmanufaktur<br>
+                Friedrichstraße 14–16<br>
+                47798 Krefeld</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-charcoal mb-1">Kontakt:</h4>
+                <p>Telefon: <a href="tel:021516567294" class="text-brand hover:underline">02151-6567294</a><br>
+                Telefax: 02151-6567295<br>
+                E-Mail: <a href="mailto:info@krefelder-hoermanufaktur.de" class="text-brand hover:underline">info@krefelder-hoermanufaktur.de</a><br>
+                Internet: <a href="https://www.krefelder-hoermanufaktur.de" target="_blank" class="text-brand hover:underline">www.krefelder-hoermanufaktur.de</a></p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-charcoal mb-1">Umsatzsteuer-Identifikationsnummer:</h4>
+                <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br>
+                <strong>DE336444491</strong></p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-charcoal mb-1">Gesetzliche Berufsbezeichnung & Berufsrecht:</h4>
+                <p><strong>Gesetzliche Berufsbezeichnung:</strong> Hörakustikmeisterin (verliehen in der Bundesrepublik Deutschland)<br>
+                <strong>Zuständige Kammer & Aufsichtsbehörde:</strong><br>
+                Handwerkskammer Düsseldorf<br>
+                Georg-Schulhoff-Platz 1, 40221 Düsseldorf<br>
+                Web: <a href="https://www.hwk-duesseldorf.de" target="_blank" rel="noopener noreferrer" class="text-brand hover:underline">www.hwk-duesseldorf.de</a></p>
+                <p class="mt-2"><strong>Berufsrechtliche Regelungen:</strong><br>
+                Handwerksordnung (HwO), einsehbar im Bundesgesetzblatt oder online unter:<br>
+                <a href="https://www.gesetze-im-internet.de/hwo/" target="_blank" rel="noopener noreferrer" class="text-brand hover:underline">https://www.gesetze-im-internet.de/hwo/</a></p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-charcoal mb-1">Redaktionell verantwortlich gemäß § 18 Abs. 2 MStV:</h4>
+                <p>Emel Bozçelik<br>
+                Friedrichstraße 14–16, 47798 Krefeld</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-charcoal mb-1">EU-Streitschlichtung:</h4>
+                <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:<br>
+                <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" class="text-brand hover:underline">https://ec.europa.eu/consumers/odr/</a><br>
+                Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-charcoal mb-1">Verbraucherstreitbeilegung / Universalschlichtungsstelle:</h4>
+                <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+            </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-borderSubtle flex justify-end">
+            <button @click="showImpressum = false" class="bg-brand text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors">
+                Schließen
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ═════════════════════════════════════════════════════ -->
+<!-- DATENSCHUTZ MODAL (DSGVO & TDDDG KONFORM)          -->
+<!-- ═════════════════════════════════════════════════════ -->
+<div x-show="showDatenschutz" x-transition.opacity.duration.200ms x-cloak class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div @click.away="showDatenschutz = false" class="bg-white rounded-2xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl border border-borderSubtle max-h-[90vh] overflow-y-auto text-charcoal">
+        <div class="flex justify-between items-center mb-6 pb-3 border-b border-borderSubtle">
+            <h3 class="text-xl font-bold text-charcoal">Datenschutzerklärung</h3>
+            <button @click="showDatenschutz = false" class="text-gray-400 hover:text-charcoal text-xl font-bold">✕</button>
+        </div>
+
+        <div class="space-y-5 text-xs sm:text-sm text-gray-700 leading-relaxed">
+            <div>
+                <h4 class="font-bold text-charcoal text-sm mb-1">1. Verantwortliche Stelle</h4>
+                <p>Verantwortlich für die Datenverarbeitung auf dieser Website im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:<br>
+                <strong>Krefelder Hörmanufaktur — Inhaberin: Emel Bozçelik</strong><br>
+                Friedrichstraße 14–16, 47798 Krefeld<br>
+                Telefon: 02151-6567294 | E-Mail: info@krefelder-hoermanufaktur.de</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-charcoal text-sm mb-1">2. Erfassung beim Besuch dieser Website</h4>
+                <p>Beim Aufrufen unserer Website werden durch den auf Ihrem Endgerät zum Einsatz kommenden Browser automatisch Informationen an den Server unserer Website gesendet. Diese Informationen werden temporär in einem sogenannten Logfile gespeichert (z. B. IP-Adresse des anfragenden Rechners, Datum und Uhrzeit des Zugriffs, Name und URL der abgerufenen Datei, verwendeter Browser und Betriebssystem).</p>
+                <p class="mt-1">Die Verarbeitung erfolgt gemäß <strong>Art. 6 Abs. 1 lit. f DSGVO</strong> auf Basis unseres berechtigten Interesses an der Stabilität, Sicherheit und technisch fehlerfreien Bereitstellung der Website.</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-charcoal text-sm mb-1">3. Kontaktaufnahme & Terminanfragen</h4>
+                <p>Wenn Sie uns per Kontaktformular, E-Mail oder Telefon Anfragen zukommen lassen, werden Ihre Angaben inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Die Verarbeitung dieser Daten erfolgt auf Grundlage von <strong>Art. 6 Abs. 1 lit. b DSGVO</strong> (Erfüllung eines Vertrags oder vorvertragliche Maßnahmen) bzw. <strong>Art. 6 Abs. 1 lit. a DSGVO</strong> (Ihre freiwillige Einwilligung).</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-charcoal text-sm mb-1">4. Online-Hörtest</h4>
+                <p>Auf unserer Website verlinken wir auf einen externen Online-Hörtest (bereitgestellt über digitalhearingtest.com). Beim Anklicken des Links verlassen Sie unsere Website. Für die dortige Datenverarbeitung ist der jeweilige Betreiber des Dienstes verantwortlich.</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-charcoal text-sm mb-1">5. Ihre Betroffenenrechte</h4>
+                <p>Nach der DSGVO stehen Ihnen umfassende Rechte zu:</p>
+                <ul class="list-disc list-inside space-y-1 mt-1 pl-2 text-xs">
+                    <li><strong>Recht auf Auskunft (Art. 15 DSGVO)</strong> über Ihre bei uns gespeicherten personenbezogenen Daten.</li>
+                    <li><strong>Recht auf Berichtigung (Art. 16 DSGVO)</strong> unrichtiger oder unvollständiger Daten.</li>
+                    <li><strong>Recht auf Löschung (Art. 17 DSGVO)</strong> Ihrer bei uns gespeicherten Daten.</li>
+                    <li><strong>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</strong>.</li>
+                    <li><strong>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</strong>.</li>
+                    <li><strong>Widerspruchsrecht (Art. 21 DSGVO)</strong> gegen die Verarbeitung Ihrer Daten.</li>
+                    <li><strong>Widerrufsrecht (Art. 7 Abs. 3 DSGVO)</strong> für erteilte Einwilligungen mit Wirkung für die Zukunft.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-charcoal text-sm mb-1">6. Beschwerderecht bei der zuständigen Aufsichtsbehörde</h4>
+                <p>Im Falle von datenschutzrechtlichen Verstößen steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu (Art. 77 DSGVO):<br>
+                <strong>Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen (LDI NRW)</strong><br>
+                Kavalleriestraße 2–4, 40213 Düsseldorf<br>
+                Telefon: 0211/38424-0 | Internet: <a href="https://www.ldi.nrw.de" target="_blank" rel="noopener noreferrer" class="text-brand hover:underline">www.ldi.nrw.de</a></p>
+            </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-borderSubtle flex justify-end">
+            <button @click="showDatenschutz = false" class="bg-brand text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-brand-dark transition-colors">
+                Schließen
+            </button>
+        </div>
     </div>
 </div>
 
