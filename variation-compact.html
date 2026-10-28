@@ -521,16 +521,16 @@
                     </div>
 
                     <!-- Row 2: Kinder & Pädakustik -->
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
-                        <img src="img/kind-boy-emel.jpg" alt="Spielaudiometrie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Spielaudiometrie aus der Vogelperspektive">
+                        <img src="img/kind-draufsicht-hoertest.webp" alt="Spielaudiometrie Draufsicht" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Höruntersuchung mit Sonde">
+                        <img src="img/kind-audiometrie-closed-cabinet.webp" alt="Pädakustik Hörtest" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Sanfte Video-Otoskopie">
                         <img src="img/kind-girl-exam.jpg" alt="Video-Otoskopie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
-                        <img src="img/old-kinder-bereich.jpg" alt="Kinder-Spielecke" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    </div>
-                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs">
+                    <div class="group relative rounded-lg overflow-hidden border border-borderSubtle aspect-video shadow-xs" title="Pädakustik-Raum">
                         <img src="img/room-kinder.jpg" alt="Pädakustik-Raum" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
                 </div>
@@ -670,22 +670,36 @@
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-8">
                 <div class="md:col-span-5 space-y-3">
-                    <!-- Main Feature: Emel with Boy -->
-                    <div class="relative rounded-2xl overflow-hidden shadow-md border-4 border-pink-100">
-                        <img src="img/kind-boy-emel.jpg" alt="Pädakustik mit Emel" class="w-full h-60 object-cover">
+                    <!-- Main Feature: Emel with Boy & Sonde (mit geschlossenem Schrank) -->
+                    <div class="relative rounded-2xl overflow-hidden shadow-md border-4 border-pink-100 group">
+                        <picture>
+                            <source srcset="img/kind-audiometrie-closed-cabinet.webp" type="image/webp">
+                            <img src="img/kind-audiometrie-closed-cabinet.jpg" alt="Pädakustik Höruntersuchung mit Emel" class="w-full h-64 object-cover">
+                        </picture>
+                        <span class="absolute bottom-2.5 left-2.5 bg-charcoal/80 text-white text-[10px] px-2.5 py-1 rounded-md backdrop-blur-xs font-medium">Spielaudiometrie & Hörtest</span>
                     </div>
 
-                    <!-- 2 Children Photos from the Shooting -->
+                    <!-- 3 Children Photos from the Shooting -->
                     <div>
-                        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1.5">Pädakustik & Spielaudiometrie:</span>
-                        <div class="grid grid-cols-2 gap-2">
-                            <!-- New Girl: Exam -->
-                            <div class="relative rounded-lg overflow-hidden border border-pink-200 aspect-video shadow-2xs">
-                                <img src="img/kind-girl-exam.jpg" alt="Sanfte Ohruntersuchung" class="w-full h-full object-cover">
+                        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1.5">Einblicke in die Pädakustik:</span>
+                        <div class="grid grid-cols-3 gap-2">
+                            <!-- Draufsicht: Buzzer & Koffer -->
+                            <div class="relative rounded-lg overflow-hidden border border-pink-200 aspect-square shadow-2xs group" title="Draufsicht Hörtest & Buzzer">
+                                <picture>
+                                    <source srcset="img/kind-draufsicht-hoertest.webp" type="image/webp">
+                                    <img src="img/kind-draufsicht-hoertest.jpg" alt="Hörtest Draufsicht" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                </picture>
                             </div>
-                            <!-- New Boy: Buttons -->
-                            <div class="relative rounded-lg overflow-hidden border border-pink-200 aspect-video shadow-2xs">
-                                <img src="img/kind-boy-buttons.jpg" alt="Bunte Buzzer-Tasten" class="w-full h-full object-cover">
+                            <!-- Koffer Detail: Bunte Otoplastiken -->
+                            <div class="relative rounded-lg overflow-hidden border border-pink-200 aspect-square shadow-2xs group" title="Farbenfrohe Hörlösungen für Kinder">
+                                <picture>
+                                    <source srcset="img/kind-hoergeraete-koffer-detail.webp" type="image/webp">
+                                    <img src="img/kind-hoergeraete-koffer-detail.jpg" alt="Bunte Kinder-Hörgeräte" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                </picture>
+                            </div>
+                            <!-- Girl Exam -->
+                            <div class="relative rounded-lg overflow-hidden border border-pink-200 aspect-square shadow-2xs group" title="Sanfte Untersuchung">
+                                <img src="img/kind-girl-exam.jpg" alt="Sanfte Ohruntersuchung" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                             </div>
                         </div>
                     </div>
