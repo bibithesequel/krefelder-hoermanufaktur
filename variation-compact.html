@@ -33,7 +33,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Vollkorn:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -52,7 +52,7 @@
                     },
                     fontFamily: {
                         sans: ['Outfit', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
-                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        serif: ['Vollkorn', 'Playfair Display', 'Georgia', 'serif'],
                         kids: ['Nunito', 'sans-serif']
                     }
                 }
@@ -842,10 +842,13 @@
                 </div>
                 <div class="p-5 bg-slateBg rounded-xl border border-borderSubtle flex flex-col justify-between">
                     <div>
-                        <div class="h-32 rounded-lg overflow-hidden mb-3 border border-borderSubtle bg-white">
-                            <img src="img/old-hoergeraete.jpg" alt="Lichtsignalanlagen & Zubehör" class="w-full h-full object-cover">
+                        <div class="h-36 sm:h-40 rounded-lg overflow-hidden mb-3 border border-borderSubtle bg-white group" title="Moderne Lichtsignalanlage & Blitz-Empfänger">
+                            <picture>
+                                <source srcset="img/lichtsignalanlage-system.webp" type="image/webp">
+                                <img src="img/lichtsignalanlage-system.jpg" alt="Lichtsignalanlagen & Blitz-Empfänger für Gehörlose" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            </picture>
                         </div>
-                        <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_2">Lösungen für Gehörlose</h3>
+                        <h3 class="font-bold text-sm mb-2" data-i18n="zub_title_2">Lösungen für Gehörlose (Lichtsignalanlagen)</h3>
                         <p class="text-xs text-gray-600 leading-relaxed" data-i18n="zub_desc_2">Die Erleichterung für Schwerhörige und Gehörlose. Die Lichtsignalanlagen sind für Personen gedacht, die akustische Signale nicht gut oder gar nicht wahrnehmen können. Ideal für Tür, Telefon, Rauchmelder oder auch Babysender. Wir können diese Anlage Ihren Wünschen entsprechend zusammenstellen. Bei hochgradigen Schwerhörigkeiten bis zur Gehörlosigkeit werden unter Vorlage eines Rezeptes die Kosten durch die Krankenkasse (mit geringfügigem Eigenanteil) übernommen.</p>
                     </div>
                 </div>
